@@ -373,52 +373,10 @@
             animation: scaleIn 0.5s ease;
         }
 
-        .gauge {
-            position: relative;
-            width: 192px;
-            height: 192px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gauge svg {
-            transform: rotate(-90deg);
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .gauge svg circle {
-            fill: none;
-            transition: stroke-dashoffset 0.5s ease;
-            stroke-linecap: round;
-        }
-
-        .gauge-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
 
         .gauge-value {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             font-weight: bold;
-        }
-
-        .gauge-label {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.7);
         }
 
         .status-dot {
@@ -666,6 +624,7 @@
         .text-red { color: #ef4444; }
         .text-yellow { color: #eab308; }
         .text-cyan { color: #06b6d4; }
+        .text-pink { color: #ec4899; }
 
         .mb-2 { margin-bottom: 8px; }
         .mb-4 { margin-bottom: 16px; }
@@ -842,9 +801,6 @@
             /* Make sensor gauges more visible */
             /* Removed gauge overrides to match desktop version */
 
-            .gauge svg {
-                overflow: visible !important;
-            }
 
             /* Improve text readability on small screens */
             p {
@@ -884,7 +840,8 @@
             
             #floatingLogo div:last-child {
                 font-size: 1rem;
-                padding: 2px 6px;
+                padding: 3px 10px;
+                border-radius: 16px;
             }
         }
         
@@ -910,6 +867,40 @@
         
         .food-style-option {
             transition: all 0.3s ease;
+        }
+        
+        /* Profile editor form elements */
+        #profileEditorModal select,
+        #profileEditorModal input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        #profileEditorModal select:focus,
+        #profileEditorModal input[type="text"]:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+        }
+        
+        #profileEditorModal select option {
+            background: #1f2937;
+            color: white;
+            padding: 8px;
         }
         
         /* Extra small devices (300x600) */
@@ -954,15 +945,15 @@
 <body>
     <div class="container">
         <!-- Floating Logo Overlay -->
-        <div id="floatingLogo" style="position: fixed; top: 16px; left: 16px; z-index: 1000; display: flex; align-items: center; gap: 8px; animation: pulse 2s ease infinite;">
-            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <div id="floatingLogo" style="position: fixed; top: 12px; left: 12px; z-index: 1000; display: flex; align-items: center; gap: 6px; animation: pulse 2s ease infinite;">
+            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #10b981, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
                     <path d="M2 17L12 22L22 17"/>
                     <path d="M2 12L12 17L22 12"/>
                 </svg>
             </div>
-            <div style="color: white; font-weight: 700; font-size: 1.25rem; background: rgba(255, 255, 255, 0.15); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);">Healix</div>
+            <div style="color: white; font-weight: 700; font-size: 1rem; background: rgba(255, 255, 255, 0.15); padding: 3px 10px; border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);">Healix</div>
         </div>
         
         <!-- Toast Notification -->
@@ -1164,6 +1155,85 @@
                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none;">
                     <input type="number" id="editAge" placeholder="Age (years)" 
                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none;">
+                    
+                    <!-- Gender Selection -->
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Gender</label>
+                        <select id="editGender" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Profession Input -->
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Profession</label>
+                        <input type="text" id="editProfession" placeholder="e.g., Teacher, Engineer, Student" 
+                               style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
+                    </div>
+                    
+                    <!-- Region Selection -->
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Region</label>
+                        <select id="editRegion" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
+                            <option value="">Select Region</option>
+                            <option value="afghanistan">Afghanistan</option>
+                            <option value="albania">Albania</option>
+                            <option value="algeria">Algeria</option>
+                            <option value="argentina">Argentina</option>
+                            <option value="australia">Australia</option>
+                            <option value="austria">Austria</option>
+                            <option value="bangladesh">Bangladesh</option>
+                            <option value="belgium">Belgium</option>
+                            <option value="brazil">Brazil</option>
+                            <option value="canada">Canada</option>
+                            <option value="china">China</option>
+                            <option value="denmark">Denmark</option>
+                            <option value="egypt">Egypt</option>
+                            <option value="finland">Finland</option>
+                            <option value="france">France</option>
+                            <option value="germany">Germany</option>
+                            <option value="greece">Greece</option>
+                            <option value="india">India</option>
+                            <option value="indonesia">Indonesia</option>
+                            <option value="iran">Iran</option>
+                            <option value="iraq">Iraq</option>
+                            <option value="ireland">Ireland</option>
+                            <option value="israel">Israel</option>
+                            <option value="italy">Italy</option>
+                            <option value="japan">Japan</option>
+                            <option value="kazakhstan">Kazakhstan</option>
+                            <option value="kenya">Kenya</option>
+                            <option value="korea">Korea</option>
+                            <option value="malaysia">Malaysia</option>
+                            <option value="mexico">Mexico</option>
+                            <option value="morocco">Morocco</option>
+                            <option value="netherlands">Netherlands</option>
+                            <option value="new zealand">New Zealand</option>
+                            <option value="nigeria">Nigeria</option>
+                            <option value="norway">Norway</option>
+                            <option value="pakistan">Pakistan</option>
+                            <option value="philippines">Philippines</option>
+                            <option value="poland">Poland</option>
+                            <option value="portugal">Portugal</option>
+                            <option value="romania">Romania</option>
+                            <option value="russia">Russia</option>
+                            <option value="saudi arabia">Saudi Arabia</option>
+                            <option value="singapore">Singapore</option>
+                            <option value="south africa">South Africa</option>
+                            <option value="spain">Spain</option>
+                            <option value="sweden">Sweden</option>
+                            <option value="switzerland">Switzerland</option>
+                            <option value="thailand">Thailand</option>
+                            <option value="turkey">Turkey</option>
+                            <option value="ukraine">Ukraine</option>
+                            <option value="united kingdom">United Kingdom</option>
+                            <option value="united states">United States</option>
+                            <option value="vietnam">Vietnam</option>
+                        </select>
+                    </div>
+                    
                     <div style="display: flex; gap: 12px; margin-top: 12px;">
                         <button class="btn btn-primary" onclick="saveProfileInfo()" style="flex: 1;">Save</button>
                         <button class="btn btn-secondary" onclick="closeProfileEditor()" style="flex: 1;">Cancel</button>
@@ -1258,94 +1328,40 @@
                         </svg>
                     </div>
                     <p id="airQualityMessage">The air quality is excellent. Great for outdoor activities!</p>
-                    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 120px; background: rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 12px;">
-                            <div style="font-size: 0.75rem; color: #93c5fd; margin-bottom: 4px;">CO Levels</div>
-                            <div style="font-weight: 600;" id="coLevel">0 ppm</div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Safe: &lt;25 ppm</div>
+                </div>
+
+                <!-- Gas Concentrations -->
+                <div class="glass-card">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px;">Environmental Data</h3>
+                    <div class="grid grid-4">
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-blue" id="coValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO</div>
                         </div>
-                        <div style="flex: 1; min-width: 120px; background: rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 12px;">
-                            <div style="font-size: 0.75rem; color: #d8b4fe; margin-bottom: 4px;">CO₂ & Other Gases</div>
-                            <div style="font-weight: 600;" id="otherGasesLevel">0 ppm</div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Normal: &lt;1000 ppm</div>
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-purple" id="co2Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO₂</div>
+                        </div>
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-yellow" id="nh3Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">NH₃</div>
+                        </div>
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-pink" id="otherGasesValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Other</div>
+                        </div>
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-orange" id="statTemp">22<span style="font-size: 0.875rem; margin-left: 4px;">°C</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Temperature</div>
+                        </div>
+                        <div class="glass-card stat-card">
+                            <div class="gauge-value text-cyan" id="statHumidity">60<span style="font-size: 0.875rem; margin-left: 4px;">%</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Humidity</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Sensor Gauges -->
-                <div class="grid grid-2">
-                    <div class="glass-card" style="animation: slideInLeft 0.6s ease; text-align: center;">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 16px;">MQ-9 Sensor</h3>
-                        <div class="gauge">
-                            <svg>
-                                <circle cx="96" cy="96" r="70" stroke="rgba(255,255,255,0.03)" stroke-width="12" fill="none" />
-                                <circle id="mq9Circle" cx="96" cy="96" r="70" stroke="#3b82f6" stroke-width="12" fill="none" 
-                                        stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440" />
-                            </svg>
-                            <div class="gauge-text">
-                                <div class="gauge-value text-blue" id="mq9Value">0</div>
-                                <div class="gauge-label">ppm</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 4px;">CO</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 16px; text-align: left; background: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 12px;">
-                            <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; color: #93c5fd;">Carbon Monoxide (CO)</h4>
-                            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); line-height: 1.4;">
-                                A colorless, odorless, toxic gas. Dangerous at >50 ppm. Sources: vehicle exhaust, furnaces, gas stoves.
-                            </p>
-                            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem;">
-                                <span style="color: #93c5fd;">Safe: &lt;25 ppm</span>
-                                <span style="color: #fca5a5;">Danger: &gt;100 ppm</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="glass-card" style="animation: slideInRight 0.6s ease; text-align: center;">
-                        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 16px;">MQ-135 Sensor</h3>
-                        <div class="gauge">
-                            <svg>
-                                <circle cx="96" cy="96" r="70" stroke="rgba(255,255,255,0.03)" stroke-width="12" fill="none" />
-                                <circle id="mq135Circle" cx="96" cy="96" r="70" stroke="#a855f7" stroke-width="12" fill="none" 
-                                        stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440" />
-                            </svg>
-                            <div class="gauge-text">
-                                <div class="gauge-value text-purple" id="mq135Value">0</div>
-                                <div class="gauge-label">ppm</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 4px;">CO₂ & Gases</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 16px; text-align: left; background: rgba(168, 85, 247, 0.1); border-radius: 8px; padding: 12px;">
-                            <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; color: #d8b4fe;">Carbon Dioxide (CO₂) & Harmful Gases</h4>
-                            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); line-height: 1.4;">
-                                Detects: CO₂, Ammonia (NH₃), Nitrogen Oxides (NOx), Benzene, Alcohol vapors. High levels indicate poor ventilation.
-                            </p>
-                            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem;">
-                                <span style="color: #d8b4fe;">Normal: &lt;1000 ppm</span>
-                                <span style="color: #fca5a5;">Poor: &gt;2000 ppm</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="grid grid-4">
-                    <div class="glass-card stat-card">
-                        <div class="gauge-value text-blue" id="statMq9">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Current MQ-9</div>
-                    </div>
-                    <div class="glass-card stat-card">
-                        <div class="gauge-value text-purple" id="statMq135">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Current MQ-135</div>
-                    </div>
-                    <div class="glass-card stat-card">
-                        <div class="gauge-value text-orange" id="statTemp">22<span style="font-size: 0.875rem; margin-left: 4px;">°C</span></div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Temperature</div>
-                    </div>
-                    <div class="glass-card stat-card">
-                        <div class="gauge-value text-cyan" id="statHumidity">60<span style="font-size: 0.875rem; margin-left: 4px;">%</span></div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Humidity</div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -1564,62 +1580,6 @@
                     </div>
                 </div>
 
-                <!-- Food Style Selection -->
-                <div class="glass-card" style="animation: scaleIn 0.8s ease;">
-                    <div class="flex-between mb-4">
-                        <h3 style="font-size: 1.25rem; font-weight: 600;">
-                            <svg class="text-purple" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                            </svg>
-                            Food Style Preference
-                        </h3>
-                    </div>
-                    <div style="margin-bottom: 16px;">
-                        <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 12px;">Select your preferred cuisine style for AI-generated meal plans:</p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-                            <div class="food-style-option" data-style="south-indian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">South Indian</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Dosa, Idli, Sambar</div>
-                            </div>
-                            <div class="food-style-option" data-style="north-indian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">North Indian</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Roti, Dal, Paneer</div>
-                            </div>
-                            <div class="food-style-option" data-style="continental" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Continental</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Pasta, Steak, Salad</div>
-                            </div>
-                            <div class="food-style-option" data-style="chinese" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Chinese</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Noodles, Dumplings</div>
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 12px;">
-                            <div class="food-style-option" data-style="mediterranean" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Mediterranean</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Olive Oil, Fish, Veggies</div>
-                            </div>
-                            <div class="food-style-option" data-style="japanese" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Japanese</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Sushi, Tempura, Miso</div>
-                            </div>
-                            <div class="food-style-option" data-style="italian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Italian</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Pizza, Pasta, Risotto</div>
-                            </div>
-                            <div class="food-style-option" data-style="mexican" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                                <div style="font-weight: 600; margin-bottom: 4px;">Mexican</div>
-                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Tacos, Burritos, Guac</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: center; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
-                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin: 0;">
-                            <strong>Selected Style:</strong> <span id="selectedFoodStyle">None</span>
-                        </p>
-                    </div>
-                </div>
-
                 <!-- Meals Section -->
                 <div>
                     <div class="flex-between mb-4">
@@ -1817,6 +1777,18 @@
                             <div class="flex-between">
                                 <span style="color: rgba(255,255,255,0.6);">Age</span>
                                 <span style="font-weight: 600;" id="profileAge">Not set</span>
+                            </div>
+                            <div class="flex-between">
+                                <span style="color: rgba(255,255,255,0.6);">Gender</span>
+                                <span style="font-weight: 600;" id="profileGender">Not set</span>
+                            </div>
+                            <div class="flex-between">
+                                <span style="color: rgba(255,255,255,0.6);">Profession</span>
+                                <span style="font-weight: 600;" id="profileProfession">Not set</span>
+                            </div>
+                            <div class="flex-between">
+                                <span style="color: rgba(255,255,255,0.6);">Region</span>
+                                <span style="font-weight: 600;" id="profileRegion">Not set</span>
                             </div>
                         </div>
                         <div style="text-align: center; margin-top: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.5);">Click to edit</div>
@@ -2145,7 +2117,9 @@
                     
                     // Convert Uint8Array to string
                     const text = new TextDecoder().decode(value);
+                    console.log('Raw USB data received:', text); // Debug line
                     document.serialBuffer = (document.serialBuffer || '') + text;
+                    console.log('Serial buffer:', document.serialBuffer); // Debug line
                     
                     // Process complete JSON objects
                     let buffer = document.serialBuffer;
@@ -2155,29 +2129,77 @@
                     while (jsonStart !== -1 && jsonEnd !== -1) {
                         try {
                             const jsonString = buffer.substring(jsonStart, jsonEnd + 1);
+                            console.log('Parsing JSON:', jsonString); // Debug line
                             const data = JSON.parse(jsonString);
                             
+                            // Debug: Log the received data
+                            console.log('USB Data Received:', data);
+                            
                             // Update UI with sensor data
-                            if (data.mq9 !== undefined) {
-                                document.getElementById('mq9Value').textContent = Math.round(data.mq9);
-                                document.getElementById('statMq9').innerHTML = `${Math.round(data.mq9)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                                document.getElementById('coLevel').textContent = `${Math.round(data.mq9)} ppm`;
-                                updateGauge('mq9Circle', data.mq9, 500);
+                            if (data.co !== undefined) {
+                                console.log('Updating CO value to:', data.co); // Debug line
+                                const coElement = document.getElementById('coValue');
+                                if (coElement) {
+                                    coElement.innerHTML = `${Math.round(data.co)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                                    console.log('CO element updated successfully'); // Debug line
+                                } else {
+                                    console.error('CO element not found');
+                                }
                             }
                             
-                            if (data.mq135 !== undefined) {
-                                document.getElementById('mq135Value').textContent = Math.round(data.mq135);
-                                document.getElementById('statMq135').innerHTML = `${Math.round(data.mq135)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                                document.getElementById('otherGasesLevel').textContent = `${Math.round(data.mq135)} ppm`;
-                                updateGauge('mq135Circle', data.mq135, 500);
+                            if (data.co2 !== undefined) {
+                                console.log('Updating CO2 value to:', data.co2); // Debug line
+                                const co2Element = document.getElementById('co2Value');
+                                if (co2Element) {
+                                    co2Element.innerHTML = `${Math.round(data.co2)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                                    console.log('CO2 element updated successfully'); // Debug line
+                                } else {
+                                    console.error('CO2 element not found');
+                                }
+                            }
+                            
+                            if (data.nh3 !== undefined) {
+                                console.log('Updating NH3 value to:', data.nh3); // Debug line
+                                const nh3Element = document.getElementById('nh3Value');
+                                if (nh3Element) {
+                                    nh3Element.innerHTML = `${Math.round(data.nh3)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                                    console.log('NH3 element updated successfully'); // Debug line
+                                } else {
+                                    console.error('NH3 element not found');
+                                }
+                            }
+                            
+                            if (data.otherGases !== undefined) {
+                                console.log('Updating Other Gases value to:', data.otherGases); // Debug line
+                                const otherElement = document.getElementById('otherGasesValue');
+                                if (otherElement) {
+                                    otherElement.innerHTML = `${Math.round(data.otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                                    console.log('Other Gases element updated successfully'); // Debug line
+                                } else {
+                                    console.error('Other gases element not found');
+                                }
                             }
                             
                             if (data.temperature !== undefined) {
-                                document.getElementById('statTemp').innerHTML = `${data.temperature.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
+                                console.log('Updating Temperature value to:', data.temperature); // Debug line
+                                const tempElement = document.getElementById('statTemp');
+                                if (tempElement) {
+                                    tempElement.innerHTML = `${data.temperature.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
+                                    console.log('Temperature element updated successfully'); // Debug line
+                                } else {
+                                    console.error('Temperature element not found');
+                                }
                             }
                             
                             if (data.humidity !== undefined) {
-                                document.getElementById('statHumidity').innerHTML = `${data.humidity.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
+                                console.log('Updating Humidity value to:', data.humidity); // Debug line
+                                const humidityElement = document.getElementById('statHumidity');
+                                if (humidityElement) {
+                                    humidityElement.innerHTML = `${data.humidity.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
+                                    console.log('Humidity element updated successfully'); // Debug line
+                                } else {
+                                    console.error('Humidity element not found');
+                                }
                             }
                             
                             // Update air quality status
@@ -2189,6 +2211,8 @@
                             jsonEnd = buffer.indexOf('}', jsonStart);
                         } catch (parseError) {
                             // If JSON parsing fails, move to next potential JSON object
+                            console.error('JSON Parse Error:', parseError);
+                            console.log('Problematic JSON string:', buffer.substring(jsonStart, jsonEnd + 1)); // Debug line
                             buffer = buffer.substring(jsonStart + 1);
                             jsonStart = buffer.indexOf('{');
                             jsonEnd = buffer.indexOf('}', jsonStart);
@@ -2259,19 +2283,25 @@
                 const service = await server.getPrimaryService('4fafc201-1fb5-459e-8fcc-c5c9c331914b');
 
                 // Get all characteristics
-                bleCharacteristics.mq9 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a8');
-                bleCharacteristics.mq135 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a9');
-                bleCharacteristics.temperature = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26aa');
-                bleCharacteristics.humidity = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ab');
+                bleCharacteristics.co = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a8');
+                bleCharacteristics.co2 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a9');
+                bleCharacteristics.nh3 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26aa');
+                bleCharacteristics.otherGases = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ae');
+                bleCharacteristics.temperature = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ac');
+                bleCharacteristics.humidity = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ad');
 
                 // Subscribe to notifications
-                await bleCharacteristics.mq9.startNotifications();
-                await bleCharacteristics.mq135.startNotifications();
+                await bleCharacteristics.co.startNotifications();
+                await bleCharacteristics.co2.startNotifications();
+                await bleCharacteristics.nh3.startNotifications();
+                await bleCharacteristics.otherGases.startNotifications();
                 await bleCharacteristics.temperature.startNotifications();
                 await bleCharacteristics.humidity.startNotifications();
 
-                bleCharacteristics.mq9.addEventListener('characteristicvaluechanged', handleMQ9Data);
-                bleCharacteristics.mq135.addEventListener('characteristicvaluechanged', handleMQ135Data);
+                bleCharacteristics.co.addEventListener('characteristicvaluechanged', handleCOData);
+                bleCharacteristics.co2.addEventListener('characteristicvaluechanged', handleCO2Data);
+                bleCharacteristics.nh3.addEventListener('characteristicvaluechanged', handleNH3Data);
+                bleCharacteristics.otherGases.addEventListener('characteristicvaluechanged', handleOtherGasesData);
                 bleCharacteristics.temperature.addEventListener('characteristicvaluechanged', handleTempData);
                 bleCharacteristics.humidity.addEventListener('characteristicvaluechanged', handleHumidityData);
 
@@ -2295,23 +2325,33 @@
             }
         }
 
-        function handleMQ9Data(event) {
+        function handleCOData(event) {
             const value = new TextDecoder().decode(event.target.value);
-            const mq9Value = parseFloat(value);
-            document.getElementById('mq9Value').textContent = Math.round(mq9Value);
-            document.getElementById('statMq9').innerHTML = `${Math.round(mq9Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('coLevel').textContent = `${Math.round(mq9Value)} ppm`;
-            updateGauge('mq9Circle', mq9Value, 500);
+            const coValue = parseFloat(value);
+            document.getElementById('mq9Value').textContent = Math.round(coValue); // Keep for compatibility
+            document.getElementById('statMq9').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('coValue').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             updateAirQualityStatus();
         }
 
-        function handleMQ135Data(event) {
+        function handleCO2Data(event) {
             const value = new TextDecoder().decode(event.target.value);
-            const mq135Value = parseFloat(value);
-            document.getElementById('mq135Value').textContent = Math.round(mq135Value);
-            document.getElementById('statMq135').innerHTML = `${Math.round(mq135Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('otherGasesLevel').textContent = `${Math.round(mq135Value)} ppm`;
-            updateGauge('mq135Circle', mq135Value, 500);
+            const co2Value = parseFloat(value);
+            document.getElementById('co2Value').innerHTML = `${Math.round(co2Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            updateAirQualityStatus();
+        }
+
+        function handleNH3Data(event) {
+            const value = new TextDecoder().decode(event.target.value);
+            const nh3Value = parseFloat(value);
+            document.getElementById('nh3Value').innerHTML = `${Math.round(nh3Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            updateAirQualityStatus();
+        }
+
+        function handleOtherGasesData(event) {
+            const value = new TextDecoder().decode(event.target.value);
+            const otherGasesValue = parseFloat(value);
+            document.getElementById('otherGasesValue').innerHTML = `${Math.round(otherGasesValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             updateAirQualityStatus();
         }
 
@@ -2327,12 +2367,6 @@
             document.getElementById('statHumidity').innerHTML = `${humidity.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
         }
 
-        function updateGauge(elementId, value, max) {
-            const percentage = Math.min(value / max, 1);
-            const circumference = 440;
-            const offset = circumference - (circumference * percentage);
-            document.getElementById(elementId).style.strokeDashoffset = offset;
-        }
 
         function updateConnectionStatus(connected) {
             const icon = document.getElementById('connectionIcon');
@@ -2382,9 +2416,14 @@
         }
 
         function updateAirQualityStatus() {
-            const mq9 = parseFloat(document.getElementById('mq9Value').textContent) || 0;
-            const mq135 = parseFloat(document.getElementById('mq135Value').textContent) || 0;
-            const avg = (mq9 + mq135) / 2;
+            const co = parseFloat(document.getElementById('coValue').textContent) || 0;
+            const co2 = parseFloat(document.getElementById('co2Value').textContent) || 0;
+            const nh3 = parseFloat(document.getElementById('nh3Value').textContent) || 0;
+            // NOx removed from calculation
+            const otherGases = parseFloat(document.getElementById('otherGasesValue').textContent) || 0;
+            
+            // Calculate weighted average for air quality (redistributed weights)
+            const avg = (co * 0.35 + co2 * 0.3 + nh3 * 0.2 + otherGases * 0.15) / 1.0;
 
             const card = document.getElementById('airQualityCard');
             const level = document.getElementById('airQualityLevel');
@@ -2393,27 +2432,37 @@
             // Provide specific recommendations based on detected gases
             let recommendations = '';
             
-            if (mq9 > 100) {
+            if (co > 100) {
                 recommendations += '⚠️ High CO levels detected. Ensure proper ventilation and check gas appliances. ';
-            } else if (mq9 > 50) {
+            } else if (co > 50) {
                 recommendations += '🔔 Elevated CO levels. Improve ventilation. ';
             }
             
-            if (mq135 > 2000) {
-                recommendations += '⚠️ High CO₂ and other gas levels. Poor ventilation detected. Open windows or use air purifier. ';
-            } else if (mq135 > 1000) {
+            if (co2 > 2000) {
+                recommendations += '⚠️ High CO₂ levels. Poor ventilation detected. Open windows or use air purifier. ';
+            } else if (co2 > 1000) {
                 recommendations += '🔔 Elevated CO₂ levels. Consider improving air circulation. ';
             }
+            
+            if (nh3 > 50) {
+                recommendations += '⚠️ High NH₃ levels detected. Check for ammonia sources. ';
+            }
+            
+            // NOx recommendation removed
+            
+            if (otherGases > 30) {
+                recommendations += '⚠️ High levels of other gases detected. ';
+            }
 
-            if (avg < 100) {
+            if (avg < 50) {
                 card.style.background = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
                 level.textContent = 'Excellent';
                 message.textContent = 'The air quality is excellent. Perfect for outdoor activities! ' + recommendations;
-            } else if (avg < 150) {
+            } else if (avg < 100) {
                 card.style.background = 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)';
                 level.textContent = 'Good';
                 message.textContent = 'The air quality is good. Enjoy your day! ' + recommendations;
-            } else if (avg < 200) {
+            } else if (avg < 150) {
                 card.style.background = 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)';
                 level.textContent = 'Moderate';
                 message.textContent = 'Air quality is acceptable. Sensitive individuals should limit prolonged outdoor exposure. ' + recommendations;
@@ -2432,15 +2481,21 @@
             height: null,
             weight: null,
             age: null,
+            gender: null,
+            profession: null,
+            region: null,
             targetWeight: null,
             weeklyGoal: null,
             dailyCalories: null
         };
 
         function openProfileEditor() {
-            document.getElementById('editHeight').value = userProfile.height || '';
-            document.getElementById('editWeight').value = userProfile.weight || '';
-            document.getElementById('editAge').value = userProfile.age || '';
+            document.getElementById('editHeight').value = userProfile.height !== null ? userProfile.height : '';
+            document.getElementById('editWeight').value = userProfile.weight !== null ? userProfile.weight : '';
+            document.getElementById('editAge').value = userProfile.age !== null ? userProfile.age : '';
+            document.getElementById('editGender').value = userProfile.gender || '';
+            document.getElementById('editProfession').value = userProfile.profession || '';
+            document.getElementById('editRegion').value = userProfile.region || '';
             document.getElementById('profileEditorModal').classList.add('show');
         }
 
@@ -2452,25 +2507,38 @@
             const height = document.getElementById('editHeight').value;
             const weight = document.getElementById('editWeight').value;
             const age = document.getElementById('editAge').value;
+            const gender = document.getElementById('editGender').value;
+            const profession = document.getElementById('editProfession').value;
+            const region = document.getElementById('editRegion').value;
             
-            console.log('Saving profile:', { height, weight, age }); // Debug
+            console.log('Saving profile:', { height, weight, age, gender, profession, region }); // Debug
             
-            if (height) userProfile.height = parseInt(height);
-            if (weight) userProfile.weight = parseInt(weight);
-            if (age) userProfile.age = parseInt(age);
+            // Always update the values, even if they are empty or zero
+            userProfile.height = height ? parseInt(height) : null;
+            userProfile.weight = weight ? parseInt(weight) : null;
+            userProfile.age = age ? parseInt(age) : null;
+            userProfile.gender = gender || null;
+            userProfile.profession = profession || null;
+            userProfile.region = region || null;
             
             console.log('Updated userProfile:', userProfile); // Debug
             
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            
+            // Also update Firebase if user is logged in
+            if (window.firebaseAuth && window.firebaseAuth.currentUser) {
+                updateFirebaseProfile(userProfile);
+            }
+            
             updateProfileDisplay();
             closeProfileEditor();
             showToast('Profile updated successfully! ✅');
         }
 
         function openGoalsEditor() {
-            document.getElementById('editTargetWeight').value = userProfile.targetWeight || '';
-            document.getElementById('editWeeklyGoal').value = userProfile.weeklyGoal || '';
-            document.getElementById('editDailyCalories').value = userProfile.dailyCalories || '';
+            document.getElementById('editTargetWeight').value = userProfile.targetWeight !== null ? userProfile.targetWeight : '';
+            document.getElementById('editWeeklyGoal').value = userProfile.weeklyGoal !== null ? userProfile.weeklyGoal : '';
+            document.getElementById('editDailyCalories').value = userProfile.dailyCalories !== null ? userProfile.dailyCalories : '';
             document.getElementById('goalsEditorModal').classList.add('show');
         }
 
@@ -2483,11 +2551,18 @@
             const weeklyGoal = document.getElementById('editWeeklyGoal').value;
             const dailyCalories = document.getElementById('editDailyCalories').value;
             
-            if (targetWeight) userProfile.targetWeight = parseInt(targetWeight);
-            if (weeklyGoal) userProfile.weeklyGoal = parseInt(weeklyGoal);
-            if (dailyCalories) userProfile.dailyCalories = parseInt(dailyCalories);
+            // Always update the values, even if they are empty or zero
+            userProfile.targetWeight = targetWeight ? parseInt(targetWeight) : null;
+            userProfile.weeklyGoal = weeklyGoal ? parseInt(weeklyGoal) : null;
+            userProfile.dailyCalories = dailyCalories ? parseInt(dailyCalories) : null;
             
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            
+            // Also update Firebase if user is logged in
+            if (window.firebaseAuth && window.firebaseAuth.currentUser) {
+                updateFirebaseProfile(userProfile);
+            }
+            
             updateProfileDisplay();
             closeGoalsEditor();
             showToast('Goals updated successfully! ✅');
@@ -2495,12 +2570,19 @@
 
         function updateProfileDisplay() {
             console.log('Updating display with:', userProfile); // Debug
-            document.getElementById('profileHeight').textContent = (userProfile.height && userProfile.height !== 0) ? `${userProfile.height} cm` : 'Not set';
-            document.getElementById('profileWeight').textContent = (userProfile.weight && userProfile.weight !== 0) ? `${userProfile.weight} kg` : 'Not set';
-            document.getElementById('profileAge').textContent = (userProfile.age && userProfile.age !== 0) ? `${userProfile.age} years` : 'Not set';
-            document.getElementById('profileTargetWeight').textContent = (userProfile.targetWeight && userProfile.targetWeight !== 0) ? `${userProfile.targetWeight} kg` : 'Not set';
-            document.getElementById('profileWeeklyGoal').textContent = (userProfile.weeklyGoal && userProfile.weeklyGoal !== 0) ? `${userProfile.weeklyGoal} workouts` : 'Not set';
-            document.getElementById('profileDailyCalories').textContent = (userProfile.dailyCalories && userProfile.dailyCalories !== 0) ? `${userProfile.dailyCalories} kcal` : 'Not set';
+            
+            // Handle both localStorage and Firebase data
+            const data = window.userData || userProfile;
+            
+            document.getElementById('profileHeight').textContent = (data.height && data.height !== 0) ? `${data.height} cm` : 'Not set';
+            document.getElementById('profileWeight').textContent = (data.weight && data.weight !== 0) ? `${data.weight} kg` : 'Not set';
+            document.getElementById('profileAge').textContent = (data.age && data.age !== 0) ? `${data.age} years` : 'Not set';
+            document.getElementById('profileGender').textContent = (data.gender && data.gender !== '') ? data.gender.charAt(0).toUpperCase() + data.gender.slice(1) : 'Not set';
+            document.getElementById('profileProfession').textContent = (data.profession && data.profession !== '') ? data.profession : 'Not set';
+            document.getElementById('profileRegion').textContent = (data.region && data.region !== '') ? data.region.charAt(0).toUpperCase() + data.region.slice(1) : 'Not set';
+            document.getElementById('profileTargetWeight').textContent = (data.targetWeight !== null && data.targetWeight !== undefined) ? `${data.targetWeight} kg` : 'Not set';
+            document.getElementById('profileWeeklyGoal').textContent = (data.weeklyGoal !== null && data.weeklyGoal !== undefined) ? `${data.weeklyGoal} workouts` : 'Not set';
+            document.getElementById('profileDailyCalories').textContent = (data.dailyCalories !== null && data.dailyCalories !== undefined) ? `${data.dailyCalories} kcal` : 'Not set';
         }
 
         function getUserProfileContext() {
@@ -2508,18 +2590,40 @@
             if (userProfile.height && userProfile.weight && userProfile.age) {
                 parts.push(`User profile: ${userProfile.age} years old, ${userProfile.height}cm tall, ${userProfile.weight}kg.`);
             }
-            if (userProfile.targetWeight) {
+            if (userProfile.gender) {
+                parts.push(`Gender: ${userProfile.gender}.`);
+            }
+            if (userProfile.profession) {
+                parts.push(`Profession: ${userProfile.profession}.`);
+            }
+            if (userProfile.region) {
+                parts.push(`Region: ${userProfile.region}.`);
+            }
+            if (userProfile.targetWeight !== null && userProfile.targetWeight !== undefined) {
                 parts.push(`Target weight: ${userProfile.targetWeight}kg.`);
             }
-            if (userProfile.weeklyGoal) {
+            if (userProfile.weeklyGoal !== null && userProfile.weeklyGoal !== undefined) {
                 parts.push(`Weekly workout goal: ${userProfile.weeklyGoal} sessions.`);
             }
-            if (userProfile.dailyCalories) {
+            if (userProfile.dailyCalories !== null && userProfile.dailyCalories !== undefined) {
                 parts.push(`Daily calorie target: ${userProfile.dailyCalories}kcal.`);
             }
             return parts.length > 0 ? parts.join(' ') : '';
         }
 
+        async function updateFirebaseProfile(profileData) {
+            if (!window.firebaseAuth || !window.firebaseAuth.currentUser) return;
+            
+            try {
+                const { doc, setDoc } = window.firestoreFunctions;
+                const userDocRef = doc(window.firebaseDb, 'users', window.firebaseAuth.currentUser.uid);
+                await setDoc(userDocRef, profileData, { merge: true });
+                console.log('Profile updated in Firebase');
+            } catch (error) {
+                console.error('Error updating profile in Firebase:', error);
+            }
+        }
+        
         function clearProfileData() {
             if (confirm('Are you sure you want to reset all profile data?')) {
                 localStorage.removeItem('userProfile');
@@ -2527,6 +2631,9 @@
                     height: null,
                     weight: null,
                     age: null,
+                    gender: null,
+                    profession: null,
+                    region: null,
                     targetWeight: null,
                     weeklyGoal: null,
                     dailyCalories: null
@@ -2644,9 +2751,16 @@
             try {
                 // Get user profile context
                 const profileContext = getUserProfileContext();
-                const systemPrompt = profileContext 
-                    ? `You are Healix-AI, a fitness and nutrition coach. Give direct, concise answers in 2-3 short sentences. No citations, references, or source numbers. Be helpful but brief. ${profileContext} Use this info to personalize your advice.`
-                    : 'You are Healix-AI, a fitness and nutrition coach. Give direct, concise answers in 2-3 short sentences. No citations, references, or source numbers. Be helpful but brief. Speak from your own knowledge without mentioning sources.';
+                let enhancedContext = profileContext;
+                
+                // Add region-specific dietary preferences if available
+                if (userProfile.region) {
+                    enhancedContext += ` Region: ${userProfile.region}. When discussing food or meal plans, consider regional dietary preferences and ingredients commonly available in ${userProfile.region}.`;
+                }
+                
+                const systemPrompt = enhancedContext 
+                    ? `You are Healix-AI, a fitness and nutrition coach. Provide well-formatted, structured responses with clear headings when appropriate. For diet and nutrition questions, organize information in a clean, readable format with bullet points or numbered lists. No citations, references, or source numbers. Be helpful and detailed but concise. ${enhancedContext} Use this info to personalize your advice, especially when discussing regional foods or meal planning. When discussing cutting or bulking, provide specific macronutrient guidance: for cutting recommend higher protein (30%), moderate carbs (30%), and higher fats (40%) to preserve muscle while losing fat; for bulking recommend balanced protein (25%), higher carbs (45%) for energy, and moderate fats (30%).` 
+                    : 'You are Healix-AI, a fitness and nutrition coach. Provide well-formatted, structured responses with clear headings when appropriate. For diet and nutrition questions, organize information in a clean, readable format with bullet points or numbered lists. No citations, references, or source numbers. Be helpful and detailed but concise. Speak from your own knowledge without mentioning sources. When discussing cutting or bulking, provide specific macronutrient guidance: for cutting recommend higher protein (30%), moderate carbs (30%), and higher fats (40%) to preserve muscle while losing fat; for bulking recommend balanced protein (25%), higher carbs (45%) for energy, and moderate fats (30%).';
                 
                 // Build messages array
                 const messages = [
@@ -2696,25 +2810,25 @@
             const lower = message.toLowerCase();
             
             if (lower.includes('workout') || lower.includes('exercise') || lower.includes('training')) {
-                return "Start with 3-4 sessions per week. Mix cardio and strength training. Focus on compound movements like squats, push-ups, and planks.";
+                return "🏋️ **Workout Plan Recommendation:**\n\n• Start with 3-4 sessions per week\n• Mix cardio and strength training\n• Focus on compound movements like squats, push-ups, and planks\n\nConsistency is key for best results!";
             } else if (lower.includes('nutrition') || lower.includes('food') || lower.includes('diet') || lower.includes('meal')) {
-                return "Eat balanced meals: lean protein, complex carbs, healthy fats. Follow the 80/20 rule. Drink 8+ glasses of water daily.";
+                return "🍎 **Nutrition Guidelines:**\n\n• Eat balanced meals with lean protein, complex carbs, and healthy fats\n• Follow the 80/20 rule (healthy 80% of the time)\n• Drink 8+ glasses of water daily\n\nFocus on whole foods and portion control for optimal health.";
             } else if (lower.includes('air') || lower.includes('quality') || lower.includes('pollution') || lower.includes('sensor')) {
-                return "High air quality readings? Exercise indoors and use an air purifier. Good readings? Take advantage of outdoor workouts.";
+                return "💨 **Air Quality Advice:**\n\n• High air quality readings? Great for outdoor workouts!\n• Poor readings? Exercise indoors and use an air purifier\n• Good readings? Take advantage of outdoor activities\n\nMonitor air quality to optimize your health and fitness routine.";
             } else if (lower.includes('calories') || lower.includes('calorie')) {
-                return "Weight loss: 300-500 calorie deficit. Muscle gain: 200-300 surplus. Maintenance: eat at TDEE. Track consistently.";
+                return "🔥 **Calorie Guidance:**\n\n• For cutting (weight loss): 300-500 calorie deficit with high protein (30%)\n• For bulking (muscle gain): 200-300 surplus with higher carbs (45%)\n• For maintenance: eat at TDEE with balanced macros\n• Track consistently for best results\n\nUse the nutrition tab to monitor your daily intake.";
             } else if (lower.includes('weight') || lower.includes('lose') || lower.includes('gain')) {
-                return "Combine 3-5 workouts weekly with proper nutrition. Aim for 0.5-1kg loss per week. Stay consistent and patient.";
+                return "⚖️ **Weight Management:**\n\n• For cutting (weight loss): Create a 300-500 calorie deficit with high protein intake\n• For bulking (weight gain): Maintain a 200-300 calorie surplus with balanced macros\n• Aim for 0.5-1kg change per week\n• Stay consistent and patient\n• Focus on long-term lifestyle changes\n\nSustainable progress is more important than quick fixes.";
             } else if (lower.includes('protein') || lower.includes('carb') || lower.includes('fat')) {
-                return "Try 30% protein, 40% carbs, 30% fats. Aim for 1.6-2.2g protein per kg bodyweight. Adjust based on results.";
+                return "📊 **Macronutrient Breakdown:**\n\n• For cutting: 30% protein, 30% carbs, 40% fats (higher protein, lower carbs)\n• For bulking: 25% protein, 45% carbs, 30% fats (higher carbs for energy)\n• For maintenance: 25% protein, 40% carbs, 35% fats (balanced approach)\n• Aim for 1.6-2.2g protein per kg bodyweight\n• Adjust based on your results and goals\n• Distribute protein evenly throughout the day\n\nTrack your macros in the nutrition tab for optimal results.";
             } else if (lower.includes('water') || lower.includes('hydrat')) {
-                return "Drink 2-3 liters daily, more if active. Hydrate before, during, and after workouts.";
+                return "💧 **Hydration Tips:**\n\n• Drink 2-3 liters daily\n• Increase intake if you're active\n• Hydrate before, during, and after workouts\n• Monitor urine color (pale yellow is ideal)\n\nProper hydration supports performance and recovery.";
             } else if (lower.includes('sleep') || lower.includes('rest') || lower.includes('recover')) {
-                return "Get 7-9 hours of sleep nightly. Take 1-2 rest days per week. Recovery is essential for growth.";
+                return "😴 **Recovery Guidelines:**\n\n• Get 7-9 hours of sleep nightly\n• Take 1-2 rest days per week\n• Recovery is essential for growth and performance\n• Consider sleep quality, not just quantity\n\nListen to your body and prioritize rest.";
             } else if (lower.includes('streak') || lower.includes('motivation') || lower.includes('consistent')) {
-                return "Build habits with small daily actions. Even a 10-minute walk counts. Celebrate small wins and stay consistent.";
+                return "🌟 **Motivation & Consistency:**\n\n• Build habits with small daily actions\n• Even a 10-minute walk counts\n• Celebrate small wins\n• Stay consistent over time\n\nFocus on progress, not perfection.";
             } else {
-                return "I'm Healix-AI, your fitness and nutrition coach. Ask me about workouts, nutrition, meals, or health goals.";
+                return "👋 **Welcome to Healix-AI!**\n\nI'm your personal fitness and nutrition coach. Ask me about:\n\n• Workouts and exercise routines\n• Nutrition and meal planning\n• Air quality and health\n• Weight management\n• Hydration and recovery\n\nHow can I help you today?";
             }
         }
 
@@ -3246,50 +3360,7 @@
             `).join('');
         }
 
-        // Food style selection functionality
-        let selectedFoodStyle = 'none';
         
-        function initializeFoodStyleSelection() {
-            // Add click event listeners to food style options
-            const styleOptions = document.querySelectorAll('.food-style-option');
-            styleOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove active class from all options
-                    styleOptions.forEach(opt => {
-                        opt.style.borderColor = 'rgba(255,255,255,0.1)';
-                        opt.style.background = 'rgba(255,255,255,0.05)';
-                        opt.style.transform = 'scale(1)';
-                    });
-                    
-                    // Add active styling to clicked option
-                    this.style.borderColor = '#8b5cf6';
-                    this.style.background = 'rgba(139, 92, 246, 0.2)';
-                    this.style.transform = 'scale(1.05)';
-                    
-                    // Update selected style
-                    selectedFoodStyle = this.dataset.style;
-                    document.getElementById('selectedFoodStyle').textContent = 
-                        this.querySelector('div:first-child').textContent;
-                    
-                    // Save to localStorage
-                    localStorage.setItem('healix_foodStyle', selectedFoodStyle);
-                });
-            });
-            
-            // Load saved food style if exists
-            const savedStyle = localStorage.getItem('healix_foodStyle');
-            if (savedStyle) {
-                selectedFoodStyle = savedStyle;
-                // Find and highlight the saved option
-                const savedOption = document.querySelector(`.food-style-option[data-style="${savedStyle}"]`);
-                if (savedOption) {
-                    savedOption.style.borderColor = '#8b5cf6';
-                    savedOption.style.background = 'rgba(139, 92, 246, 0.2)';
-                    document.getElementById('selectedFoodStyle').textContent = 
-                        savedOption.querySelector('div:first-child').textContent;
-                }
-            }
-        }
         
         function generateMealPlan() {
             showToast('Healix-AI is generating your personalized meal plan... 🤖');
@@ -3297,7 +3368,56 @@
             setTimeout(() => {
                 // Different meal plans based on calorie target and food style
                 const targetCals = parseInt(document.getElementById('calorieValue').textContent);
-                const foodStyle = selectedFoodStyle;
+                let foodStyle = 'default'; // Always use region-based selection
+                
+                // Get user profile for personalization
+                const userAge = userProfile.age || 30;
+                const userGender = userProfile.gender || 'male';
+                const userRegion = userProfile.region || 'united states';
+                const userProfession = userProfile.profession || 'office worker';
+                const currentWeight = userProfile.weight || 70;
+                const targetWeight = userProfile.targetWeight || currentWeight;
+                
+                // If no food style is selected, choose based on user's region
+                if (!foodStyle || foodStyle === 'default') {
+                    // Map regions to appropriate food styles
+                    const regionToFoodStyle = {
+                        'india': 'south-indian',
+                        'kerala': 'south-indian',
+                        'kannur': 'south-indian',
+                        'china': 'chinese',
+                        'japan': 'japanese',
+                        'korea': 'japanese',
+                        'italy': 'italian',
+                        'spain': 'mediterranean',
+                        'greece': 'mediterranean',
+                        'turkey': 'mediterranean',
+                        'mexico': 'mexican',
+                        'united states': 'continental',
+                        'canada': 'continental',
+                        'united kingdom': 'continental',
+                        'germany': 'continental',
+                        'france': 'continental',
+                        'australia': 'continental',
+                        'brazil': 'south-indian', // Brazilian cuisine has similarities to Indian spice profiles
+                        'argentina': 'continental',
+                        'russia': 'continental',
+                        'egypt': 'mediterranean'
+                    };
+                    
+                    // Find matching food style for user's region
+                    for (const [region, style] of Object.entries(regionToFoodStyle)) {
+                        if (userRegion.toLowerCase().includes(region)) {
+                            foodStyle = style;
+                            break;
+                        }
+                    }
+                    
+                    // Default to continental if no match found
+                    if (!foodStyle) {
+                        foodStyle = 'continental';
+                    }
+                }
                 
                 let mealPlans;
                 
@@ -3399,18 +3519,81 @@
                 const baseCalories = mealPlans.reduce((sum, meal) => sum + meal.calories, 0);
                 const scaleFactor = targetCals / baseCalories;
 
-                meals = mealPlans.map(meal => ({
-                    ...meal,
-                    id: Date.now() + Math.random(),
-                    calories: Math.round(meal.calories * scaleFactor),
-                    protein: Math.round(meal.protein * scaleFactor),
-                    carbs: Math.round(meal.carbs * scaleFactor),
-                    fats: Math.round(meal.fats * scaleFactor)
-                }));
+                // Determine if user is cutting, bulking, or maintaining
+                const weightDifference = targetWeight - currentWeight;
+                const isCutting = weightDifference < -5; // More than 5kg weight loss goal
+                const isBulking = weightDifference > 5;  // More than 5kg weight gain goal
+                
+                // Personalize meals based on user profile and goals
+                const personalizedMeals = mealPlans.map(meal => {
+                    // Adjust portion sizes based on age and gender
+                    let adjustment = 1.0;
+                    if (userAge > 50) adjustment *= 0.9; // Older people may need fewer calories
+                    if (userGender === 'female') adjustment *= 0.9; // Females typically need fewer calories
+                    if (userProfession.includes('office') || userProfession.includes('desk')) adjustment *= 0.95; // Sedentary jobs
+                    
+                    // Regional adjustments
+                    if (userRegion.includes('india') || userRegion.includes('asia')) adjustment *= 0.97; // Asian populations often have smaller portions
+                    
+                    // Apply cutting/bulking adjustments
+                    let proteinAdjustment = 1.0;
+                    let carbAdjustment = 1.0;
+                    let fatAdjustment = 1.0;
+                    
+                    if (isCutting) {
+                        // For cutting: Higher protein (30%), moderate carbs (30%), lower fats (40%)
+                        proteinAdjustment = 1.2; // Increase protein
+                        carbAdjustment = 0.8;    // Decrease carbs
+                        fatAdjustment = 0.9;     // Slight decrease in fats
+                        adjustment *= 0.9;       // Overall calorie reduction for cutting
+                    } else if (isBulking) {
+                        // For bulking: Balanced macros (25% protein, 45% carbs, 30% fats)
+                        proteinAdjustment = 1.1; // Slight increase in protein
+                        carbAdjustment = 1.2;    // Increase carbs
+                        fatAdjustment = 1.1;     // Slight increase in fats
+                        adjustment *= 1.1;       // Overall calorie increase for bulking
+                    } else {
+                        // For maintenance: Balanced macros (25% protein, 40% carbs, 35% fats)
+                        proteinAdjustment = 1.0;
+                        carbAdjustment = 1.0;
+                        fatAdjustment = 1.0;
+                    }
+                    
+                    return {
+                        ...meal,
+                        id: Date.now() + Math.random(),
+                        calories: Math.round(meal.calories * scaleFactor * adjustment),
+                        protein: Math.round(meal.protein * scaleFactor * adjustment * proteinAdjustment),
+                        carbs: Math.round(meal.carbs * scaleFactor * adjustment * carbAdjustment),
+                        fats: Math.round(meal.fats * scaleFactor * adjustment * fatAdjustment)
+                    };
+                });
+
+                meals = personalizedMeals;
 
                 updateNutrition();
                 renderMeals();
-                showToast(`✨ AI Meal plan generated with ${foodStyle.replace('-', ' ')} style!`);
+                
+                // Show personalized message
+                let personalizationMsg = '';
+                if (userProfession) personalizationMsg += ` for a ${userProfession}`;
+                if (userAge) personalizationMsg += ` aged ${userAge}`;
+                if (userGender) personalizationMsg += ` (${userGender})`;
+                
+                // Add region info
+                let regionMsg = ` based on your region (${userRegion})`;
+                
+                // Add goal info
+                let goalMsg = '';
+                if (isCutting) {
+                    goalMsg = ' for cutting (high protein, lower carbs)';
+                } else if (isBulking) {
+                    goalMsg = ' for bulking (higher carbs, balanced protein)';
+                } else {
+                    goalMsg = ' for maintenance';
+                }
+                
+                showToast(`✨ AI Meal plan generated with ${foodStyle.replace('-', ' ')} style${personalizationMsg}${regionMsg}${goalMsg}!`);
             }, 2000);
         }
 
@@ -3461,41 +3644,36 @@
             if (isConnected) return;
             
             // Show 0 values when not connected instead of random values
-            const mq9 = 0;
-            const mq135 = 0;
+            const co = 0;
+            const co2 = 0;
+            const nh3 = 0;
+            const nox = 0;
+            const otherGases = 0;
             
             // Update gauge values
-            document.getElementById('mq9Value').textContent = Math.round(mq9);
-            document.getElementById('mq135Value').textContent = Math.round(mq135);
-            document.getElementById('statMq9').innerHTML = `${Math.round(mq9)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('statMq135').innerHTML = `${Math.round(mq135)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('coLevel').textContent = `${Math.round(mq9)} ppm`;
-            document.getElementById('otherGasesLevel').textContent = `${Math.round(mq135)} ppm`;
-            
-            // Update gauge circles (circumference = 440)
-            const mq9Percent = Math.min(mq9 / 500, 1);
-            const mq135Percent = Math.min(mq135 / 500, 1);
-            const mq9Offset = 440 - (440 * mq9Percent);
-            const mq135Offset = 440 - (440 * mq135Percent);
-            
-            document.getElementById('mq9Circle').style.strokeDashoffset = mq9Offset;
-            document.getElementById('mq135Circle').style.strokeDashoffset = mq135Offset;
+            document.getElementById('coValue').innerHTML = `${Math.round(co)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('co2Value').innerHTML = `${Math.round(co2)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('nh3Value').innerHTML = `${Math.round(nh3)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('noxValue').innerHTML = `${Math.round(nox)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('otherGasesValue').innerHTML = `${Math.round(otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('statMq9').innerHTML = `${Math.round(co)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('statMq135').innerHTML = `${Math.round(co2 + nh3 + nox + otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             
             // Determine air quality level
-            const avg = (mq9 + mq135) / 2;
+            const avg = (co * 0.3 + co2 * 0.25 + nh3 * 0.2 + nox * 0.15 + otherGases * 0.1) / 1.0;
             const card = document.getElementById('airQualityCard');
             const level = document.getElementById('airQualityLevel');
             const message = document.getElementById('airQualityMessage');
             
-            if (avg < 100) {
+            if (avg < 50) {
                 card.style.background = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
                 level.textContent = 'Excellent';
                 message.textContent = 'The air quality is excellent. Perfect for outdoor activities!';
-            } else if (avg < 150) {
+            } else if (avg < 100) {
                 card.style.background = 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)';
                 level.textContent = 'Good';
                 message.textContent = 'The air quality is good. Enjoy your day!';
-            } else if (avg < 200) {
+            } else if (avg < 150) {
                 card.style.background = 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)';
                 level.textContent = 'Moderate';
                 message.textContent = 'Air quality is acceptable. Sensitive individuals should limit prolonged outdoor exposure.';
@@ -3527,14 +3705,13 @@
                 document.getElementById('mq135Value').textContent = '0';
                 document.getElementById('statMq9').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('statMq135').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                document.getElementById('coLevel').textContent = '0 ppm';
-                document.getElementById('otherGasesLevel').textContent = '0 ppm';
+                document.getElementById('coValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                document.getElementById('co2Value').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                document.getElementById('nh3Value').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                document.getElementById('noxValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                document.getElementById('otherGasesValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('statTemp').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
                 document.getElementById('statHumidity').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
-                
-                // Update gauge circles
-                document.getElementById('mq9Circle').style.strokeDashoffset = 440;
-                document.getElementById('mq135Circle').style.strokeDashoffset = 440;
                 
                 // Update air quality status
                 updateAirQualityStatus();
@@ -3558,7 +3735,6 @@
         updateAirQuality();
         updateEnvironment();
         updateProfileDisplay();
-        initializeFoodStyleSelection(); // Initialize food style selection
         setInterval(updateAllSensors, 2000); // Update all sensors every 2 seconds
         
         // Remove the previous intervals since we're now using updateAllSensors
@@ -3640,55 +3816,6 @@
             }
         }
 
-        function updateProfileDisplay() {
-            const user = window.firebaseAuth?.currentUser;
-            const data = window.userData;
-            
-            // Update user name and email
-            const nameElement = document.getElementById('profileUserName');
-            const emailElement = document.getElementById('profileEmail');
-            
-            if (nameElement) {
-                if (data && data.displayName) {
-                    nameElement.textContent = data.displayName;
-                } else if (user) {
-                    nameElement.textContent = user.displayName || user.email.split('@')[0];
-                } else {
-                    nameElement.textContent = 'User';
-                }
-            }
-            
-            if (emailElement && user) {
-                const joinDate = user.metadata.creationTime ? 
-                    new Date(user.metadata.creationTime).getFullYear() : 2024;
-                emailElement.textContent = `${user.email} • Member since ${joinDate}`;
-            }
-            
-            if (!data) return;
-            
-            // Update profile section with real data
-            const profileSection = document.querySelector('#tab-profile');
-            if (profileSection) {
-                // Update personal info
-                const personalInfo = profileSection.querySelectorAll('.glass-card')[1];
-                if (personalInfo) {
-                    const values = personalInfo.querySelectorAll('.flex-between span:last-child');
-                    if (values[0]) values[0].textContent = (data.height || 0) + ' cm';
-                    if (values[1]) values[1].textContent = (data.weight || 0) + ' kg';
-                    if (values[2]) values[2].textContent = (data.age || 0) + ' years';
-                }
-                
-                // Update fitness goals
-                const goalsInfo = profileSection.querySelectorAll('.glass-card')[2];
-                if (goalsInfo) {
-                    const values = goalsInfo.querySelectorAll('.flex-between span:last-child');
-                    if (values[0]) values[0].textContent = (data.targetWeight || 0) + ' kg';
-                    if (values[1]) values[1].textContent = (data.weeklyGoal || 5) + ' workouts';
-                    if (values[2]) values[2].textContent = (data.dailyCalories || 2000) + ' kcal';
-                }
-            }
-        }
-        
         function updateProfileDisplayFromAuth(user) {
             const nameElement = document.getElementById('profileUserName');
             const emailElement = document.getElementById('profileEmail');

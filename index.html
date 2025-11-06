@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>EcoWise - Smart Air & Fitness Monitoring</title>
+    <title>Healix - Smart Air & Fitness Monitoring</title>
     <style>
         * {
             margin: 0;
@@ -581,6 +581,67 @@
         .hidden {
             display: none;
         }
+        
+        /* Floating Logo Styles for Small Screens */
+        @media (max-width: 480px) and (max-height: 700px) {
+            #floatingLogo {
+                width: 32px;
+                height: 32px;
+                top: 12px;
+                left: 12px;
+            }
+            
+            #floatingLogo svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
+        /* Small devices */
+        @media (max-width: 768px) {
+            .logo-large {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .logo-large svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        
+        /* Extra small devices (300x600) */
+        @media (max-width: 320px) and (max-height: 600px) {
+            #floatingLogo {
+                width: 28px;
+                height: 28px;
+                top: 8px;
+                left: 8px;
+            }
+            
+            #floatingLogo svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .logo-large {
+                display: none !important;
+            }
+            
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            
+            /* Adjust container padding to avoid overlap with floating logo */
+            .container {
+                padding-top: 40px;
+            }
+            
+            /* Adjust navigation to avoid overlap with floating logo */
+            .nav {
+                padding-left: 50px;
+            }
+        }
 
         .flex {
             display: flex;
@@ -803,10 +864,97 @@
                 font-size: 16px !important;
             }
         }
+        
+        /* Responsive styles for floating logo */
+        @media (max-width: 768px) {
+            #floatingLogo {
+                top: 12px;
+                left: 12px;
+            }
+            
+            #floatingLogo div:first-child {
+                width: 32px;
+                height: 32px;
+            }
+            
+            #floatingLogo svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            #floatingLogo div:last-child {
+                font-size: 1rem;
+                padding: 2px 6px;
+            }
+        }
+        
+        /* Add support for backdrop-filter */
+        @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+            #floatingLogo div:first-child,
+            #floatingLogo div:last-child {
+                -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(20px);
+            }
+        }
+        
+        /* Smooth transition for scroll effect */
+        #floatingLogo {
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Extra small devices (300x600) */
+        @media (max-width: 320px) and (max-height: 600px) {
+            #floatingLogo {
+                top: 8px;
+                left: 8px;
+            }
+            
+            #floatingLogo div:first-child {
+                width: 24px;
+                height: 24px;
+            }
+            
+            #floatingLogo svg {
+                width: 12px;
+                height: 12px;
+            }
+            
+            #floatingLogo div:last-child {
+                font-size: 0.75rem;
+                padding: 2px 8px;
+                border-radius: 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            
+            /* Adjust container padding to avoid overlap with floating logo */
+            .container {
+                padding-top: 36px;
+            }
+            
+            /* Adjust navigation to avoid overlap with floating logo */
+            .nav {
+                padding-left: 40px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Floating Logo Overlay -->
+        <div id="floatingLogo" style="position: fixed; top: 16px; left: 16px; z-index: 1000; display: flex; align-items: center; gap: 8px; animation: pulse 2s ease infinite;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                </svg>
+            </div>
+            <div style="color: white; font-weight: 700; font-size: 1.25rem; background: rgba(255, 255, 255, 0.15); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);">Healix</div>
+        </div>
+        
         <!-- Toast Notification -->
         <div id="toast" class="toast"></div>
 
@@ -1035,14 +1183,7 @@
 
         <!-- Header -->
         <div class="header">
-            <div style="width: 60px; height: 60px; margin: 0 auto 12px; background: linear-gradient(135deg, #10b981, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease infinite;">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-                    <path d="M2 17L12 22L22 17"/>
-                    <path d="M2 12L12 17L22 12"/>
-                </svg>
-            </div>
-            <h1 class="gradient-text">EcoWise</h1>
+            <!-- Logo and title removed and moved to floating overlay -->
         </div>
 
         <!-- Air Monitor Tab -->
@@ -1702,7 +1843,7 @@
         onAuthStateChanged(auth, (user) => {
             if (!user && !redirecting) {
                 // Not logged in, check localStorage as fallback
-                const localUser = localStorage.getItem('ecowise_user');
+                const localUser = localStorage.getItem('healix_user');
                 if (!localUser) {
                     redirecting = true;
                     console.log('No user found, redirecting to auth.html');
@@ -1777,7 +1918,7 @@
         let currentUser = null;
 
         // Check user session
-        const userSession = localStorage.getItem('ecowise_user');
+        const userSession = localStorage.getItem('healix_user');
         if (userSession) {
             currentUser = JSON.parse(userSession);
         }
@@ -1787,7 +1928,7 @@
             try {
                 const { signOut } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js');
                 await signOut(window.firebaseAuth);
-                localStorage.removeItem('ecowise_user');
+                localStorage.removeItem('healix_user');
                 window.location.href = 'auth.html';
             } catch (error) {
                 console.error('Logout error:', error);
@@ -3423,6 +3564,34 @@
             if (navButtons.length > 0) {
                 navButtons[0].click();
             }
+            
+            // Ensure floating logo is visible
+            const floatingLogo = document.getElementById('floatingLogo');
+            if (floatingLogo) {
+                floatingLogo.style.display = 'flex';
+            }
+        });
+        
+        // Handle scroll effect for floating logo
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const floatingLogo = document.getElementById('floatingLogo');
+            if (!floatingLogo) return;
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Calculate opacity based on scroll position
+            // Fade out as user scrolls down, fade in when scrolling up
+            let opacity = 1;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down and past 100px, fade out
+                opacity = Math.max(0, 1 - (scrollTop - 100) / 200);
+            }
+            
+            floatingLogo.style.opacity = opacity;
+            floatingLogo.style.transition = 'opacity 0.3s ease';
+            
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>

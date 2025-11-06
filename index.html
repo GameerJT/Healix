@@ -902,6 +902,16 @@
             transition: opacity 0.3s ease;
         }
         
+        /* Food style selection styles */
+        .food-style-option:hover {
+            transform: scale(1.05);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        .food-style-option {
+            transition: all 0.3s ease;
+        }
+        
         /* Extra small devices (300x600) */
         @media (max-width: 320px) and (max-height: 600px) {
             #floatingLogo {
@@ -1551,6 +1561,62 @@
                             <div style="font-weight: 600; margin-bottom: 4px;">Snacks</div>
                             <div style="color: rgba(255,255,255,0.7);" id="snackCalories">0 kcal</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Food Style Selection -->
+                <div class="glass-card" style="animation: scaleIn 0.8s ease;">
+                    <div class="flex-between mb-4">
+                        <h3 style="font-size: 1.25rem; font-weight: 600;">
+                            <svg class="text-purple" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                            </svg>
+                            Food Style Preference
+                        </h3>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 12px;">Select your preferred cuisine style for AI-generated meal plans:</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                            <div class="food-style-option" data-style="south-indian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">South Indian</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Dosa, Idli, Sambar</div>
+                            </div>
+                            <div class="food-style-option" data-style="north-indian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">North Indian</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Roti, Dal, Paneer</div>
+                            </div>
+                            <div class="food-style-option" data-style="continental" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Continental</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Pasta, Steak, Salad</div>
+                            </div>
+                            <div class="food-style-option" data-style="chinese" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Chinese</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Noodles, Dumplings</div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 12px;">
+                            <div class="food-style-option" data-style="mediterranean" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Mediterranean</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Olive Oil, Fish, Veggies</div>
+                            </div>
+                            <div class="food-style-option" data-style="japanese" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Japanese</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Sushi, Tempura, Miso</div>
+                            </div>
+                            <div class="food-style-option" data-style="italian" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Italian</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Pizza, Pasta, Risotto</div>
+                            </div>
+                            <div class="food-style-option" data-style="mexican" style="padding: 12px; border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Mexican</div>
+                                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Tacos, Burritos, Guac</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 12px; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin: 0;">
+                            <strong>Selected Style:</strong> <span id="selectedFoodStyle">None</span>
+                        </p>
                     </div>
                 </div>
 
@@ -3180,39 +3246,154 @@
             `).join('');
         }
 
+        // Food style selection functionality
+        let selectedFoodStyle = 'none';
+        
+        function initializeFoodStyleSelection() {
+            // Add click event listeners to food style options
+            const styleOptions = document.querySelectorAll('.food-style-option');
+            styleOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    styleOptions.forEach(opt => {
+                        opt.style.borderColor = 'rgba(255,255,255,0.1)';
+                        opt.style.background = 'rgba(255,255,255,0.05)';
+                        opt.style.transform = 'scale(1)';
+                    });
+                    
+                    // Add active styling to clicked option
+                    this.style.borderColor = '#8b5cf6';
+                    this.style.background = 'rgba(139, 92, 246, 0.2)';
+                    this.style.transform = 'scale(1.05)';
+                    
+                    // Update selected style
+                    selectedFoodStyle = this.dataset.style;
+                    document.getElementById('selectedFoodStyle').textContent = 
+                        this.querySelector('div:first-child').textContent;
+                    
+                    // Save to localStorage
+                    localStorage.setItem('healix_foodStyle', selectedFoodStyle);
+                });
+            });
+            
+            // Load saved food style if exists
+            const savedStyle = localStorage.getItem('healix_foodStyle');
+            if (savedStyle) {
+                selectedFoodStyle = savedStyle;
+                // Find and highlight the saved option
+                const savedOption = document.querySelector(`.food-style-option[data-style="${savedStyle}"]`);
+                if (savedOption) {
+                    savedOption.style.borderColor = '#8b5cf6';
+                    savedOption.style.background = 'rgba(139, 92, 246, 0.2)';
+                    document.getElementById('selectedFoodStyle').textContent = 
+                        savedOption.querySelector('div:first-child').textContent;
+                }
+            }
+        }
+        
         function generateMealPlan() {
             showToast('Healix-AI is generating your personalized meal plan... 🤖');
             
             setTimeout(() => {
-                // Different meal plans based on calorie target
+                // Different meal plans based on calorie target and food style
                 const targetCals = parseInt(document.getElementById('calorieValue').textContent);
+                const foodStyle = selectedFoodStyle;
                 
                 let mealPlans;
                 
-                if (targetCals < 1800) {
-                    // Low calorie plan
-                    mealPlans = [
-                        { time: 'breakfast', name: 'Greek Yogurt with Berries', calories: 300, protein: 20, carbs: 35, fats: 8 },
-                        { time: 'lunch', name: 'Grilled Chicken & Veggie Bowl', calories: 400, protein: 35, carbs: 25, fats: 15 },
-                        { time: 'snack', name: 'Apple with Almond Butter', calories: 150, protein: 4, carbs: 20, fats: 8 },
-                        { time: 'dinner', name: 'Baked Fish with Steamed Veggies', calories: 450, protein: 35, carbs: 20, fats: 22 },
-                    ];
-                } else if (targetCals < 2500) {
-                    // Medium calorie plan
-                    mealPlans = [
-                        { time: 'breakfast', name: 'Oatmeal with Berries & Almonds', calories: 450, protein: 15, carbs: 65, fats: 12 },
-                        { time: 'lunch', name: 'Grilled Chicken Salad', calories: 550, protein: 45, carbs: 35, fats: 22 },
-                        { time: 'snack', name: 'Greek Yogurt & Honey', calories: 200, protein: 15, carbs: 25, fats: 5 },
-                        { time: 'dinner', name: 'Salmon with Quinoa & Vegetables', calories: 650, protein: 40, carbs: 55, fats: 28 },
-                    ];
-                } else {
-                    // High calorie plan
-                    mealPlans = [
-                        { time: 'breakfast', name: 'Protein Pancakes with Fruit', calories: 600, protein: 30, carbs: 80, fats: 18 },
-                        { time: 'lunch', name: 'Beef & Rice Bowl', calories: 750, protein: 45, carbs: 70, fats: 25 },
-                        { time: 'snack', name: 'Protein Shake & Banana', calories: 300, protein: 25, carbs: 40, fats: 6 },
-                        { time: 'dinner', name: 'Steak with Sweet Potato & Broccoli', calories: 850, protein: 60, carbs: 65, fats: 35 },
-                    ];
+                // Generate meal plans based on selected food style
+                switch(foodStyle) {
+                    case 'south-indian':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Idli with Sambar & Chutney', calories: 350, protein: 12, carbs: 65, fats: 8 },
+                            { time: 'lunch', name: 'Rice with Dal, Sambar & Vegetables', calories: 500, protein: 18, carbs: 85, fats: 12 },
+                            { time: 'snack', name: 'Masala Poha', calories: 200, protein: 6, carbs: 35, fats: 6 },
+                            { time: 'dinner', name: 'Dosa with Potato Masala & Chutney', calories: 450, protein: 15, carbs: 70, fats: 15 },
+                        ];
+                        break;
+                    case 'north-indian':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Paratha with Curd & Pickle', calories: 400, protein: 15, carbs: 55, fats: 18 },
+                            { time: 'lunch', name: 'Roti with Dal, Sabzi & Salad', calories: 550, protein: 22, carbs: 75, fats: 18 },
+                            { time: 'snack', name: 'Samosa with Chutney', calories: 250, protein: 8, carbs: 35, fats: 12 },
+                            { time: 'dinner', name: 'Paneer Butter Masala with Naan', calories: 600, protein: 25, carbs: 65, fats: 28 },
+                        ];
+                        break;
+                    case 'continental':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Omelette with Toast & Coffee', calories: 400, protein: 25, carbs: 35, fats: 22 },
+                            { time: 'lunch', name: 'Grilled Chicken Salad with Vinaigrette', calories: 450, protein: 35, carbs: 25, fats: 25 },
+                            { time: 'snack', name: 'Sandwich with Ham & Cheese', calories: 300, protein: 20, carbs: 35, fats: 15 },
+                            { time: 'dinner', name: 'Steak with Mashed Potatoes & Vegetables', calories: 700, protein: 50, carbs: 55, fats: 35 },
+                        ];
+                        break;
+                    case 'chinese':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Congee with Pickled Vegetables', calories: 350, protein: 15, carbs: 65, fats: 8 },
+                            { time: 'lunch', name: 'Stir-fried Vegetables with Rice', calories: 500, protein: 20, carbs: 75, fats: 15 },
+                            { time: 'snack', name: 'Spring Rolls', calories: 200, protein: 8, carbs: 30, fats: 8 },
+                            { time: 'dinner', name: 'Sweet & Sour Pork with Fried Rice', calories: 650, protein: 30, carbs: 85, fats: 22 },
+                        ];
+                        break;
+                    case 'mediterranean':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Greek Yogurt with Olives & Tomatoes', calories: 300, protein: 20, carbs: 25, fats: 18 },
+                            { time: 'lunch', name: 'Grilled Fish with Quinoa & Vegetables', calories: 450, protein: 35, carbs: 40, fats: 20 },
+                            { time: 'snack', name: 'Hummus with Pita Bread', calories: 250, protein: 10, carbs: 35, fats: 10 },
+                            { time: 'dinner', name: 'Lamb with Couscous & Eggplant', calories: 600, protein: 40, carbs: 50, fats: 28 },
+                        ];
+                        break;
+                    case 'japanese':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Miso Soup with Rice & Pickles', calories: 300, protein: 15, carbs: 55, fats: 8 },
+                            { time: 'lunch', name: 'Sushi with Miso Soup', calories: 450, protein: 25, carbs: 70, fats: 12 },
+                            { time: 'snack', name: 'Edamame', calories: 150, protein: 12, carbs: 10, fats: 6 },
+                            { time: 'dinner', name: 'Teriyaki Chicken with Rice & Vegetables', calories: 550, protein: 35, carbs: 65, fats: 18 },
+                        ];
+                        break;
+                    case 'italian':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Cappuccino with Croissant', calories: 350, protein: 12, carbs: 45, fats: 18 },
+                            { time: 'lunch', name: 'Caprese Salad with Bread', calories: 400, protein: 20, carbs: 35, fats: 22 },
+                            { time: 'snack', name: 'Bruschetta', calories: 200, protein: 6, carbs: 30, fats: 8 },
+                            { time: 'dinner', name: 'Pasta with Marinara Sauce & Vegetables', calories: 600, protein: 25, carbs: 85, fats: 20 },
+                        ];
+                        break;
+                    case 'mexican':
+                        mealPlans = [
+                            { time: 'breakfast', name: 'Chilaquiles with Eggs', calories: 450, protein: 20, carbs: 55, fats: 22 },
+                            { time: 'lunch', name: 'Burrito Bowl with Rice & Beans', calories: 550, protein: 25, carbs: 75, fats: 18 },
+                            { time: 'snack', name: 'Guacamole with Tortilla Chips', calories: 300, protein: 6, carbs: 30, fats: 20 },
+                            { time: 'dinner', name: 'Enchiladas with Rice & Beans', calories: 650, protein: 30, carbs: 80, fats: 25 },
+                        ];
+                        break;
+                    default:
+                        // Default meal plans (original)
+                        if (targetCals < 1800) {
+                            // Low calorie plan
+                            mealPlans = [
+                                { time: 'breakfast', name: 'Greek Yogurt with Berries', calories: 300, protein: 20, carbs: 35, fats: 8 },
+                                { time: 'lunch', name: 'Grilled Chicken & Veggie Bowl', calories: 400, protein: 35, carbs: 25, fats: 15 },
+                                { time: 'snack', name: 'Apple with Almond Butter', calories: 150, protein: 4, carbs: 20, fats: 8 },
+                                { time: 'dinner', name: 'Baked Fish with Steamed Veggies', calories: 450, protein: 35, carbs: 20, fats: 22 },
+                            ];
+                        } else if (targetCals < 2500) {
+                            // Medium calorie plan
+                            mealPlans = [
+                                { time: 'breakfast', name: 'Oatmeal with Berries & Almonds', calories: 450, protein: 15, carbs: 65, fats: 12 },
+                                { time: 'lunch', name: 'Grilled Chicken Salad', calories: 550, protein: 45, carbs: 35, fats: 22 },
+                                { time: 'snack', name: 'Greek Yogurt & Honey', calories: 200, protein: 15, carbs: 25, fats: 5 },
+                                { time: 'dinner', name: 'Salmon with Quinoa & Vegetables', calories: 650, protein: 40, carbs: 55, fats: 28 },
+                            ];
+                        } else {
+                            // High calorie plan
+                            mealPlans = [
+                                { time: 'breakfast', name: 'Protein Pancakes with Fruit', calories: 600, protein: 30, carbs: 80, fats: 18 },
+                                { time: 'lunch', name: 'Beef & Rice Bowl', calories: 750, protein: 45, carbs: 70, fats: 25 },
+                                { time: 'snack', name: 'Protein Shake & Banana', calories: 300, protein: 25, carbs: 40, fats: 6 },
+                                { time: 'dinner', name: 'Steak with Sweet Potato & Broccoli', calories: 850, protein: 60, carbs: 65, fats: 35 },
+                            ];
+                        }
                 }
 
                 const baseCalories = mealPlans.reduce((sum, meal) => sum + meal.calories, 0);
@@ -3229,7 +3410,7 @@
 
                 updateNutrition();
                 renderMeals();
-                showToast('✨ AI Meal plan generated successfully!');
+                showToast(`✨ AI Meal plan generated with ${foodStyle.replace('-', ' ')} style!`);
             }, 2000);
         }
 
@@ -3377,6 +3558,7 @@
         updateAirQuality();
         updateEnvironment();
         updateProfileDisplay();
+        initializeFoodStyleSelection(); // Initialize food style selection
         setInterval(updateAllSensors, 2000); // Update all sensors every 2 seconds
         
         // Remove the previous intervals since we're now using updateAllSensors

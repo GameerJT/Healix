@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoWise - Sign In</title>
+    <title>Healix - Sign In</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -67,6 +67,7 @@
             width: 100%;
             max-width: 420px;
             animation: scaleIn 0.6s ease;
+            padding-top: 20px;
         }
 
         .logo {
@@ -106,6 +107,29 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.875rem;
             margin-top: 4px;
+        }
+
+        /* Responsive styles for the new logo section */
+        @media (max-width: 768px) {
+            .container > div:first-child img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .container > div:first-child h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container > div:first-child img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .container > div:first-child h1 {
+                font-size: 1.5rem;
+            }
         }
 
         .auth-card {
@@ -318,20 +342,48 @@
         .forgot-password a:hover {
             color: #3b82f6;
         }
+        
+        /* Profile editor form elements */
+        #profileEditorModal select,
+        #profileEditorModal input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        #profileEditorModal select:focus,
+        #profileEditorModal input[type="text"]:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+        }
+        
+        #profileEditorModal select option {
+            background: #1f2937;
+            color: white;
+            padding: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <div class="logo-circle">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-                    <path d="M2 17L12 22L22 17"/>
-                    <path d="M2 12L12 17L22 12"/>
-                </svg>
-            </div>
-            <h1>EcoWise</h1>
-            <p>Smart Air & Fitness Monitoring</p>
+        <!-- Logo and title above the auth card -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <img src="logo.png" width="120" height="120" alt="Healix Logo" style="margin-bottom: 20px;">
+            <h1 style="font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0;">Healix</h1>
         </div>
 
         <div class="auth-card">
@@ -467,14 +519,14 @@
             const password = document.getElementById('loginPassword').value;
 
             // Convert username to email format for Firebase
-            const email = username.includes('@') ? username : `${username}@ecowise.app`;
+            const email = username.includes('@') ? username : `${username}@healix.app`;
 
             try {
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 const user = userCredential.user;
                 
                 // Store user data in localStorage for quick access
-                localStorage.setItem('ecowise_user', JSON.stringify({
+                localStorage.setItem('healix_user', JSON.stringify({
                     uid: user.uid,
                     email: user.email,
                     username: username,
@@ -521,7 +573,7 @@
             showLoading(true);
 
             // Convert username to email format for Firebase
-            const email = username.includes('@') ? username : `${username}@ecowise.app`;
+            const email = username.includes('@') ? username : `${username}@healix.app`;
 
             try {
                 // Create Firebase user
@@ -548,7 +600,7 @@
                 });
 
                 // Store user data in localStorage
-                localStorage.setItem('ecowise_user', JSON.stringify({
+                localStorage.setItem('healix_user', JSON.stringify({
                     uid: user.uid,
                     email: user.email,
                     username: username,
@@ -585,6 +637,8 @@
             
             return errorMessages[code] || code || 'An error occurred. Please try again.';
         }
+        
+        // Logo and Healix text are now static above the auth card
     </script>
 </body>
 </html>

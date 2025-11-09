@@ -137,9 +137,86 @@
             animation-delay: 0.4s;
         }
 
-        /* Hide scrollbar for chat messages */
-        #chatMessages::-webkit-scrollbar {
-            display: none;
+        /* Smooth scrolling for all elements */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Enhanced smooth scroll animation classes */
+        .scroll-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-slide-left {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-slide-right {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-scale-up.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Staggered animations for better visual flow */
+        .staggered-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: calc(var(--delay-index, 0) * 0.1s);
+        }
+
+        .staggered-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .glass {
@@ -167,6 +244,17 @@
 
         .glass-card {
             will-change: transform;
+        }
+
+        /* Optimize scroll animations performance */
+        .scroll-fade-in,
+        .scroll-slide-left,
+        .scroll-slide-right,
+        .scroll-scale-up,
+        .staggered-animation {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .gradient-text {
@@ -441,6 +529,69 @@
             }
         }
 
+        /* Scroll animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Apply animations to elements */
+        .glass-card, .stat-card, .nav-btn, .btn, .workout-card, .meal-card {
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .glass-card {
+            animation-name: fadeInUp;
+        }
+
+        .stat-card {
+            animation-name: fadeInUp;
+        }
+
+        .workout-card, .meal-card {
+            animation-name: slideInLeft;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -549,7 +700,7 @@
                 left: 12px;
             }
             
-            #floatingLogo svg {
+            #floatingLogo img {
                 width: 16px;
                 height: 16px;
             }
@@ -566,38 +717,1104 @@
                 width: 24px;
                 height: 24px;
             }
+            
+            #floatingLogo img {
+                width: 32px;
+                height: 32px;
+            }
         }
         
         /* Extra small devices (300x600) */
         @media (max-width: 320px) and (max-height: 600px) {
+            * {
+                box-sizing: border-box !important;
+            }
+            
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            
+            body {
+                font-size: 13px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* Logo */
             #floatingLogo {
-                width: 28px;
-                height: 28px;
-                top: 8px;
-                left: 8px;
+                top: 6px !important;
+                left: 6px !important;
+                gap: 4px !important;
+                flex-shrink: 0;
+                align-items: center !important;
             }
             
-            #floatingLogo svg {
-                width: 14px;
-                height: 14px;
+            #floatingLogo div:first-child {
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                min-height: 24px !important;
+                max-width: 24px !important;
+                max-height: 24px !important;
+                flex-shrink: 0;
+                border-radius: 50% !important;
+                aspect-ratio: 1 / 1 !important;
             }
             
-            .logo-large {
-                display: none !important;
+            #floatingLogo img {
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                min-height: 32px !important;
+                flex-shrink: 0;
+            }
+            
+            #floatingLogo div:last-child {
+                font-size: 0.7rem !important;
+                padding: 2px 6px !important;
+                border-radius: 10px !important;
+                white-space: nowrap;
+                flex-shrink: 0;
+                line-height: 1.2 !important;
+            }
+            
+            /* Layout Containers */
+            .container {
+                padding: 32px 6px 100px 6px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            .header {
+                padding: 8px 6px !important;
+                margin-bottom: 8px !important;
             }
             
             .header h1 {
-                font-size: 1.25rem;
+                font-size: 1.25rem !important;
             }
             
-            /* Adjust container padding to avoid overlap with floating logo */
-            .container {
-                padding-top: 40px;
+            /* Cards */
+            .glass-card {
+                padding: 12px 8px !important;
+                border-radius: 8px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 10px !important;
             }
             
-            /* Adjust navigation to avoid overlap with floating logo */
+            .stat-card {
+                padding: 10px 8px !important;
+                font-size: 12px !important;
+                width: 100% !important;
+            }
+            
+            .workout-card, .meal-card {
+                padding: 10px 8px !important;
+                font-size: 12px !important;
+                margin-bottom: 8px !important;
+                width: 100% !important;
+            }
+            
+            /* Grid System */
+            .grid {
+                gap: 10px !important;
+                width: 100% !important;
+            }
+            
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            
+            .grid > div, .grid > * {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Navigation */
             .nav {
-                padding-left: 50px;
+                padding: 8px 4px !important;
+                padding-left: 40px !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .nav-content {
+                gap: 4px !important;
+            }
+            
+            .nav-btn {
+                padding: 8px 4px !important;
+                gap: 4px !important;
+                min-height: 52px !important;
+                font-size: 11px !important;
+                flex: 1 !important;
+            }
+            
+            .nav-btn svg {
+                width: 20px !important;
+                height: 20px !important;
+            }
+            
+            .nav-btn span {
+                font-size: 10px !important;
+                display: block !important;
+            }
+            
+            /* Modals */
+            .modal {
+                padding: 4px !important;
+            }
+            
+            .modal-content {
+                padding: 16px 12px !important;
+                width: 96% !important;
+                max-width: 96% !important;
+                margin: 6px auto !important;
+            }
+            
+            /* Buttons */
+            .btn, button {
+                padding: 10px 12px !important;
+                font-size: 13px !important;
+                min-height: 42px !important;
+                width: 100% !important;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 10px 12px !important;
+                font-size: 13px !important;
+            }
+            
+            /* Typography */
+            h1 {
+                font-size: 1.3rem !important;
+            }
+            
+            h2 {
+                font-size: 1.25rem !important;
+            }
+            
+            h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            h4 {
+                font-size: 1rem !important;
+            }
+            
+            h5 {
+                font-size: 0.9rem !important;
+            }
+            
+            h6 {
+                font-size: 0.85rem !important;
+            }
+            
+            p, span, div, label, a, li {
+                font-size: 13px !important;
+            }
+            
+            /* Form Elements */
+            input, select, textarea, button {
+                font-size: 13px !important;
+                padding: 8px 6px !important;
+                width: 100% !important;
+                border-radius: 6px !important;
+            }
+            
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"],
+            input[type="url"],
+            input[type="search"],
+            input[type="date"],
+            input[type="time"] {
+                padding: 8px 6px !important;
+                width: 100% !important;
+            }
+            
+            select, .liquid-glass-dropdown {
+                padding: 8px 28px 8px 8px !important;
+                width: 100% !important;
+            }
+            
+            textarea {
+                min-height: 80px !important;
+                resize: vertical !important;
+            }
+            
+            /* Custom Dropdowns */
+            .dropdown-wrapper {
+                width: 100% !important;
+            }
+            
+            .custom-dropdown-list {
+                max-width: calc(100vw - 12px) !important;
+                font-size: 12px !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .custom-dropdown-option {
+                padding: 10px 8px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Toast Notifications */
+            .toast {
+                padding: 10px 14px !important;
+                font-size: 12px !important;
+                max-width: 94% !important;
+                left: 3% !important;
+            }
+            
+            /* Flex Utilities */
+            .flex, .flex-between, .flex-center {
+                gap: 6px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            /* Interactive Elements */
+            .clickable {
+                min-height: 42px !important;
+            }
+            
+            /* Progress Bars */
+            .progress-bar {
+                height: 8px !important;
+            }
+            
+            .progress-fill {
+                height: 100% !important;
+            }
+            
+            /* Chat Interface */
+            #chatMessages {
+                max-height: 300px !important;
+                font-size: 12px !important;
+                padding: 10px 6px !important;
+                gap: 10px !important;
+                min-height: auto !important;
+            }
+            
+            .chat-message {
+                padding: 8px !important;
+                font-size: 12px !important;
+                margin-bottom: 6px !important;
+            }
+            
+            /* Chat Input */
+            #chatInput {
+                padding: 8px 10px !important;
+                font-size: 13px !important;
+                border-radius: 8px !important;
+            }
+            
+            /* Chat Form */
+            #chatMessages ~ div {
+                padding-top: 10px !important;
+                margin-top: 10px !important;
+            }
+            
+            #chatMessages ~ div form {
+                gap: 8px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            #chatMessages ~ div form button {
+                padding: 8px 12px !important;
+                min-width: auto !important;
+            }
+            
+            #chatStatus {
+                font-size: 11px !important;
+                margin-top: 6px !important;
+            }
+            
+            /* AI Coach Tab Container */
+            #tab-coach .glass-card {
+                min-height: 350px !important;
+                padding: 10px 8px !important;
+            }
+            
+            #tab-coach h2 {
+                font-size: 1.4rem !important;
+            }
+            
+            #tab-coach p {
+                font-size: 12px !important;
+            }
+            
+            /* Workout Plans */
+            #workoutPlanDisplay {
+                font-size: 12px !important;
+                width: 100% !important;
+            }
+            
+            #workoutPlanDisplay h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            #workoutsList, #mealsList {
+                width: 100% !important;
+            }
+            
+            /* Media Elements */
+            img, svg, video, iframe {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Scrollbars */
+            ::-webkit-scrollbar {
+                width: 6px !important;
+                height: 6px !important;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                border-radius: 3px !important;
+            }
+            
+            /* Tables */
+            table {
+                width: 100% !important;
+                font-size: 12px !important;
+            }
+            
+            th, td {
+                padding: 6px 4px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Lists */
+            ul, ol {
+                padding-left: 20px !important;
+            }
+            
+            li {
+                margin-bottom: 4px !important;
+            }
+            
+            /* Badges and Labels */
+            .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+            }
+            
+            /* Status Indicators */
+            .status-dot {
+                width: 10px !important;
+                height: 10px !important;
+            }
+            
+            /* Gauge Values */
+            .gauge-value {
+                font-size: 1.3rem !important;
+            }
+            
+            /* Gradient Text */
+            .gradient-text {
+                font-size: 1.2rem !important;
+            }
+            
+            /* Tab Content */
+            .tab-content {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            
+            /* Charts */
+            .chart-container {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 250px !important;
+            }
+            
+            /* Food Scanner */
+            #imagePreview {
+                height: 150px !important;
+            }
+            
+            /* Workout Generator Sliders */
+            input[type="range"] {
+                width: 100% !important;
+            }
+            
+            /* Day Cards in Workout Plans */
+            .day-card {
+                padding: 10px 8px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* Exercise Cards */
+            .exercise-card {
+                padding: 8px 6px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Macros Display */
+            .macro-bar {
+                height: 6px !important;
+            }
+            
+            /* AQI Display */
+            #aqiDisplay {
+                font-size: 12px !important;
+            }
+            
+            /* Serial Port Selector */
+            #serialPort {
+                width: 100% !important;
+            }
+            
+            /* Spinners and Loaders */
+            .spinner {
+                width: 30px !important;
+                height: 30px !important;
+            }
+        }
+        
+        /* Ultra narrow devices (200x600) */
+        @media (max-width: 210px) and (max-height: 650px) {
+            * {
+                box-sizing: border-box !important;
+            }
+            
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            body {
+                font-size: 9px !important;
+                min-width: 100px !important;
+            }
+            
+            /* Logo - Extra Compact */
+            #floatingLogo {
+                top: 2px !important;
+                left: 2px !important;
+                gap: 1px !important;
+                transform: scale(0.6) !important;
+                transform-origin: top left !important;
+            }
+            
+            #floatingLogo div:first-child {
+                width: 14px !important;
+                height: 14px !important;
+                min-width: 14px !important;
+                min-height: 14px !important;
+                max-width: 14px !important;
+                max-height: 14px !important;
+                aspect-ratio: 1 / 1 !important;
+                border-radius: 50% !important;
+            }
+            
+            #floatingLogo img {
+                width: 24px !important;
+                height: 24px !important;
+            }
+            
+            #floatingLogo div:last-child {
+                font-size: 0.45rem !important;
+                padding: 1px 2px !important;
+            }
+            
+            /* Layout - Ultra Compact */
+            .container {
+                padding: 20px 1px 75px 1px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            .header {
+                padding: 3px 1px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .header h1 {
+                font-size: 0.75rem !important;
+            }
+            
+            /* Cards - Extra Small */
+            .glass-card {
+                padding: 4px 2px !important;
+                border-radius: 3px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .stat-card {
+                padding: 3px 2px !important;
+                font-size: 8px !important;
+            }
+            
+            .workout-card, .meal-card {
+                padding: 3px 2px !important;
+                font-size: 8px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            /* Grid - Single Column */
+            .grid {
+                gap: 3px !important;
+            }
+            
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr !important;
+                gap: 3px !important;
+            }
+            
+            /* Navigation - Minimal */
+            .nav {
+                padding: 2px 0px !important;
+                padding-left: 20px !important;
+            }
+            
+            .nav-content {
+                gap: 0px !important;
+            }
+            
+            .nav-btn {
+                padding: 2px 0px !important;
+                gap: 1px !important;
+                min-height: 36px !important;
+                font-size: 7px !important;
+            }
+            
+            .nav-btn svg {
+                width: 12px !important;
+                height: 12px !important;
+            }
+            
+            .nav-btn span {
+                font-size: 6px !important;
+            }
+            
+            /* Modals - Compact */
+            .modal {
+                padding: 1px !important;
+            }
+            
+            .modal-content {
+                padding: 6px 3px !important;
+                width: 99% !important;
+                margin: 1px auto !important;
+            }
+            
+            /* Buttons - Small */
+            .btn, button {
+                padding: 4px 2px !important;
+                font-size: 9px !important;
+                min-height: 28px !important;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 4px 2px !important;
+                font-size: 9px !important;
+            }
+            
+            /* Typography - Minimal */
+            h1 { font-size: 0.8rem !important; }
+            h2 { font-size: 0.75rem !important; }
+            h3 { font-size: 0.7rem !important; }
+            h4 { font-size: 0.65rem !important; }
+            h5, h6 { font-size: 0.6rem !important; }
+            p, span, div, label, a, li { font-size: 9px !important; }
+            
+            /* Forms - Compact */
+            input, select, textarea, button {
+                font-size: 9px !important;
+                padding: 4px 2px !important;
+                border-radius: 2px !important;
+            }
+            
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            input[type="password"],
+            input[type="tel"],
+            input[type="url"],
+            input[type="search"],
+            input[type="date"],
+            input[type="time"] {
+                padding: 4px 2px !important;
+            }
+            
+            select, .liquid-glass-dropdown {
+                padding: 4px 18px 4px 4px !important;
+                font-size: 9px !important;
+            }
+            
+            textarea {
+                min-height: 60px !important;
+            }
+            
+            /* Dropdowns - Ultra Compact */
+            .dropdown-wrapper {
+                width: 100% !important;
+            }
+            
+            .custom-dropdown-list {
+                max-width: calc(100vw - 2px) !important;
+                font-size: 8px !important;
+                max-height: 220px !important;
+            }
+            
+            .custom-dropdown-option {
+                padding: 5px 3px !important;
+                font-size: 8px !important;
+            }
+            
+            /* Toast - Compact */
+            .toast {
+                padding: 4px 6px !important;
+                font-size: 8px !important;
+                max-width: 99% !important;
+            }
+            
+            /* Flex - Minimal Gap */
+            .flex-between, .flex-center, .flex {
+                gap: 2px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            /* Interactive - Small Touch Targets */
+            .clickable {
+                min-height: 28px !important;
+            }
+            
+            /* Progress - Thin */
+            .progress-bar {
+                height: 3px !important;
+            }
+            
+            /* Chat - Compact */
+            #chatMessages {
+                max-height: 200px !important;
+                font-size: 8px !important;
+                padding: 4px 2px !important;
+                gap: 4px !important;
+            }
+            
+            .chat-message {
+                padding: 4px !important;
+                font-size: 8px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            #chatInput {
+                padding: 4px 5px !important;
+                font-size: 9px !important;
+            }
+            
+            #chatMessages ~ div form button {
+                padding: 4px 6px !important;
+            }
+            
+            #tab-coach .glass-card {
+                min-height: 250px !important;
+                padding: 4px 2px !important;
+            }
+            
+            #tab-coach h2 {
+                font-size: 1rem !important;
+            }
+            
+            /* Workout Plans - Minimal */
+            #workoutPlanDisplay {
+                font-size: 8px !important;
+            }
+            
+            #workoutPlanDisplay h3 {
+                font-size: 0.7rem !important;
+            }
+            
+            /* Status Indicators - Tiny */
+            .status-dot {
+                width: 5px !important;
+                height: 5px !important;
+            }
+            
+            .gauge-value {
+                font-size: 0.8rem !important;
+            }
+            
+            /* Badges - Tiny */
+            .badge {
+                padding: 1px 2px !important;
+                font-size: 7px !important;
+            }
+            
+            /* Tables - Compact */
+            table { font-size: 8px !important; }
+            th, td { padding: 2px 1px !important; font-size: 8px !important; }
+            
+            /* Scrollbars - Minimal */
+            ::-webkit-scrollbar {
+                width: 2px !important;
+                height: 2px !important;
+            }
+            
+            /* Media - Full Width */
+            img, svg, video, iframe {
+                max-width: 100% !important;
+            }
+            
+            /* Charts - Compact */
+            .chart-container {
+                max-height: 150px !important;
+            }
+            
+            /* Food Scanner - Compact */
+            #imagePreview {
+                height: 100px !important;
+            }
+            
+            /* Spinners - Tiny */
+            .spinner {
+                width: 16px !important;
+                height: 16px !important;
+            }
+            
+            /* Lists - Minimal Indent */
+            ul, ol { padding-left: 8px !important; }
+            li { margin-bottom: 1px !important; }
+            
+            /* AQI - Compact */
+            #aqiDisplay {
+                font-size: 8px !important;
+            }
+            
+            /* Gradient Text - Smaller */
+            .gradient-text {
+                font-size: 0.75rem !important;
+            }
+            
+            /* Tab Content */
+            .tab-content {
+                padding: 0 !important;
+            }
+        }
+
+        /* Ultra narrow devices (100px - 250px width) */
+        @media (max-width: 250px) {
+            * {
+                box-sizing: border-box !important;
+            }
+            
+            body {
+                overflow-x: hidden !important;
+                font-size: 11px !important;
+                min-width: 100px !important;
+            }
+            
+            html, body {
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+            }
+            
+            #floatingLogo {
+                top: 4px !important;
+                left: 4px !important;
+                gap: 2px !important;
+                transform: scale(0.75) !important;
+                transform-origin: top left !important;
+            }
+            
+            #floatingLogo div:first-child {
+                width: 18px !important;
+                height: 18px !important;
+                min-width: 18px !important;
+                min-height: 18px !important;
+                max-width: 18px !important;
+                max-height: 18px !important;
+            }
+            
+            #floatingLogo img {
+                width: 9px !important;
+                height: 9px !important;
+            }
+            
+            #floatingLogo div:last-child {
+                font-size: 0.55rem !important;
+                padding: 1px 3px !important;
+            }
+            
+            .container {
+                padding: 30px 2px 90px 2px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            .header {
+                padding: 6px 4px !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .header h1 {
+                font-size: 0.9rem !important;
+            }
+            
+            .glass-card {
+                padding: 8px 4px !important;
+                border-radius: 6px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 6px 0 !important;
+            }
+            
+            .grid {
+                gap: 6px !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+            
+            .grid-2, .grid-4 {
+                grid-template-columns: 1fr !important;
+                gap: 6px !important;
+            }
+            
+            .grid > div {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .nav {
+                padding: 4px 1px !important;
+                bottom: 0 !important;
+            }
+            
+            .nav-content {
+                gap: 1px !important;
+            }
+            
+            .nav-btn {
+                padding: 4px 1px !important;
+                gap: 1px !important;
+                min-height: 44px !important;
+                font-size: 9px !important;
+                flex: 1 !important;
+            }
+            
+            .nav-btn svg {
+                width: 16px !important;
+                height: 16px !important;
+            }
+            
+            .nav-btn span {
+                font-size: 8px !important;
+                display: block !important;
+            }
+            
+            .modal {
+                padding: 2px !important;
+            }
+            
+            .modal-content {
+                padding: 10px 6px !important;
+                width: 98% !important;
+                max-width: 98% !important;
+                margin: 2px auto !important;
+            }
+            
+            .btn {
+                padding: 8px 6px !important;
+                font-size: 11px !important;
+                min-height: 36px !important;
+                width: 100% !important;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 8px 6px !important;
+                font-size: 11px !important;
+            }
+            
+            h1 {
+                font-size: 1rem !important;
+            }
+            
+            h2 {
+                font-size: 1.1rem !important;
+            }
+            
+            h3 {
+                font-size: 0.95rem !important;
+            }
+            
+            h4 {
+                font-size: 0.85rem !important;
+            }
+            
+            p, span, div, label {
+                font-size: 11px !important;
+            }
+            
+            input, select, textarea, button {
+                font-size: 11px !important;
+                padding: 6px 4px !important;
+                border-radius: 4px !important;
+                width: 100% !important;
+            }
+            
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            input[type="password"] {
+                padding: 6px 4px !important;
+                width: 100% !important;
+            }
+            
+            /* Dropdown customization for narrow screens */
+            select, .liquid-glass-dropdown {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 6px 24px 6px 6px !important;
+                font-size: 11px !important;
+            }
+            
+            .custom-dropdown-list {
+                max-width: calc(100vw - 4px) !important;
+                font-size: 10px !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            
+            .custom-dropdown-option {
+                padding: 8px 6px !important;
+                font-size: 10px !important;
+            }
+            
+            .dropdown-wrapper {
+                width: 100% !important;
+            }
+            
+            /* Stat cards */
+            .stat-card {
+                padding: 6px 4px !important;
+                font-size: 10px !important;
+            }
+            
+            .gauge-value {
+                font-size: 1rem !important;
+            }
+            
+            /* Workout and meal cards */
+            .workout-card, .meal-card {
+                padding: 6px 4px !important;
+                font-size: 10px !important;
+                margin-bottom: 6px !important;
+            }
+            
+            /* Toast notification */
+            .toast {
+                padding: 8px 10px !important;
+                font-size: 10px !important;
+                max-width: 96% !important;
+                left: 2% !important;
+                transform: none !important;
+            }
+            
+            /* Tab content */
+            .tab-content {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            
+            /* Flex utilities */
+            .flex-between {
+                gap: 4px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .flex-center {
+                gap: 4px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            /* Clickable elements */
+            .clickable {
+                min-height: 36px !important;
+            }
+            
+            /* Progress bars */
+            .progress-bar {
+                height: 6px !important;
+            }
+            
+            /* Images and media */
+            img, svg, video {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Charts and gauges */
+            .chart-container {
+                width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Scrollbars */
+            ::-webkit-scrollbar {
+                width: 4px !important;
+                height: 4px !important;
+            }
+            
+            /* Chat messages */
+            #chatMessages {
+                max-height: 250px !important;
+                font-size: 10px !important;
+            }
+            
+            .chat-message {
+                padding: 6px !important;
+                font-size: 10px !important;
+            }
+            
+            /* Workout plan display */
+            #workoutPlanDisplay {
+                font-size: 10px !important;
+            }
+            
+            #workoutPlanDisplay h3 {
+                font-size: 0.9rem !important;
+            }
+            
+            /* Form elements in modals */
+            .modal-content input,
+            .modal-content select,
+            .modal-content textarea {
+                width: 100% !important;
+                margin-bottom: 6px !important;
+            }
+            
+            /* Gradient text */
+            .gradient-text {
+                font-size: 1rem !important;
+            }
+            
+            /* Status dots */
+            .status-dot {
+                width: 8px !important;
+                height: 8px !important;
+            }
+            
+            /* Badges and labels */
+            .badge {
+                padding: 2px 4px !important;
+                font-size: 9px !important;
             }
         }
 
@@ -833,7 +2050,7 @@
                 height: 32px;
             }
             
-            #floatingLogo svg {
+            #floatingLogo img {
                 width: 16px;
                 height: 16px;
             }
@@ -869,91 +2086,279 @@
             transition: all 0.3s ease;
         }
         
-        /* Profile editor form elements */
-        #profileEditorModal select,
-        #profileEditorModal input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
+        /* Liquid Glass Effect for ALL Dropdowns */
+        select,
+        select.liquid-glass-dropdown,
+        #serialPort,
+        #mealTime,
+        #editGender,
+        #editRegion,
+        #indianState,
+        #fitnessLevel,
+        #fitnessGoal {
+            width: 100% !important;
+            padding: 12px 40px 12px 16px !important;
+            border-radius: 12px !important;
+            color: white !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            background-color: transparent !important;
+            background-image: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat, no-repeat !important;
+            background-position: 0 0, right 12px center !important;
+            background-size: 100% 100%, 16px !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.37), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1), 
+                inset 0 -1px 0 0 rgba(255, 255, 255, 0.2), 
+                0 0 20px rgba(139, 92, 246, 0.1) !important;
+            transition: all 0.3s ease !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            position: relative;
         }
         
-        #profileEditorModal select:focus,
-        #profileEditorModal input[type="text"]:focus {
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+        select:hover,
+        select.liquid-glass-dropdown:hover,
+        #serialPort:hover,
+        #mealTime:hover,
+        #editGender:hover,
+        #editRegion:hover,
+        #indianState:hover,
+        #fitnessLevel:hover,
+        #fitnessGoal:hover {
+            background-image: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat, no-repeat !important;
+            background-position: 0 0, right 12px center !important;
+            background-size: 100% 100%, 16px !important;
+            border: 1px solid rgba(139, 92, 246, 0.4) !important;
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.37), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.15), 
+                inset 0 -1px 0 0 rgba(255, 255, 255, 0.25), 
+                0 0 30px rgba(139, 92, 246, 0.25) !important;
         }
         
-        #profileEditorModal select option {
-            background: #1f2937;
-            color: white;
+        select:focus,
+        select.liquid-glass-dropdown:focus,
+        #serialPort:focus,
+        #mealTime:focus,
+        #editGender:focus,
+        #editRegion:focus,
+        #indianState:focus,
+        #fitnessLevel:focus,
+        #fitnessGoal:focus {
+            background-image: 
+                linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.15)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat, no-repeat !important;
+            background-position: 0 0, right 12px center !important;
+            background-size: 100% 100%, 16px !important;
+            border: 1px solid rgba(139, 92, 246, 0.6) !important;
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.37), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2), 
+                inset 0 -2px 0 0 rgba(255, 255, 255, 0.3), 
+                0 0 0 4px rgba(139, 92, 246, 0.25), 
+                0 0 40px rgba(139, 92, 246, 0.4) !important;
+            outline: none !important;
+        }
+        
+        /* Hide native dropdown options */
+        select option {
+            display: none !important;
+        }
+        
+        /* Custom Dropdown List Container */
+        .custom-dropdown-list {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-radius: 16px;
+            backdrop-filter: blur(120px) saturate(250%);
+            -webkit-backdrop-filter: blur(120px) saturate(250%);
+            background: linear-gradient(
+                135deg,
+                rgba(59, 130, 246, 0.5) 0%,
+                rgba(139, 92, 246, 0.5) 100%
+            );
+            border: 1px solid rgba(59, 130, 246, 0.6);
+            box-shadow: 
+                0 25px 70px 0 rgba(0, 0, 0, 0.8),
+                inset 0 0 0 1px rgba(59, 130, 246, 0.5),
+                inset 0 2px 0 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 0 rgba(139, 92, 246, 0.4),
+                0 0 70px rgba(59, 130, 246, 0.6),
+                0 0 50px rgba(139, 92, 246, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             padding: 8px;
         }
         
-        /* Extra small devices (300x600) */
-        @media (max-width: 320px) and (max-height: 600px) {
-            #floatingLogo {
-                top: 8px;
-                left: 8px;
-            }
-            
-            #floatingLogo div:first-child {
-                width: 24px;
-                height: 24px;
-            }
-            
-            #floatingLogo svg {
-                width: 12px;
-                height: 12px;
-            }
-            
-            #floatingLogo div:last-child {
-                font-size: 0.75rem;
-                padding: 2px 8px;
-                border-radius: 12px;
-            }
-            
-            .header h1 {
-                font-size: 1.25rem;
-            }
-            
-            /* Adjust container padding to avoid overlap with floating logo */
-            .container {
-                padding-top: 36px;
-            }
-            
-            /* Adjust navigation to avoid overlap with floating logo */
-            .nav {
-                padding-left: 40px;
-            }
+        .custom-dropdown-list.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
         }
+        
+        /* Custom Dropdown Option */
+        .custom-dropdown-option {
+            padding: 14px 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
+            margin-bottom: 4px;
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
+            background: linear-gradient(
+                135deg,
+                rgba(59, 130, 246, 0.35),
+                rgba(139, 92, 246, 0.35)
+            );
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            font-weight: 500;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+        
+        .custom-dropdown-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .custom-dropdown-option:hover {
+            background: linear-gradient(
+                90deg,
+                rgba(59, 130, 246, 0.7),
+                rgba(139, 92, 246, 0.7)
+            );
+            backdrop-filter: blur(80px) saturate(250%);
+            -webkit-backdrop-filter: blur(80px) saturate(250%);
+            border: 1px solid rgba(59, 130, 246, 0.8);
+            color: white;
+            transform: translateX(4px) scale(1.02);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                inset 3px 0 0 0 #3b82f6,
+                0 4px 20px rgba(59, 130, 246, 0.6),
+                0 0 35px rgba(139, 92, 246, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+        
+        .custom-dropdown-option.selected {
+            background: linear-gradient(
+                90deg,
+                rgba(59, 130, 246, 0.8),
+                rgba(139, 92, 246, 0.8)
+            );
+            backdrop-filter: blur(100px) saturate(280%);
+            -webkit-backdrop-filter: blur(100px) saturate(280%);
+            border: 1px solid #3b82f6;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            box-shadow: 
+                inset 3px 0 0 0 #3b82f6,
+                0 6px 25px rgba(59, 130, 246, 0.7),
+                0 0 45px rgba(139, 92, 246, 0.6),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Scrollbar for custom dropdown */
+        .custom-dropdown-list::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .custom-dropdown-list::-webkit-scrollbar-track {
+            background: linear-gradient(
+                135deg,
+                rgba(59, 130, 246, 0.08),
+                rgba(139, 92, 246, 0.08)
+            );
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+        
+        .custom-dropdown-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(
+                90deg,
+                #3b82f6,
+                #8b5cf6
+            );
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .custom-dropdown-list::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(
+                90deg,
+                #3b82f6,
+                #8b5cf6
+            );
+            box-shadow: 
+                0 0 15px rgba(59, 130, 246, 0.6),
+                0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Dropdown wrapper for positioning */
+        .dropdown-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        /* Dropdown Options List */
+        select option,
+        select.liquid-glass-dropdown option,
+        #serialPort option,
+        #mealTime option,
+        #editGender option,
+        #editRegion option,
+        #indianState option,
+        #fitnessLevel option,
+        #fitnessGoal option {
+            background: #1f2937 !important;
+            color: white !important;
+            padding: 12px !important;
+        }
+        
+        select option:checked,
+        select.liquid-glass-dropdown option:checked {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(99, 102, 241, 0.5)) !important;
+            color: white !important;
+            font-weight: 600 !important;
+        }
+        
+
+        
+        /* Extra small devices (300x600) */
+
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Floating Logo Overlay -->
         <div id="floatingLogo" style="position: fixed; top: 12px; left: 12px; z-index: 1000; display: flex; align-items: center; gap: 6px; animation: pulse 2s ease infinite;">
-            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #10b981, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-                    <path d="M2 17L12 22L22 17"/>
-                    <path d="M2 12L12 17L22 12"/>
-                </svg>
-            </div>
-            <div style="color: white; font-weight: 700; font-size: 1rem; background: rgba(255, 255, 255, 0.15); padding: 3px 10px; border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);">Healix</div>
+            <img src="logo.png" width="32" height="32" alt="Healix Logo" style="flex-shrink: 0;">
+            <div style="color: white; font-weight: 700; font-size: 1rem; background: rgba(255, 255, 255, 0.15); padding: 3px 10px; border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); white-space: nowrap; flex-shrink: 0;">Healix</div>
         </div>
         
         <!-- Toast Notification -->
@@ -974,7 +2379,7 @@
                 <div style="text-align: center; margin-bottom: 24px;">
                     <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; align-items: center; justify-content: center;">
                         <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01M3 12h.01M6 9h.01M6 15h.01M18 9h.01M18 15h.01M21 12h.01" />
                         </svg>
                     </div>
                     <p style="color: rgba(255,255,255,0.7);">Make sure your ESP32 is powered on and nearby</p>
@@ -1014,7 +2419,7 @@
                 
                 <div style="margin-bottom: 24px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500;">Serial Port</label>
-                    <select id="serialPort" style="width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 12px; color: white; outline: none; margin-bottom: 16px;">
+                    <select id="serialPort" class="liquid-glass-dropdown">
                         <option value="">Select a serial port</option>
                     </select>
                     <button class="btn btn-secondary" onclick="requestSerialPort()" style="width: 100%;">Select Port</button>
@@ -1057,8 +2462,7 @@
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <input type="text" id="mealName" placeholder="Meal name" 
                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none;">
-                    <select id="mealTime" 
-                            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none;">
+                    <select id="mealTime" class="liquid-glass-dropdown">
                         <option value="breakfast">Breakfast</option>
                         <option value="lunch">Lunch</option>
                         <option value="dinner">Dinner</option>
@@ -1159,7 +2563,7 @@
                     <!-- Gender Selection -->
                     <div style="display: flex; flex-direction: column; gap: 8px;">
                         <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Gender</label>
-                        <select id="editGender" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
+                        <select id="editGender" class="liquid-glass-dropdown">
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -1173,64 +2577,47 @@
                                style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
                     </div>
                     
-                    <!-- Region Selection -->
+                    <!-- State Selection -->
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Region</label>
-                        <select id="editRegion" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; outline: none; width: 100%;">
-                            <option value="">Select Region</option>
-                            <option value="afghanistan">Afghanistan</option>
-                            <option value="albania">Albania</option>
-                            <option value="algeria">Algeria</option>
-                            <option value="argentina">Argentina</option>
-                            <option value="australia">Australia</option>
-                            <option value="austria">Austria</option>
-                            <option value="bangladesh">Bangladesh</option>
-                            <option value="belgium">Belgium</option>
-                            <option value="brazil">Brazil</option>
-                            <option value="canada">Canada</option>
-                            <option value="china">China</option>
-                            <option value="denmark">Denmark</option>
-                            <option value="egypt">Egypt</option>
-                            <option value="finland">Finland</option>
-                            <option value="france">France</option>
-                            <option value="germany">Germany</option>
-                            <option value="greece">Greece</option>
-                            <option value="india">India</option>
-                            <option value="indonesia">Indonesia</option>
-                            <option value="iran">Iran</option>
-                            <option value="iraq">Iraq</option>
-                            <option value="ireland">Ireland</option>
-                            <option value="israel">Israel</option>
-                            <option value="italy">Italy</option>
-                            <option value="japan">Japan</option>
-                            <option value="kazakhstan">Kazakhstan</option>
-                            <option value="kenya">Kenya</option>
-                            <option value="korea">Korea</option>
-                            <option value="malaysia">Malaysia</option>
-                            <option value="mexico">Mexico</option>
-                            <option value="morocco">Morocco</option>
-                            <option value="netherlands">Netherlands</option>
-                            <option value="new zealand">New Zealand</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="norway">Norway</option>
-                            <option value="pakistan">Pakistan</option>
-                            <option value="philippines">Philippines</option>
-                            <option value="poland">Poland</option>
-                            <option value="portugal">Portugal</option>
-                            <option value="romania">Romania</option>
-                            <option value="russia">Russia</option>
-                            <option value="saudi arabia">Saudi Arabia</option>
-                            <option value="singapore">Singapore</option>
-                            <option value="south africa">South Africa</option>
-                            <option value="spain">Spain</option>
-                            <option value="sweden">Sweden</option>
-                            <option value="switzerland">Switzerland</option>
-                            <option value="thailand">Thailand</option>
-                            <option value="turkey">Turkey</option>
-                            <option value="ukraine">Ukraine</option>
-                            <option value="united kingdom">United Kingdom</option>
-                            <option value="united states">United States</option>
-                            <option value="vietnam">Vietnam</option>
+                        <label style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">State</label>
+                        <select id="editRegion" class="liquid-glass-dropdown">
+                            <option value="">Select State</option>
+                            <option value="andhra pradesh">Andhra Pradesh</option>
+                            <option value="arunachal pradesh">Arunachal Pradesh</option>
+                            <option value="assam">Assam</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                            <option value="goa">Goa</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="himachal pradesh">Himachal Pradesh</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="madhya pradesh">Madhya Pradesh</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="sikkim">Sikkim</option>
+                            <option value="tamil nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="tripura">Tripura</option>
+                            <option value="uttar pradesh">Uttar Pradesh</option>
+                            <option value="uttarakhand">Uttarakhand</option>
+                            <option value="west bengal">West Bengal</option>
+                            <option value="andaman and nicobar">Andaman and Nicobar Islands</option>
+                            <option value="chandigarh">Chandigarh</option>
+                            <option value="dadra and nagar haveli">Dadra and Nagar Haveli and Daman and Diu</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="jammu and kashmir">Jammu and Kashmir</option>
+                            <option value="ladakh">Ladakh</option>
+                            <option value="lakshadweep">Lakshadweep</option>
+                            <option value="puducherry">Puducherry</option>
                         </select>
                     </div>
                     
@@ -1274,7 +2661,7 @@
                     <div class="glass-card flex-between clickable" onclick="openBLEModal()" style="cursor: pointer;">
                         <div class="flex-center">
                             <svg class="text-blue" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01M3 12h.01M6 9h.01M6 15h.01M18 9h.01M18 15h.01M21 12h.01" />
                             </svg>
                             <div>
                                 <div style="font-weight: 600;">BLE Connection</div>
@@ -1306,7 +2693,7 @@
                 <div class="glass-card flex-between">
                     <div class="flex-center">
                         <svg id="connectionIcon" class="text-orange" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01M3 12h.01M6 9h.01M6 15h.01M18 9h.01M18 15h.01M21 12h.01" />
                         </svg>
                         <div>
                             <div style="font-weight: 600;" id="connectionTitle">Simulation Mode</div>
@@ -1333,23 +2720,25 @@
                 <!-- Gas Concentrations -->
                 <div class="glass-card">
                     <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px;">Environmental Data</h3>
-                    <div class="grid grid-4">
+                    <div class="grid grid-4" style="gap: 12px;">
                         <div class="glass-card stat-card">
                             <div class="gauge-value text-blue" id="coValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-purple" id="co2Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div class="gauge-value" style="color: #a78bfa;" id="co2Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO₂</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-yellow" id="nh3Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">NH₃</div>
+                            <div class="gauge-value" style="color: #8b5cf6;" id="otherGasesValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Other Gases</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-pink" id="otherGasesValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
-                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Other</div>
+                            <div class="gauge-value" style="color: #ec4899;" id="statMq135">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Total</div>
                         </div>
+                    </div>
+                    <div class="grid grid-2" style="gap: 12px; margin-top: 16px;">
                         <div class="glass-card stat-card">
                             <div class="gauge-value text-orange" id="statTemp">22<span style="font-size: 0.875rem; margin-left: 4px;">°C</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Temperature</div>
@@ -1357,6 +2746,96 @@
                         <div class="glass-card stat-card">
                             <div class="gauge-value text-cyan" id="statHumidity">60<span style="font-size: 0.875rem; margin-left: 4px;">%</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indian AQI System -->
+                <div class="glass-card">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <svg class="text-blue" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Indian AQI - State Air Quality
+                    </h3>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.875rem; margin-bottom: 8px; font-weight: 500;">Select State/City</label>
+                        <select id="indianState" onchange="fetchIndianAQI()" class="liquid-glass-dropdown">
+                            <option value="delhi" style="background: #1e293b; color: white; padding: 8px;">Delhi</option>
+                            <option value="mumbai" style="background: #1e293b; color: white; padding: 8px;">Mumbai, Maharashtra</option>
+                            <option value="bangalore" style="background: #1e293b; color: white; padding: 8px;">Bangalore, Karnataka</option>
+                            <option value="kolkata" style="background: #1e293b; color: white; padding: 8px;">Kolkata, West Bengal</option>
+                            <option value="chennai" style="background: #1e293b; color: white; padding: 8px;">Chennai, Tamil Nadu</option>
+                            <option value="hyderabad" style="background: #1e293b; color: white; padding: 8px;">Hyderabad, Telangana</option>
+                            <option value="pune" style="background: #1e293b; color: white; padding: 8px;">Pune, Maharashtra</option>
+                            <option value="ahmedabad" style="background: #1e293b; color: white; padding: 8px;">Ahmedabad, Gujarat</option>
+                            <option value="jaipur" style="background: #1e293b; color: white; padding: 8px;">Jaipur, Rajasthan</option>
+                            <option value="lucknow" style="background: #1e293b; color: white; padding: 8px;">Lucknow, Uttar Pradesh</option>
+                            <option value="kanpur" style="background: #1e293b; color: white; padding: 8px;">Kanpur, Uttar Pradesh</option>
+                            <option value="nagpur" style="background: #1e293b; color: white; padding: 8px;">Nagpur, Maharashtra</option>
+                            <option value="indore" style="background: #1e293b; color: white; padding: 8px;">Indore, Madhya Pradesh</option>
+                            <option value="bhopal" style="background: #1e293b; color: white; padding: 8px;">Bhopal, Madhya Pradesh</option>
+                            <option value="patna" style="background: #1e293b; color: white; padding: 8px;">Patna, Bihar</option>
+                            <option value="chandigarh" style="background: #1e293b; color: white; padding: 8px;">Chandigarh</option>
+                            <option value="guwahati" style="background: #1e293b; color: white; padding: 8px;">Guwahati, Assam</option>
+                            <option value="thiruvananthapuram" style="background: #1e293b; color: white; padding: 8px;">Thiruvananthapuram, Kerala</option>
+                            <option value="kochi" style="background: #1e293b; color: white; padding: 8px;">Kochi, Kerala</option>
+                            <option value="kannur" style="background: #1e293b; color: white; padding: 8px;">Kannur, Kerala</option>
+                            <option value="visakhapatnam" style="background: #1e293b; color: white; padding: 8px;">Visakhapatnam, Andhra Pradesh</option>
+                            <option value="vijayawada" style="background: #1e293b; color: white; padding: 8px;">Vijayawada, Andhra Pradesh</option>
+                            <option value="surat" style="background: #1e293b; color: white; padding: 8px;">Surat, Gujarat</option>
+                            <option value="vadodara" style="background: #1e293b; color: white; padding: 8px;">Vadodara, Gujarat</option>
+                            <option value="rajkot" style="background: #1e293b; color: white; padding: 8px;">Rajkot, Gujarat</option>
+                            <option value="coimbatore" style="background: #1e293b; color: white; padding: 8px;">Coimbatore, Tamil Nadu</option>
+                            <option value="madurai" style="background: #1e293b; color: white; padding: 8px;">Madurai, Tamil Nadu</option>
+                            <option value="nashik" style="background: #1e293b; color: white; padding: 8px;">Nashik, Maharashtra</option>
+                            <option value="aurangabad" style="background: #1e293b; color: white; padding: 8px;">Aurangabad, Maharashtra</option>
+                            <option value="ludhiana" style="background: #1e293b; color: white; padding: 8px;">Ludhiana, Punjab</option>
+                            <option value="amritsar" style="background: #1e293b; color: white; padding: 8px;">Amritsar, Punjab</option>
+                            <option value="agra" style="background: #1e293b; color: white; padding: 8px;">Agra, Uttar Pradesh</option>
+                            <option value="varanasi" style="background: #1e293b; color: white; padding: 8px;">Varanasi, Uttar Pradesh</option>
+                            <option value="meerut" style="background: #1e293b; color: white; padding: 8px;">Meerut, Uttar Pradesh</option>
+                            <option value="noida" style="background: #1e293b; color: white; padding: 8px;">Noida, Uttar Pradesh</option>
+                            <option value="gurgaon" style="background: #1e293b; color: white; padding: 8px;">Gurgaon, Haryana</option>
+                            <option value="faridabad" style="background: #1e293b; color: white; padding: 8px;">Faridabad, Haryana</option>
+                        </select>
+                    </div>
+
+                    <div id="indianAQICard" class="glass-card" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%); padding: 20px; margin-bottom: 16px;">
+                        <div class="flex-between" style="margin-bottom: 12px;">
+                            <div>
+                                <div style="font-size: 3rem; font-weight: bold;" id="indianAQIValue">--</div>
+                                <div style="font-size: 1.125rem; font-weight: 600; text-transform: uppercase;" id="indianAQICategory">Loading...</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.875rem; opacity: 0.9;" id="indianAQICity">--</div>
+                                <div style="font-size: 0.75rem; opacity: 0.7;" id="indianAQITime">--</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.875rem; opacity: 0.95; line-height: 1.5;" id="indianAQIMessage">Select a state to view AQI data</div>
+                    </div>
+
+                    <div class="grid grid-2" style="gap: 12px;">
+                        <div class="glass-card" style="padding: 12px; text-align: center;">
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">PM2.5</div>
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #22d3ee;" id="indianPM25">--</div>
+                        </div>
+                        <div class="glass-card" style="padding: 12px; text-align: center;">
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-bottom: 4px;">PM10</div>
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #fbbf24;" id="indianPM10">--</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; font-size: 0.75rem; line-height: 1.6;">
+                        <div style="font-weight: 600; margin-bottom: 8px;">Indian AQI Scale:</div>
+                        <div style="display: grid; gap: 4px;">
+                            <div><span style="color: #10b981;">●</span> 0-50: Good</div>
+                            <div><span style="color: #3b82f6;">●</span> 51-100: Satisfactory</div>
+                            <div><span style="color: #f59e0b;">●</span> 101-200: Moderate</div>
+                            <div><span style="color: #ef4444;">●</span> 201-300: Poor</div>
+                            <div><span style="color: #dc2626;">●</span> 301-400: Very Poor</div>
+                            <div><span style="color: #991b1b;">●</span> 401-500: Severe</div>
                         </div>
                     </div>
                 </div>
@@ -1369,88 +2848,123 @@
         <div id="tab-workout" class="tab-content">
             <div class="grid">
                 <div style="text-align: center; animation: fadeInUp 0.5s ease;">
-                    <h2 class="gradient-text" style="font-size: 2rem; font-weight: bold; margin-bottom: 8px;">Workout Tracker</h2>
-                    <p style="color: rgba(255,255,255,0.7);">Track your fitness journey</p>
+                    <h2 class="gradient-text" style="font-size: 2rem; font-weight: bold; margin-bottom: 8px;">AI Workout Planner</h2>
+                    <p style="color: rgba(255,255,255,0.7);">Get personalized workout plans with exercises & schedules</p>
                 </div>
 
-                <!-- Streak Card -->
-                <div class="glass-card" style="background: linear-gradient(90deg, rgba(249,115,22,0.2), rgba(239,68,68,0.2)); animation: scaleIn 0.5s ease;">
-                    <div class="flex-between">
-                        <div>
-                            <div class="flex-center mb-2">
-                                <svg class="text-yellow" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
-                                </svg>
-                                <h3 style="font-size: 1.25rem; font-weight: 600;">Workout Streak</h3>
-                            </div>
-                            <div class="flex-center">
-                                <div>
-                                    <div class="text-orange" style="font-size: 2.5rem; font-weight: bold;">3</div>
-                                    <div style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">Current</div>
-                                </div>
-                                <div style="color: rgba(255,255,255,0.3); font-size: 2rem;">/</div>
-                                <div>
-                                    <div class="text-yellow" style="font-size: 2.5rem; font-weight: bold;">7</div>
-                                    <div style="font-size: 0.875rem; color: rgba(255,255,255,0.6);">Best</div>
-                                </div>
-                            </div>
-                        </div>
-                        <svg class="text-orange" width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="animation: pulse 2s ease infinite;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                <!-- Fitness Profile Card -->
+                <div class="glass-card" style="animation: scaleIn 0.5s ease;">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <svg class="text-blue" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
+                        Fitness Profile
+                    </h3>
+                    <div class="grid grid-2" style="gap: 16px;">
+                        <div>
+                            <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.875rem; margin-bottom: 8px; font-weight: 500;">Fitness Level</label>
+                            <select id="fitnessLevel" class="liquid-glass-dropdown">
+                                <option value="beginner">Beginner - New to fitness</option>
+                                <option value="intermediate">Intermediate - 6+ months experience</option>
+                                <option value="advanced">Advanced - 2+ years experience</option>
+                                <option value="expert">Expert - 5+ years experience</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.875rem; margin-bottom: 8px; font-weight: 500;">Goal</label>
+                            <select id="fitnessGoal" class="liquid-glass-dropdown">
+                                <option value="weight-loss">Weight Loss</option>
+                                <option value="muscle-gain">Muscle Gain</option>
+                                <option value="endurance">Endurance & Cardio</option>
+                                <option value="strength">Strength Training</option>
+                                <option value="general">General Fitness</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.875rem; margin-bottom: 8px; font-weight: 500;">Days per Week</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="range" id="workoutDays" min="3" max="7" value="5" style="flex: 1;">
+                            <span id="workoutDaysValue" style="color: white; font-weight: bold; min-width: 60px; font-size: 1.25rem;">5 days</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateWorkoutPlan()" style="margin-top: 16px; width: 100%;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        Generate AI Workout Plan
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearWorkoutPlan()" style="margin-top: 8px; width: 100%;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Clear Current Plan
+                    </button>
+                </div>
+
+                <!-- Current Plan Display -->
+                <div id="workoutPlanDisplay" style="display: none;">
+                    <!-- Weekly Schedule -->
+                    <div class="glass-card" style="animation: fadeInUp 0.6s ease;">
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <svg class="text-purple" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Weekly Schedule
+                        </h3>
+                        <div id="weeklySchedule" class="grid" style="gap: 12px;"></div>
+                    </div>
+
+                    <!-- Today's Workout -->
+                    <div class="glass-card" style="animation: fadeInUp 0.7s ease;">
+                        <div class="flex-between mb-4">
+                            <h3 style="font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                <svg class="text-orange" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                                </svg>
+                                <span id="todayWorkoutTitle">Today's Workout</span>
+                            </h3>
+                            <button class="btn btn-secondary" onclick="completeWorkout()" style="padding: 8px 16px;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Complete
+                            </button>
+                        </div>
+                        <div id="todayExercises"></div>
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
+                <!-- Workout Stats -->
                 <div class="grid grid-4">
                     <div class="glass-card stat-card">
                         <svg class="text-blue" width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 8px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <div class="text-blue" style="font-size: 1.5rem; font-weight: bold;">12</div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Total Workouts</div>
+                        <div class="text-blue" style="font-size: 1.5rem; font-weight: bold;" id="workoutsCompleted">0</div>
+                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Completed</div>
                     </div>
                     <div class="glass-card stat-card">
                         <svg class="text-orange" width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 8px;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                         </svg>
-                        <div class="text-orange" style="font-size: 1.5rem; font-weight: bold;">3420</div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Total Calories</div>
+                        <div class="text-orange" style="font-size: 1.5rem; font-weight: bold;" id="totalCaloriesBurned">0</div>
+                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Calories Burned</div>
                     </div>
                     <div class="glass-card stat-card">
                         <svg class="text-green" width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 8px;">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <div class="text-green" style="font-size: 1.5rem; font-weight: bold;">360</div>
+                        <div class="text-green" style="font-size: 1.5rem; font-weight: bold;" id="totalMinutes">0</div>
                         <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Total Minutes</div>
                     </div>
                     <div class="glass-card stat-card">
-                        <svg class="text-purple" width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 8px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        <svg class="text-yellow" width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 8px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
                         </svg>
-                        <div class="text-purple" style="font-size: 1.5rem; font-weight: bold;">285</div>
-                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Avg Calories</div>
+                        <div class="text-yellow" style="font-size: 1.5rem; font-weight: bold;" id="currentStreak">0</div>
+                        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Day Streak</div>
                     </div>
-                </div>
-
-                <!-- Empty State -->
-                <div>
-                    <div class="flex-between mb-4">
-                        <h3 style="font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                            <svg class="text-orange" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                            </svg>
-                            Recent Workouts
-                        </h3>
-                        <button class="btn btn-secondary" onclick="openWorkoutModal()" style="padding: 8px 16px;">
-                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                            </svg>
-                            Add
-                        </button>
-                    </div>
-                    <div id="workoutsList"></div>
                 </div>
             </div>
         </div>
@@ -1665,7 +3179,7 @@
                     <div style="display: flex; gap: 12px;">
                         <button class="btn btn-primary" onclick="openBLEModal()" style="flex: 1;">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01M3 12h.01M6 9h.01M6 15h.01M18 9h.01M18 15h.01M21 12h.01" />
                             </svg>
                             BLE Connect
                         </button>
@@ -1903,8 +3417,13 @@
                 if (userDoc.exists()) {
                     window.userData = userDoc.data();
                     updateProfileDisplay();
-                    loadWorkoutsFromFirebase(uid);
-                    loadNutritionFromFirebase(uid);
+                    // Make Firestore calls optional to avoid permission errors
+                    try {
+                        loadWorkoutsFromFirebase(uid);
+                        loadNutritionFromFirebase(uid);
+                    } catch (firestoreError) {
+                        console.log('Firestore sync disabled (no permissions):', firestoreError.message);
+                    }
                 } else {
                     // If no user document exists, create one with Firebase Auth data
                     const user = window.firebaseAuth.currentUser;
@@ -1925,7 +3444,7 @@
                     }
                 }
             } catch (error) {
-                console.error('Error loading user data:', error);
+                console.log('Firestore access error (working offline):', error.message);
                 // Fallback to Firebase Auth user data
                 const user = window.firebaseAuth.currentUser;
                 if (user) {
@@ -2158,17 +3677,6 @@
                                 }
                             }
                             
-                            if (data.nh3 !== undefined) {
-                                console.log('Updating NH3 value to:', data.nh3); // Debug line
-                                const nh3Element = document.getElementById('nh3Value');
-                                if (nh3Element) {
-                                    nh3Element.innerHTML = `${Math.round(data.nh3)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                                    console.log('NH3 element updated successfully'); // Debug line
-                                } else {
-                                    console.error('NH3 element not found');
-                                }
-                            }
-                            
                             if (data.otherGases !== undefined) {
                                 console.log('Updating Other Gases value to:', data.otherGases); // Debug line
                                 const otherElement = document.getElementById('otherGasesValue');
@@ -2273,35 +3781,29 @@
             try {
                 // Request BLE device
                 bleDevice = await navigator.bluetooth.requestDevice({
-                    filters: [{ name: 'SmartFit-Air-Monitor' }],
-                    optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
+                    filters: [{ name: CONFIG.ble.deviceName }],
+                    optionalServices: [CONFIG.ble.serviceUUID]
                 });
 
                 statusDiv.innerHTML = 'Connecting to ' + bleDevice.name + '...';
 
                 const server = await bleDevice.gatt.connect();
-                const service = await server.getPrimaryService('4fafc201-1fb5-459e-8fcc-c5c9c331914b');
+                const service = await server.getPrimaryService(CONFIG.ble.serviceUUID);
 
-                // Get all characteristics
-                bleCharacteristics.co = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a8');
-                bleCharacteristics.co2 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a9');
-                bleCharacteristics.nh3 = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26aa');
-                bleCharacteristics.otherGases = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ae');
-                bleCharacteristics.temperature = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ac');
-                bleCharacteristics.humidity = await service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26ad');
+                // Get all characteristics (using UUIDs from config.js)
+                bleCharacteristics.co = await service.getCharacteristic(CONFIG.ble.characteristics.mq9);
+                bleCharacteristics.co2 = await service.getCharacteristic(CONFIG.ble.characteristics.mq135);
+                bleCharacteristics.temperature = await service.getCharacteristic(CONFIG.ble.characteristics.temperature);
+                bleCharacteristics.humidity = await service.getCharacteristic(CONFIG.ble.characteristics.humidity);
 
                 // Subscribe to notifications
                 await bleCharacteristics.co.startNotifications();
                 await bleCharacteristics.co2.startNotifications();
-                await bleCharacteristics.nh3.startNotifications();
-                await bleCharacteristics.otherGases.startNotifications();
                 await bleCharacteristics.temperature.startNotifications();
                 await bleCharacteristics.humidity.startNotifications();
 
                 bleCharacteristics.co.addEventListener('characteristicvaluechanged', handleCOData);
                 bleCharacteristics.co2.addEventListener('characteristicvaluechanged', handleCO2Data);
-                bleCharacteristics.nh3.addEventListener('characteristicvaluechanged', handleNH3Data);
-                bleCharacteristics.otherGases.addEventListener('characteristicvaluechanged', handleOtherGasesData);
                 bleCharacteristics.temperature.addEventListener('characteristicvaluechanged', handleTempData);
                 bleCharacteristics.humidity.addEventListener('characteristicvaluechanged', handleHumidityData);
 
@@ -2326,45 +3828,166 @@
         }
 
         function handleCOData(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const coValue = parseFloat(value);
-            document.getElementById('mq9Value').textContent = Math.round(coValue); // Keep for compatibility
-            document.getElementById('statMq9').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('coValue').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            updateAirQualityStatus();
+            const dataView = event.target.value;
+            // Try Float32 first, fall back to text if needed
+            let coValue;
+            try {
+                if (dataView.byteLength === 4) {
+                    coValue = dataView.getFloat32(0, true); // true = little-endian
+                } else if (dataView.byteLength === 1) {
+                    coValue = dataView.getUint8(0);
+                } else {
+                    const value = new TextDecoder().decode(dataView);
+                    coValue = parseFloat(value);
+                }
+            } catch (e) {
+                const value = new TextDecoder().decode(dataView);
+                coValue = parseFloat(value);
+            }
+            
+            console.log('CO Data received:', coValue); // Debug
+            if (!isNaN(coValue)) {
+                document.getElementById('mq9Value').textContent = Math.round(coValue); // Keep for compatibility
+                document.getElementById('statMq9').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                document.getElementById('coValue').innerHTML = `${Math.round(coValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                updateAirQualityStatus();
+            }
         }
 
         function handleCO2Data(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const co2Value = parseFloat(value);
-            document.getElementById('co2Value').innerHTML = `${Math.round(co2Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            updateAirQualityStatus();
-        }
-
-        function handleNH3Data(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const nh3Value = parseFloat(value);
-            document.getElementById('nh3Value').innerHTML = `${Math.round(nh3Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            updateAirQualityStatus();
-        }
-
-        function handleOtherGasesData(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const otherGasesValue = parseFloat(value);
-            document.getElementById('otherGasesValue').innerHTML = `${Math.round(otherGasesValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            const dataView = event.target.value;
+            let co2Value, otherGasesValue;
+            
+            try {
+                // Parse the data as JSON string
+                const value = new TextDecoder().decode(dataView);
+                console.log('MQ135 Raw data received:', value);
+                
+                // Try to parse as JSON
+                const jsonData = JSON.parse(value);
+                
+                // Extract gas values
+                co2Value = parseFloat(jsonData.co2) || 0;
+                otherGasesValue = parseFloat(jsonData.other) || 0;
+                
+            } catch (e) {
+                // If JSON parsing fails, try to parse as a single float (backward compatibility)
+                try {
+                    if (dataView.byteLength === 4) {
+                        co2Value = dataView.getFloat32(0, true);
+                    } else if (dataView.byteLength === 1) {
+                        co2Value = dataView.getUint8(0);
+                    } else {
+                        const value = new TextDecoder().decode(dataView);
+                        co2Value = parseFloat(value);
+                    }
+                    // Set other gases to 0 if we can't parse them
+                    otherGasesValue = 0;
+                } catch (e2) {
+                    const value = new TextDecoder().decode(dataView);
+                    co2Value = parseFloat(value);
+                    otherGasesValue = 0;
+                }
+            }
+            
+            console.log('MQ135 Data parsed - CO2:', co2Value, 'Other:', otherGasesValue);
+            
+            // Update UI elements
+            if (!isNaN(co2Value)) {
+                document.getElementById('co2Value').innerHTML = `${Math.round(co2Value)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            }
+            
+            if (!isNaN(otherGasesValue)) {
+                document.getElementById('otherGasesValue').innerHTML = `${Math.round(otherGasesValue)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            }
+            
+            // Update total MQ135 value
+            const totalMq135 = (co2Value || 0) + (otherGasesValue || 0);
+            document.getElementById('statMq135').innerHTML = `${Math.round(totalMq135)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            
             updateAirQualityStatus();
         }
 
         function handleTempData(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const temp = parseFloat(value);
-            document.getElementById('statTemp').innerHTML = `${temp.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
+            const dataView = event.target.value;
+            console.log('🌡️ Temperature - Raw bytes:', dataView.byteLength, 'First byte:', dataView.getUint8(0));
+            
+            let temp;
+            try {
+                // Try Float32 first (most common for ESP32)
+                if (dataView.byteLength === 4) {
+                    temp = dataView.getFloat32(0, true); // little-endian
+                    console.log('📊 Decoded as Float32:', temp);
+                } 
+                // Try Uint16 (2 bytes, sometimes used for temperature * 10)
+                else if (dataView.byteLength === 2) {
+                    temp = dataView.getUint16(0, true) / 10.0; // Divide by 10 if scaled
+                    console.log('📊 Decoded as Uint16/10:', temp);
+                }
+                // Try Uint8 (1 byte)
+                else if (dataView.byteLength === 1) {
+                    temp = dataView.getUint8(0);
+                    console.log('📊 Decoded as Uint8:', temp);
+                } 
+                // Try as text string
+                else {
+                    const value = new TextDecoder().decode(dataView);
+                    temp = parseFloat(value);
+                    console.log('📊 Decoded as String:', value, '→', temp);
+                }
+            } catch (e) {
+                console.error('❌ Decoding error:', e);
+                const value = new TextDecoder().decode(dataView);
+                temp = parseFloat(value);
+            }
+            
+            console.log('✅ Final Temperature:', temp, '°C');
+            if (!isNaN(temp) && temp > -50 && temp < 100) { // Sanity check
+                document.getElementById('statTemp').innerHTML = `${temp.toFixed(1)}<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
+            } else {
+                console.warn('⚠️ Invalid temperature value:', temp);
+            }
         }
 
         function handleHumidityData(event) {
-            const value = new TextDecoder().decode(event.target.value);
-            const humidity = parseFloat(value);
-            document.getElementById('statHumidity').innerHTML = `${humidity.toFixed(0)}<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
+            const dataView = event.target.value;
+            console.log('💧 Humidity - Raw bytes:', dataView.byteLength, 'First byte:', dataView.getUint8(0));
+            
+            let humidity;
+            try {
+                // Try Float32 first (most common for ESP32)
+                if (dataView.byteLength === 4) {
+                    humidity = dataView.getFloat32(0, true); // little-endian
+                    console.log('📊 Decoded as Float32:', humidity);
+                } 
+                // Try Uint16 (2 bytes, sometimes used for humidity * 10)
+                else if (dataView.byteLength === 2) {
+                    humidity = dataView.getUint16(0, true) / 10.0;
+                    console.log('📊 Decoded as Uint16/10:', humidity);
+                }
+                // Try Uint8 (1 byte)
+                else if (dataView.byteLength === 1) {
+                    humidity = dataView.getUint8(0);
+                    console.log('📊 Decoded as Uint8:', humidity);
+                } 
+                // Try as text string
+                else {
+                    const value = new TextDecoder().decode(dataView);
+                    humidity = parseFloat(value);
+                    console.log('📊 Decoded as String:', value, '→', humidity);
+                }
+            } catch (e) {
+                console.error('❌ Decoding error:', e);
+                const value = new TextDecoder().decode(dataView);
+                humidity = parseFloat(value);
+            }
+            
+            console.log('✅ Final Humidity:', humidity, '%');
+            if (!isNaN(humidity) && humidity >= 0 && humidity <= 100) { // Sanity check
+                document.getElementById('statHumidity').innerHTML = `${humidity.toFixed(1)}<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
+            } else {
+                console.warn('⚠️ Invalid humidity value:', humidity);
+            }
         }
 
 
@@ -2376,7 +3999,7 @@
             
             if (connected) {
                 icon.className = 'text-green';
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />';
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01M3 12h.01M6 9h.01M6 15h.01M18 9h.01M18 15h.01M21 12h.01" />';
                 title.textContent = 'ESP32 Connected';
                 subtitle.textContent = 'Real-time sensor data';
                 dot.style.background = '#10b981';
@@ -2418,12 +4041,10 @@
         function updateAirQualityStatus() {
             const co = parseFloat(document.getElementById('coValue').textContent) || 0;
             const co2 = parseFloat(document.getElementById('co2Value').textContent) || 0;
-            const nh3 = parseFloat(document.getElementById('nh3Value').textContent) || 0;
-            // NOx removed from calculation
             const otherGases = parseFloat(document.getElementById('otherGasesValue').textContent) || 0;
             
-            // Calculate weighted average for air quality (redistributed weights)
-            const avg = (co * 0.35 + co2 * 0.3 + nh3 * 0.2 + otherGases * 0.15) / 1.0;
+            // Calculate weighted average for air quality (CO, CO2, and other gases)
+            const avg = (co * 0.4 + co2 * 0.4 + otherGases * 0.2) / 1.0;
 
             const card = document.getElementById('airQualityCard');
             const level = document.getElementById('airQualityLevel');
@@ -2438,20 +4059,21 @@
                 recommendations += '🔔 Elevated CO levels. Improve ventilation. ';
             }
             
-            if (co2 > 2000) {
-                recommendations += '⚠️ High CO₂ levels. Poor ventilation detected. Open windows or use air purifier. ';
-            } else if (co2 > 1000) {
-                recommendations += '🔔 Elevated CO₂ levels. Consider improving air circulation. ';
+            if (co2 > 1000) {
+                recommendations += '⚠️ High CO₂ levels (>1000 ppm). Poor ventilation - may cause drowsiness and poor concentration. Open windows or use air purifier. ';
+            } else if (co2 > 800) {
+                recommendations += '🔔 Elevated CO₂ levels (800-1000 ppm). Air quality is acceptable but consider improving ventilation. ';
+            } else if (co2 >= 400) {
+                recommendations += '✓ Good CO₂ levels (400-800 ppm). Air quality is good. ';
+            } else if (co2 > 0) {
+                recommendations += '✓ Excellent CO₂ levels (<400 ppm). Optimal air quality. ';
             }
             
-            if (nh3 > 50) {
-                recommendations += '⚠️ High NH₃ levels detected. Check for ammonia sources. ';
-            }
-            
-            // NOx recommendation removed
-            
-            if (otherGases > 30) {
-                recommendations += '⚠️ High levels of other gases detected. ';
+            // Add recommendations for other gases
+            if (otherGases > 200) {
+                recommendations += '⚠️ High levels of other gases detected. Ensure proper ventilation. ';
+            } else if (otherGases > 150) {
+                recommendations += '🔔 Elevated levels of other gases. Monitor air quality. ';
             }
 
             if (avg < 50) {
@@ -2475,6 +4097,216 @@
             // Trim any trailing spaces
             message.textContent = message.textContent.trim();
         }
+
+        // Update gas status indicators based on thresholds
+        function updateGasStatus(gasType, value) {
+            let statusElement, statusTextElement, status, message, bgColor, borderColor;
+            
+            switch(gasType) {
+                case 'nh3':
+                    statusElement = document.getElementById('nh3Status');
+                    statusTextElement = document.getElementById('nh3StatusText');
+                    // NH3 thresholds: < 25 ppm (Normal), 25-50 ppm (Moderate), > 50 ppm (High)
+                    if (value < 25) {
+                        status = 'Normal';
+                        message = 'Safe levels';
+                        bgColor = 'rgba(16, 185, 129, 0.2)';
+                        borderColor = 'rgba(16, 185, 129, 0.5)';
+                    } else if (value < 50) {
+                        status = 'Moderate';
+                        message = 'Monitor levels';
+                        bgColor = 'rgba(245, 158, 11, 0.2)';
+                        borderColor = 'rgba(245, 158, 11, 0.5)';
+                    } else {
+                        status = 'High';
+                        message = 'Ventilate area';
+                        bgColor = 'rgba(239, 68, 68, 0.2)';
+                        borderColor = 'rgba(239, 68, 68, 0.5)';
+                    }
+                    break;
+                    
+                case 'nox':
+                    statusElement = document.getElementById('noxStatus');
+                    statusTextElement = document.getElementById('noxStatusText');
+                    // NOx thresholds: < 30 ppm (Normal), 30-100 ppm (Moderate), > 100 ppm (High)
+                    if (value < 30) {
+                        status = 'Normal';
+                        message = 'Safe levels';
+                        bgColor = 'rgba(16, 185, 129, 0.2)';
+                        borderColor = 'rgba(16, 185, 129, 0.5)';
+                    } else if (value < 100) {
+                        status = 'Moderate';
+                        message = 'Monitor levels';
+                        bgColor = 'rgba(245, 158, 11, 0.2)';
+                        borderColor = 'rgba(245, 158, 11, 0.5)';
+                    } else {
+                        status = 'High';
+                        message = 'Ventilate area';
+                        bgColor = 'rgba(239, 68, 68, 0.2)';
+                        borderColor = 'rgba(239, 68, 68, 0.5)';
+                    }
+                    break;
+                    
+                case 'other':
+                    statusElement = document.getElementById('otherGasesStatus');
+                    statusTextElement = document.getElementById('otherGasesStatusText');
+                    // Other gases thresholds: < 150 ppm (Normal), 150-200 ppm (Moderate), > 200 ppm (High)
+                    if (value < 150) {
+                        status = 'Normal';
+                        message = 'Safe levels';
+                        bgColor = 'rgba(16, 185, 129, 0.2)';
+                        borderColor = 'rgba(16, 185, 129, 0.5)';
+                    } else if (value < 200) {
+                        status = 'Moderate';
+                        message = 'Monitor levels';
+                        bgColor = 'rgba(245, 158, 11, 0.2)';
+                        borderColor = 'rgba(245, 158, 11, 0.5)';
+                    } else {
+                        status = 'High';
+                        message = 'Ventilate area';
+                        bgColor = 'rgba(239, 68, 68, 0.2)';
+                        borderColor = 'rgba(239, 68, 68, 0.5)';
+                    }
+                    break;
+                    
+                default:
+                    return;
+            }
+            
+            // Update UI
+            statusElement.style.display = 'block';
+            statusElement.style.background = bgColor;
+            statusElement.style.border = `1px solid ${borderColor}`;
+            statusTextElement.textContent = `${status} (${message})`;
+        }
+
+        // Indian AQI System - Fetch real-time data from AQICN API
+        async function fetchIndianAQI() {
+            const city = document.getElementById('indianState').value;
+            const aqiCard = document.getElementById('indianAQICard');
+            const aqiValue = document.getElementById('indianAQIValue');
+            const aqiCategory = document.getElementById('indianAQICategory');
+            const aqiCity = document.getElementById('indianAQICity');
+            const aqiTime = document.getElementById('indianAQITime');
+            const aqiMessage = document.getElementById('indianAQIMessage');
+            const pm25Element = document.getElementById('indianPM25');
+            const pm10Element = document.getElementById('indianPM10');
+
+            // Show loading state
+            aqiValue.textContent = '...';
+            aqiCategory.textContent = 'Loading...';
+            aqiMessage.textContent = 'Fetching latest AQI data from monitoring stations...';
+
+            try {
+                // Using real AQICN API with API key from config
+                const apiKey = CONFIG.aqicn.apiKey;
+                const endpoint = CONFIG.aqicn.endpoint;
+                
+                console.log(`🌐 Fetching AQI for: ${city}`);
+                
+                // Fetch data from AQICN API
+                const response = await fetch(`${endpoint}/${city}/?token=${apiKey}`);
+                const data = await response.json();
+
+                console.log('📊 AQI Response:', data);
+
+                if (data.status === 'ok' && data.data) {
+                    const aqi = data.data.aqi;
+                    const cityName = data.data.city.name;
+                    const timeData = data.data.time;
+                    
+                    // Format time properly
+                    const updateTime = new Date(timeData.iso || timeData.s);
+                    const formattedTime = updateTime.toLocaleString('en-IN', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    });
+                    
+                    // Get pollutant values (IAQI - Individual Air Quality Index)
+                    const iaqi = data.data.iaqi || {};
+                    const pm25 = iaqi.pm25 ? Math.round(iaqi.pm25.v) : '--';
+                    const pm10 = iaqi.pm10 ? Math.round(iaqi.pm10.v) : '--';
+                    const o3 = iaqi.o3 ? Math.round(iaqi.o3.v) : null;
+                    const no2 = iaqi.no2 ? Math.round(iaqi.no2.v) : null;
+                    const so2 = iaqi.so2 ? Math.round(iaqi.so2.v) : null;
+                    const co = iaqi.co ? Math.round(iaqi.co.v) : null;
+
+                    // Update values
+                    aqiValue.textContent = aqi;
+                    aqiCity.textContent = cityName;
+                    aqiTime.textContent = `Updated: ${formattedTime}`;
+                    pm25Element.textContent = pm25 !== '--' ? `${pm25} μg/m³` : '--';
+                    pm10Element.textContent = pm10 !== '--' ? `${pm10} μg/m³` : '--';
+
+                    // Determine category and color based on Indian AQI standards (CPCB)
+                    let category, bgColor, healthMessage;
+                    
+                    if (aqi <= 50) {
+                        category = 'Good';
+                        bgColor = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
+                        healthMessage = '✅ Air quality is satisfactory, and air pollution poses little or no risk. Minimal impact on health. Perfect for all outdoor activities!';
+                    } else if (aqi <= 100) {
+                        category = 'Satisfactory';
+                        bgColor = 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)';
+                        healthMessage = '👍 Air quality is acceptable. However, there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.';
+                    } else if (aqi <= 200) {
+                        category = 'Moderate';
+                        bgColor = 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)';
+                        healthMessage = '⚠️ Members of sensitive groups (children, elderly, people with respiratory/heart disease) may experience health effects. The general public is less likely to be affected. Consider reducing prolonged outdoor exertion.';
+                    } else if (aqi <= 300) {
+                        category = 'Poor';
+                        bgColor = 'linear-gradient(135deg, #ef4444 0%, #f97316 100%)';
+                        healthMessage = '🚫 Everyone may begin to experience health effects. Members of sensitive groups may experience more serious health effects. Avoid prolonged outdoor activities. Use N95 masks if going outside.';
+                    } else if (aqi <= 400) {
+                        category = 'Very Poor';
+                        bgColor = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                        healthMessage = '🚨 Health alert: The risk of respiratory effects is increased for everyone. Avoid all outdoor physical activities. Keep windows closed. Use air purifiers indoors. Wear N95/N99 masks if you must go out.';
+                    } else {
+                        category = 'Severe';
+                        bgColor = 'linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%)';
+                        healthMessage = '☠️ Health warning of emergency conditions: everyone is more likely to be affected. Serious health effects for entire population. Stay indoors with windows/doors closed. Do not go outside unless absolutely necessary. Use air purifiers.';
+                    }
+
+                    // Add dominant pollutant info if available
+                    if (data.data.dominentpol) {
+                        const pollutantNames = {
+                            'pm25': 'PM2.5 (Fine Particulate Matter)',
+                            'pm10': 'PM10 (Coarse Particulate Matter)',
+                            'o3': 'Ozone (O₃)',
+                            'no2': 'Nitrogen Dioxide (NO₂)',
+                            'so2': 'Sulfur Dioxide (SO₂)',
+                            'co': 'Carbon Monoxide (CO)'
+                        };
+                        const dominantPollutant = pollutantNames[data.data.dominentpol] || data.data.dominentpol.toUpperCase();
+                        healthMessage += ` \n\n🔴 Dominant Pollutant: ${dominantPollutant}`;
+                    }
+
+                    aqiCategory.textContent = category;
+                    aqiCard.style.background = bgColor;
+                    aqiMessage.textContent = healthMessage;
+
+                    console.log('✅ AQI data updated successfully');
+
+                } else if (data.status === 'error') {
+                    throw new Error(data.data || 'City not found or API error');
+                } else {
+                    throw new Error('Unable to fetch AQI data - invalid response');
+                }
+            } catch (error) {
+                console.error('❌ Error fetching Indian AQI:', error);
+                aqiValue.textContent = 'N/A';
+                aqiCategory.textContent = 'Error';
+                aqiMessage.textContent = `Unable to fetch AQI data for this location. ${error.message}. Please try selecting a different city or check your internet connection.`;
+                aqiCard.style.background = 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)';
+                pm25Element.textContent = '--';
+                pm10Element.textContent = '--';
+            }
+        }
+
+        // Auto-fetch AQI on page load
+        window.addEventListener('load', () => {
+            fetchIndianAQI();
+        });
 
         // Profile Management Functions
         let userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
@@ -3132,6 +4964,663 @@
             document.getElementById('workoutCalories').value = '';
         }
 
+        // AI Workout Planner Variables
+        let currentWorkoutPlan = null;
+        let workoutStats = {
+            completed: 0,
+            totalCaloriesBurned: 0,
+            totalMinutes: 0,
+            streak: 0
+        };
+
+        // Load workout stats from localStorage
+        function loadWorkoutStats() {
+            const saved = localStorage.getItem('workoutStats');
+            if (saved) {
+                workoutStats = JSON.parse(saved);
+                updateWorkoutStatsDisplay();
+            }
+        }
+
+        function updateWorkoutStatsDisplay() {
+            document.getElementById('workoutsCompleted').textContent = workoutStats.completed;
+            document.getElementById('totalCaloriesBurned').textContent = workoutStats.totalCaloriesBurned;
+            document.getElementById('totalMinutes').textContent = workoutStats.totalMinutes;
+            document.getElementById('currentStreak').textContent = workoutStats.streak;
+        }
+
+        // Generate AI Workout Plan
+        async function generateWorkoutPlan() {
+            const level = document.getElementById('fitnessLevel').value;
+            const goal = document.getElementById('fitnessGoal').value;
+            const days = parseInt(document.getElementById('workoutDays').value);
+            
+            // Get gender from user profile
+            const gender = userProfile.gender || 'general';
+
+            // Get current day of week
+            const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+
+            showToast('Generating your personalized workout plan... 🏋️');
+
+            try {
+                // Create detailed prompt based on level and goal
+                const levelGuidelines = {
+                    beginner: 'Focus on bodyweight exercises, proper form, and building foundational strength. Use 2-3 sets with higher reps (12-15). Include exercises like Push-ups, Squats, Lunges, Plank, Dumbbell Rows.',
+                    intermediate: 'Mix of compound and isolation exercises. Use 3-4 sets with moderate reps (8-12). Include exercises like Bench Press, Deadlifts, Pull-ups, Shoulder Press, Leg Press.',
+                    advanced: 'Advanced compound movements with progressive overload. Use 4-5 sets with varied rep ranges (6-12). Include exercises like Barbell Squats, Deadlifts, Bench Press, Pull-ups, Olympic lifts.',
+                    expert: 'Complex movements, supersets, and advanced techniques. Use 4-6 sets with intensity techniques. Include exercises like Front Squats, Romanian Deadlifts, Weighted Pull-ups, Overhead Press, Plyometrics.'
+                };
+
+                const goalGuidelines = {
+                    'weight-loss': 'High-intensity exercises with shorter rest periods (30-45s). Focus on compound movements and cardio. Include: Burpees, Jumping Jacks, Mountain Climbers, Jump Squats, High Knees, Running, Cycling.',
+                    'muscle-gain': 'Heavy compound lifts with longer rest (60-90s). Focus on progressive overload. Include: Bench Press, Squats, Deadlifts, Shoulder Press, Rows, Pull-ups, Dips.',
+                    'endurance': 'Moderate weight with high reps and circuit training. Include: Running, Cycling, Rowing, Jump Rope, Burpees, Box Jumps, Kettlebell Swings.',
+                    'strength': 'Heavy weights with low reps (4-6) and long rest (90-120s). Include: Deadlifts, Squats, Bench Press, Overhead Press, Barbell Rows, Pull-ups.',
+                    'general': 'Balanced mix of strength, cardio, and flexibility. Include: Push-ups, Squats, Lunges, Plank, Jumping Jacks, Burpees, Rows, Dumbbell Press.'
+                };
+                
+                const genderGuidelines = {
+                    male: 'Focus on upper body and compound movements. Include more pull-ups, bench press, and heavy squats.',
+                    female: 'Focus on lower body, glutes, and core. Include more glute bridges, hip thrusts, lunges, and core exercises. Use more bodyweight and resistance band exercises.',
+                    general: 'Balanced approach for all muscle groups.'
+                };
+
+                // Add timestamp to ensure unique plans each time
+                const timestamp = Date.now();
+                const randomSeed = Math.floor(Math.random() * 10000);
+                
+                const prompt = `You are a professional fitness trainer. Create a UNIQUE ${days}-day workout plan (Session ID: ${randomSeed}).
+
+User Profile:
+- Fitness Level: ${level}
+- Goal: ${goal}
+- Gender: ${gender}
+- Start Day: ${currentDay}
+
+Level Guidelines: ${levelGuidelines[level]}
+Goal Guidelines: ${goalGuidelines[goal]}
+Gender Guidelines: ${genderGuidelines[gender] || genderGuidelines.general}
+
+IMPORTANT RULES:
+1. Start the plan with ${currentDay} (today) - NEVER start with a rest day
+2. ${currentDay} MUST have a full workout
+3. Choose exercises appropriate for ${level} level, ${goal} goal, and ${gender} gender
+4. Each workout should have 5-7 exercises
+5. Vary the exercises across days - NO REPEATED EXERCISES within the same day
+6. Include rest periods appropriate for the goal
+7. For females, include more lower body and glute exercises
+8. For males, include more upper body compound movements
+9. CRITICAL: Create DIFFERENT exercises each time this is called - use variety and creativity
+10. Mix different exercise variations (e.g., if you used "Barbell Squat" before, use "Goblet Squat" or "Bulgarian Split Squat")
+
+EXERCISE VARIETY EXAMPLES:
+Push: Push-ups, Bench Press, Dumbbell Press, Incline Press, Decline Press, Diamond Push-ups, Pike Push-ups
+Pull: Pull-ups, Chin-ups, Lat Pulldown, Cable Rows, Dumbbell Rows, Barbell Rows, Face Pulls
+Legs: Squats, Lunges, Step-ups, Bulgarian Split Squats, Leg Press, Deadlifts, Romanian Deadlifts, Hip Thrusts, Glute Bridges
+Core: Planks, Crunches, Russian Twists, Bicycle Crunches, Leg Raises, Mountain Climbers, Dead Bugs
+Cardio: Burpees, Jumping Jacks, High Knees, Jump Rope, Box Jumps, Jump Squats, Mountain Climbers
+
+IMPORTANT: Include exactly one rest day per week in the schedule. The rest day should have a focus of "Rest Day" with a single exercise named "Rest and Recovery". The rest day should NOT be the first day (which is today).
+
+Return ONLY valid JSON (no markdown, no backticks, no explanations):
+{
+  "plan": [
+    {
+      "day": "${currentDay}",
+      "focus": "Upper Body" or "Lower Body" or "Full Body" or "Cardio" or "Push" or "Pull" or "Legs",
+      "exercises": [
+        {"name": "Exercise Name", "sets": 3, "reps": "10-12", "rest": "60s"},
+        {"name": "Another Exercise", "sets": 3, "reps": "8-10", "rest": "90s"}
+      ],
+      "duration": 45,
+      "calories": 300
+    },
+    {
+      "day": "Saturday",
+      "focus": "Rest Day",
+      "exercises": [
+        {"name": "Rest and Recovery", "sets": 1, "reps": "Full Day", "rest": "24 hours"}
+      ],
+      "duration": 0,
+      "calories": 0
+    }
+  ]
+}`;
+
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${CONFIG.groq.apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: CONFIG.groq.model,
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are a creative professional fitness trainer who creates unique and varied workout plans. Never repeat the same exercises. Use your extensive knowledge to provide diverse exercise variations. Always respond with valid JSON only, no markdown.'
+                            },
+                            {
+                                role: 'user',
+                                content: prompt
+                            }
+                        ],
+                        temperature: 0.9,
+                        max_tokens: 2500,
+                        top_p: 0.95
+                    })
+                });
+
+                const data = await response.json();
+                console.log('AI Response:', data);
+                
+                // Check if API response is valid
+                if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+                    throw new Error('Invalid API response or API key issue');
+                }
+                
+                let planText = data.choices[0].message.content.trim();
+                
+                // Clean up the response - remove markdown formatting if present
+                planText = planText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                console.log('Cleaned plan text:', planText);
+                
+                const workoutPlan = JSON.parse(planText);
+
+                currentWorkoutPlan = {
+                    level,
+                    goal,
+                    days,
+                    gender,
+                    startDay: currentDay,
+                    ...workoutPlan
+                };
+
+                // Save to localStorage
+                localStorage.setItem('currentWorkoutPlan', JSON.stringify(currentWorkoutPlan));
+
+                displayWorkoutPlan();
+                showToast('Workout plan generated successfully! 💪');
+
+            } catch (error) {
+                console.error('Error generating workout plan:', error);
+                
+                // Show more helpful error message
+                if (error.message && error.message.includes('API')) {
+                    showToast('⚠️ API unavailable. Using offline workout plan.');
+                } else {
+                    showToast('Using offline workout plan.');
+                }
+                
+                // Fallback plan
+                createFallbackPlan(level, goal, days);
+            }
+        }
+
+        function createFallbackPlan(level, goal, days) {
+            const exercisesByGoal = {
+                'weight-loss': [
+                    {name: 'Jumping Jacks', sets: 3, reps: '30-40', rest: '30s'},
+                    {name: 'Burpees', sets: 3, reps: '10-15', rest: '45s'},
+                    {name: 'Mountain Climbers', sets: 3, reps: '20-30', rest: '30s'},
+                    {name: 'High Knees', sets: 3, reps: '30-40', rest: '30s'},
+                    {name: 'Jump Squats', sets: 3, reps: '12-15', rest: '45s'}
+                ],
+                'muscle-gain': [
+                    {name: 'Push-ups', sets: 4, reps: '10-12', rest: '60s'},
+                    {name: 'Squats', sets: 4, reps: '12-15', rest: '60s'},
+                    {name: 'Dumbbell Rows', sets: 4, reps: '10-12', rest: '60s'},
+                    {name: 'Lunges', sets: 3, reps: '12-15', rest: '60s'},
+                    {name: 'Plank', sets: 3, reps: '45-60s', rest: '45s'}
+                ],
+                'endurance': [
+                    {name: 'Running', sets: 1, reps: '20-30 min', rest: '0s'},
+                    {name: 'Cycling', sets: 1, reps: '25-35 min', rest: '0s'},
+                    {name: 'Jump Rope', sets: 3, reps: '2-3 min', rest: '60s'},
+                    {name: 'Rowing', sets: 3, reps: '5 min', rest: '90s'}
+                ],
+                'strength': [
+                    {name: 'Deadlift', sets: 4, reps: '8-10', rest: '90s'},
+                    {name: 'Bench Press', sets: 4, reps: '8-10', rest: '90s'},
+                    {name: 'Squats', sets: 4, reps: '10-12', rest: '90s'},
+                    {name: 'Pull-ups', sets: 3, reps: '6-8', rest: '90s'},
+                    {name: 'Shoulder Press', sets: 3, reps: '10-12', rest: '60s'}
+                ],
+                'general': [
+                    {name: 'Push-ups', sets: 3, reps: '10-15', rest: '60s'},
+                    {name: 'Squats', sets: 3, reps: '15-20', rest: '60s'},
+                    {name: 'Lunges', sets: 3, reps: '12-15', rest: '60s'},
+                    {name: 'Plank', sets: 3, reps: '30-45s', rest: '45s'},
+                    {name: 'Jumping Jacks', sets: 3, reps: '20-30', rest: '30s'}
+                ]
+            };
+
+            // Get current day and following days
+            const currentDayIndex = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const allDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            
+            // Reorder days starting from current day
+            const orderedDays = [];
+            for (let i = 0; i < 7; i++) {
+                orderedDays.push(allDayNames[(currentDayIndex + i) % 7]);
+            }
+
+            const plan = [];
+            const focusAreas = goal === 'weight-loss' ? ['Cardio', 'HIIT', 'Full Body', 'Cardio', 'HIIT'] : 
+                             goal === 'muscle-gain' ? ['Upper Body', 'Lower Body', 'Full Body', 'Upper Body', 'Lower Body'] :
+                             goal === 'endurance' ? ['Cardio', 'Endurance', 'Cardio', 'Endurance', 'Cardio'] :
+                             goal === 'strength' ? ['Push', 'Pull', 'Legs', 'Push', 'Pull'] :
+                             ['Full Body', 'Upper Body', 'Lower Body', 'Full Body', 'Cardio'];
+
+            // Create workout days (never start with rest)
+            for (let i = 0; i < days; i++) {
+                // Add one rest day per week (but not on the first day)
+                if (i > 0 && i % 6 === 5) { // Every 6th day starting from day 5 (Saturday in a week starting Monday)
+                    plan.push({
+                        day: orderedDays[i],
+                        focus: 'Rest Day',
+                        exercises: [
+                            {name: 'Rest and Recovery', sets: 1, reps: 'Full Day', rest: '24 hours'}
+                        ],
+                        duration: 0,
+                        calories: 0
+                    });
+                } else {
+                    plan.push({
+                        day: orderedDays[i],
+                        focus: focusAreas[i % focusAreas.length],
+                        exercises: exercisesByGoal[goal] || exercisesByGoal['general'],
+                        duration: goal === 'endurance' ? 50 : 45,
+                        calories: goal === 'weight-loss' ? 400 : goal === 'endurance' ? 350 : 300
+                    });
+                }
+            }
+
+            currentWorkoutPlan = { 
+                level, 
+                goal, 
+                days, 
+                startDay: orderedDays[0],
+                plan 
+            };
+            localStorage.setItem('currentWorkoutPlan', JSON.stringify(currentWorkoutPlan));
+            displayWorkoutPlan();
+        }
+
+        function displayWorkoutPlan() {
+            if (!currentWorkoutPlan) return;
+
+            document.getElementById('workoutPlanDisplay').style.display = 'block';
+
+            // Get current day for highlighting
+            const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+
+            // Display weekly schedule
+            const scheduleHTML = currentWorkoutPlan.plan.map((day, index) => {
+                const isToday = day.day === currentDay;
+                const dayLabel = isToday ? `${day.day} (Today)` : day.day;
+                
+                // Special styling for rest days
+                const isRestDay = day.focus === 'Rest Day';
+                const cardStyle = isToday ? 'border: 2px solid #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);' : '';
+                const focusStyle = isRestDay ? 'color: #f59e0b; font-weight: bold;' : 'color: rgba(255,255,255,0.7);';
+                
+                return `
+                <div class="glass-card clickable" onclick="showDayWorkout(${index})" style="padding: 16px; cursor: pointer; transition: all 0.3s; ${cardStyle}">
+                    <div class="flex-between">
+                        <div>
+                            <div style="font-weight: 600; font-size: 1rem; ${isToday ? 'color: #10b981;' : ''}">${dayLabel}</div>
+                            <div style="font-size: 0.875rem; ${focusStyle}">${day.focus}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="text-orange" style="font-size: 1.125rem; font-weight: bold;">${day.duration} min</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">${day.calories} kcal</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+
+            document.getElementById('weeklySchedule').innerHTML = scheduleHTML;
+
+            // Show today's workout (first day in plan which is current day)
+            showDayWorkout(0);
+        }
+
+        async function showDayWorkout(dayIndex) {
+            if (!currentWorkoutPlan || !currentWorkoutPlan.plan[dayIndex]) return;
+
+            const dayWorkout = currentWorkoutPlan.plan[dayIndex];
+            document.getElementById('todayWorkoutTitle').textContent = `${dayWorkout.day} - ${dayWorkout.focus}`;
+
+            // Special handling for rest days
+            if (dayWorkout.focus === 'Rest Day') {
+                const exercisesContainer = document.getElementById('todayExercises');
+                exercisesContainer.innerHTML = `
+                    <div class="glass-card" style="text-align: center; padding: 48px 24px;">
+                        <svg class="text-yellow" width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 24px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                        </svg>
+                        <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 16px;">Rest and Recovery Day</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            Take this day to rest, recover, and prepare for your next workout session. 
+                            Focus on hydration, proper nutrition, and light stretching if desired.
+                        </p>
+                        <div style="background: rgba(245, 158, 11, 0.1); border-radius: 12px; padding: 24px; max-width: 500px; margin: 0 auto;">
+                            <h4 style="font-weight: 600; margin-bottom: 12px; color: #f59e0b;">Rest Day Benefits:</h4>
+                            <ul style="text-align: left; color: rgba(255,255,255,0.8); font-size: 0.875rem;">
+                                <li style="margin-bottom: 8px;">Muscle recovery and growth</li>
+                                <li style="margin-bottom: 8px;">Prevents overtraining and injury</li>
+                                <li style="margin-bottom: 8px;">Mental recovery and motivation</li>
+                                <li>Improved sleep quality</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Create exercise cards with loading state
+            const exercisesContainer = document.getElementById('todayExercises');
+            exercisesContainer.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">Loading exercises...</p>';
+
+            // Clear container
+            exercisesContainer.innerHTML = '';
+
+            // Create exercise cards using DOM methods
+            dayWorkout.exercises.forEach((exercise, index) => {
+                const initials = exercise.name.split(' ').map(word => word[0]).join('').toUpperCase().substring(0, 2);
+                
+                // Create card container
+                const card = document.createElement('div');
+                card.className = 'glass-card';
+                card.style.cssText = 'padding: 16px; margin-bottom: 12px;';
+                
+                // Create content wrapper
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'flex-between mb-3';
+                
+                // Exercise info section
+                const infoSection = document.createElement('div');
+                infoSection.style.flex = '1';
+                
+                const nameDiv = document.createElement('div');
+                nameDiv.style.cssText = 'font-weight: 600; font-size: 1.125rem; margin-bottom: 8px;';
+                nameDiv.textContent = exercise.name;
+                
+                const detailsDiv = document.createElement('div');
+                detailsDiv.style.cssText = 'display: flex; gap: 16px; font-size: 0.875rem; color: rgba(255,255,255,0.7);';
+                detailsDiv.innerHTML = '<span>' + exercise.sets + ' sets</span><span>' + exercise.reps + ' reps</span><span>' + exercise.rest + ' rest</span>';
+                
+                infoSection.appendChild(nameDiv);
+                infoSection.appendChild(detailsDiv);
+                
+                // Initials badge section (without image)
+                const badgeSection = document.createElement('div');
+                badgeSection.style.cssText = 'margin-left: 16px;';
+                
+                // Create initials badge
+                const badge = document.createElement('div');
+                badge.style.cssText = 'width: 120px; height: 120px; border-radius: 12px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;';
+                badge.textContent = initials;
+                badgeSection.appendChild(badge);
+                
+                contentWrapper.appendChild(infoSection);
+                contentWrapper.appendChild(badgeSection);
+                
+                // Swap button
+                const swapBtn = document.createElement('button');
+                swapBtn.className = 'btn btn-secondary';
+                swapBtn.style.cssText = 'width: 100%; padding: 8px; margin-top: 8px;';
+                swapBtn.textContent = "Can't Do This - Swap Exercise";
+                swapBtn.onclick = function() { swapExercise(dayIndex, index, exercise.name); };
+                
+                card.appendChild(contentWrapper);
+                card.appendChild(swapBtn);
+                
+                exercisesContainer.appendChild(card);
+            });
+            
+            console.log('Exercise cards created:', dayWorkout.exercises.length);
+        }
+
+        function completeWorkout() {
+            if (!currentWorkoutPlan) {
+                showToast('No active workout plan!');
+                return;
+            }
+
+            // Get current day's workout (using first day for demo)
+            const dayWorkout = currentWorkoutPlan.plan[0];
+            
+            // Don't add stats for rest days
+            if (dayWorkout.focus === 'Rest Day') {
+                workoutStats.completed++;
+                workoutStats.streak++;
+                
+                // Save stats
+                localStorage.setItem('workoutStats', JSON.stringify(workoutStats));
+                updateWorkoutStatsDisplay();
+                
+                showToast('🎉 Rest day completed! Great job taking care of your recovery!');
+                return;
+            }
+            
+            // Update stats for regular workout days
+            workoutStats.completed++;
+            workoutStats.totalCaloriesBurned += dayWorkout.calories;
+            workoutStats.totalMinutes += dayWorkout.duration;
+            workoutStats.streak++;
+
+            // Save stats
+            localStorage.setItem('workoutStats', JSON.stringify(workoutStats));
+            updateWorkoutStatsDisplay();
+
+            showToast('🎉 Workout completed! Great job! +' + dayWorkout.calories + ' calories burned!');
+        }
+
+        // Clear workout plan
+        function clearWorkoutPlan() {
+            if (confirm('Are you sure you want to clear your current workout plan?')) {
+                currentWorkoutPlan = null;
+                localStorage.removeItem('currentWorkoutPlan');
+                document.getElementById('workoutPlanDisplay').style.display = 'none';
+                showToast('Workout plan cleared! Generate a new one.');
+            }
+        }
+        
+        // Swap exercise with AI alternative
+        async function swapExercise(dayIndex, exerciseIndex, exerciseName) {
+            if (!currentWorkoutPlan || !currentWorkoutPlan.plan[dayIndex]) return;
+            
+            const button = event.target.closest('button');
+            button.disabled = true;
+            button.innerHTML = '<span class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span> Finding alternative...';
+            
+            try {
+                const currentExercise = currentWorkoutPlan.plan[dayIndex].exercises[exerciseIndex];
+                const level = currentWorkoutPlan.level || 'intermediate';
+                const goal = currentWorkoutPlan.goal || 'general';
+                const gender = currentWorkoutPlan.gender || 'general';
+                const focus = currentWorkoutPlan.plan[dayIndex].focus;
+                
+                const prompt = `You are a fitness trainer. The user cannot do "${exerciseName}" exercise.
+                
+Provide ONE alternative exercise with similar muscle groups and difficulty.
+                
+User Profile:
+                - Level: ${level}
+                - Goal: ${goal}
+                - Gender: ${gender}
+                - Focus: ${focus}
+                - Sets: ${currentExercise.sets}
+                - Reps: ${currentExercise.reps}
+                
+IMPORTANT:
+                - The alternative should target the same muscle groups
+                - Same difficulty level for ${level}
+                - Appropriate for ${gender}
+                - Do NOT suggest: ${exerciseName}
+                
+Return ONLY valid JSON (no markdown):
+                {"name": "Alternative Exercise", "sets": ${currentExercise.sets}, "reps": "${currentExercise.reps}", "rest": "${currentExercise.rest}"}`;
+                
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${CONFIG.groq.apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: CONFIG.groq.model,
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are a fitness expert. Provide alternative exercises. Always respond with valid JSON only, no markdown.'
+                            },
+                            {
+                                role: 'user',
+                                content: prompt
+                            }
+                        ],
+                        temperature: 0.8,
+                        max_tokens: 200
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Check if API response is valid
+                if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+                    throw new Error('Invalid API response or API key issue');
+                }
+                
+                let alternativeText = data.choices[0].message.content.trim();
+                alternativeText = alternativeText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                
+                const alternative = JSON.parse(alternativeText);
+                console.log('Alternative exercise:', alternative);
+                
+                // Update the exercise in the plan
+                currentWorkoutPlan.plan[dayIndex].exercises[exerciseIndex] = alternative;
+                
+                // Save updated plan
+                localStorage.setItem('currentWorkoutPlan', JSON.stringify(currentWorkoutPlan));
+                
+                // Refresh the display
+                await showDayWorkout(dayIndex);
+                
+                showToast(`✅ Swapped "${exerciseName}" with "${alternative.name}"!`);
+                
+            } catch (error) {
+                console.error('Error swapping exercise:', error);
+                showToast('⚠️ Could not swap exercise. API unavailable.');
+                button.disabled = false;
+                button.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg> Can't Do This - Swap Exercise`;
+            }
+        }
+
+        // Load workout plan on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadWorkoutStats();
+            const savedPlan = localStorage.getItem('currentWorkoutPlan');
+            if (savedPlan) {
+                currentWorkoutPlan = JSON.parse(savedPlan);
+                displayWorkoutPlan();
+            }
+            
+            // Update workout days slider
+            const workoutDaysSlider = document.getElementById('workoutDays');
+            if (workoutDaysSlider) {
+                workoutDaysSlider.addEventListener('input', (e) => {
+                    document.getElementById('workoutDaysValue').textContent = `${e.target.value} days`;
+                });
+            }
+            
+            // Initialize custom dropdowns
+            initCustomDropdowns();
+        });
+        
+        // Custom Dropdown System
+        function initCustomDropdowns() {
+            const selects = document.querySelectorAll('select');
+            
+            selects.forEach(select => {
+                // Create wrapper
+                const wrapper = document.createElement('div');
+                wrapper.className = 'dropdown-wrapper';
+                select.parentNode.insertBefore(wrapper, select);
+                wrapper.appendChild(select);
+                
+                // Create custom list
+                const customList = document.createElement('div');
+                customList.className = 'custom-dropdown-list';
+                
+                // Get all options and create custom options
+                const options = Array.from(select.options);
+                options.forEach(option => {
+                    const customOption = document.createElement('div');
+                    customOption.className = 'custom-dropdown-option';
+                    customOption.textContent = option.textContent;
+                    customOption.dataset.value = option.value;
+                    
+                    // Mark selected
+                    if (option.selected) {
+                        customOption.classList.add('selected');
+                    }
+                    
+                    // Click handler
+                    customOption.addEventListener('click', () => {
+                        // Update select value
+                        select.value = option.value;
+                        
+                        // Update selected class
+                        customList.querySelectorAll('.custom-dropdown-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        customOption.classList.add('selected');
+                        
+                        // Trigger change event
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                        
+                        // Close dropdown
+                        customList.classList.remove('active');
+                    });
+                    
+                    customList.appendChild(customOption);
+                });
+                
+                wrapper.appendChild(customList);
+                
+                // Toggle dropdown on select click
+                select.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+                        if (list !== customList) {
+                            list.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle this dropdown
+                    customList.classList.toggle('active');
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown-wrapper')) {
+                    document.querySelectorAll('.custom-dropdown-list').forEach(list => {
+                        list.classList.remove('active');
+                    });
+                }
+            });
+        }
+
         function saveWorkout() {
             const name = document.getElementById('workoutName').value;
             const duration = parseInt(document.getElementById('workoutDuration').value);
@@ -3160,6 +5649,12 @@
 
         function renderWorkouts() {
             const container = document.getElementById('workoutsList');
+            
+            // Check if container exists
+            if (!container) {
+                console.log('Workouts list container not found, skipping render');
+                return;
+            }
             
             if (workouts.length === 0) {
                 container.innerHTML = `
@@ -3638,6 +6133,22 @@
             if (e.target.id === 'goalsEditorModal') closeGoalsEditor();
         });
 
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
+            });
+        });
+
         // Air Quality Simulation (only when not connected to real sensors)
         function updateAirQuality() {
             // Skip simulation if connected to real sensors
@@ -3646,21 +6157,17 @@
             // Show 0 values when not connected instead of random values
             const co = 0;
             const co2 = 0;
-            const nh3 = 0;
-            const nox = 0;
             const otherGases = 0;
             
             // Update gauge values
             document.getElementById('coValue').innerHTML = `${Math.round(co)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             document.getElementById('co2Value').innerHTML = `${Math.round(co2)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('nh3Value').innerHTML = `${Math.round(nh3)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('noxValue').innerHTML = `${Math.round(nox)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             document.getElementById('otherGasesValue').innerHTML = `${Math.round(otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             document.getElementById('statMq9').innerHTML = `${Math.round(co)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-            document.getElementById('statMq135').innerHTML = `${Math.round(co2 + nh3 + nox + otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+            document.getElementById('statMq135').innerHTML = `${Math.round(co2 + otherGases)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
             
             // Determine air quality level
-            const avg = (co * 0.3 + co2 * 0.25 + nh3 * 0.2 + nox * 0.15 + otherGases * 0.1) / 1.0;
+            const avg = (co * 0.4 + co2 * 0.4 + otherGases * 0.2) / 1.0;
             const card = document.getElementById('airQualityCard');
             const level = document.getElementById('airQualityLevel');
             const message = document.getElementById('airQualityMessage');
@@ -3686,7 +6193,10 @@
 
         // Update temperature and humidity
         function updateEnvironment() {
-            // Show 0 values when not connected instead of random values
+            // Skip if connected to real sensors - BLE handlers will update values
+            if (isConnected) return;
+            
+            // Show 0 values when not connected
             const temp = 0;
             const humidity = 0;
             
@@ -3707,8 +6217,6 @@
                 document.getElementById('statMq135').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('coValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('co2Value').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                document.getElementById('nh3Value').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
-                document.getElementById('noxValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('otherGasesValue').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
                 document.getElementById('statTemp').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">°C</span>`;
                 document.getElementById('statHumidity').innerHTML = `0<span style="font-size: 0.875rem; margin-left: 4px;">%</span>`;
@@ -3716,7 +6224,8 @@
                 // Update air quality status
                 updateAirQualityStatus();
             }
-            // When connected, the BLE/USB handlers will update the values in real-time
+            // When connected, the BLE/USB handlers update values in real-time
+            // DO NOT overwrite temperature and humidity when connected!
         }
 
         // Calorie slider
@@ -3741,8 +6250,55 @@
         // setInterval(updateAirQuality, 3000);
         // setInterval(updateEnvironment, 5000);
 
-        // Smooth scroll on tab change
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Enhanced smooth scroll on tab change with offset
+        function smoothScrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }
+        
+        // Call on initial load
+        smoothScrollToTop();
+
+        // Test function for JSON gas data parsing
+        function testGasDataParsing() {
+            console.log('🧪 Testing gas data parsing...');
+            
+            // Test JSON data
+            const testData = '{"co2":450,"other":67}';
+            
+            try {
+                const parsed = JSON.parse(testData);
+                console.log('✅ JSON parsing successful:', parsed);
+                console.log('   CO2:', parsed.co2);
+                console.log('   Other:', parsed.other);
+                
+                // Test updating UI elements
+                if (document.getElementById('co2Value')) {
+                    document.getElementById('co2Value').innerHTML = `${Math.round(parsed.co2)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                }
+                if (document.getElementById('otherGasesValue')) {
+                    document.getElementById('otherGasesValue').innerHTML = `${Math.round(parsed.other)}<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span>`;
+                }
+                
+                console.log('✅ UI update successful');
+                return true;
+            } catch (error) {
+                console.error('❌ JSON parsing failed:', error);
+                return false;
+            }
+        }
+
+        // Run test on page load
+        window.addEventListener('load', () => {
+            // Only run test in development mode
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                setTimeout(testGasDataParsing, 1000);
+            }
+        });
 
         // Firebase Helper Functions
         async function saveWorkoutToFirebase(workout) {
@@ -3831,11 +6387,13 @@
             }
         }
         
-        // Tab switching functionality
+        // Enhanced tab switching functionality with smooth animations
         function switchTab(tabName) {
-            // Hide all tab contents
+            // Hide all tab contents with fade out effect
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => {
+                tab.style.opacity = '0';
+                tab.style.transition = 'opacity 0.3s ease';
                 tab.classList.remove('active');
             });
             
@@ -3845,10 +6403,18 @@
                 btn.classList.remove('active');
             });
             
-            // Show the selected tab content
+            // Show the selected tab content with fade in effect
             const activeTab = document.getElementById(`tab-${tabName}`);
             if (activeTab) {
-                activeTab.classList.add('active');
+                // Wait a bit for fade out, then show new tab
+                setTimeout(() => {
+                    activeTab.classList.add('active');
+                    activeTab.style.opacity = '0';
+                    activeTab.style.transition = 'opacity 0.4s ease';
+                    // Trigger reflow
+                    void activeTab.offsetWidth;
+                    activeTab.style.opacity = '1';
+                }, 150);
             }
             
             // Add active class to the clicked nav button
@@ -3856,6 +6422,14 @@
             if (activeButton) {
                 activeButton.classList.add('active');
             }
+            
+            // Smooth scroll to top with slight delay to allow tab transition
+            setTimeout(() => {
+                window.scrollTo({ 
+                    top: 0, 
+                    behavior: 'smooth'
+                });
+            }, 300);
         }
         
         // Initialize tab switching
@@ -3881,9 +6455,11 @@
             }
         });
         
-        // Handle scroll effect for floating logo
+        // Handle scroll effect for floating logo with performance optimization
         let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
+        let ticking = false;
+        
+        function updateFloatingLogo() {
             const floatingLogo = document.getElementById('floatingLogo');
             if (!floatingLogo) return;
             
@@ -3901,7 +6477,92 @@
             floatingLogo.style.transition = 'opacity 0.3s ease';
             
             lastScrollTop = scrollTop;
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateFloatingLogo);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+
+        // Enhanced scroll animation observer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create observer for scroll animations with better options
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add staggered delay for better visual flow
+                        const delay = index * 0.1;
+                        entry.target.style.transitionDelay = `${delay}s`;
+                        entry.target.classList.add('visible');
+                        
+                        // Remove from observer after animation to prevent re-triggering
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe elements with scroll animation classes
+            document.querySelectorAll('.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .staggered-animation').forEach((el, index) => {
+                // Set delay index for staggered animations
+                if (el.classList.contains('staggered-animation')) {
+                    el.style.setProperty('--delay-index', index % 10);
+                }
+                observer.observe(el);
+            });
+
+            // Add scroll animations to existing elements
+            addScrollAnimations();
         });
+
+        // Enhanced function to add scroll animations to elements
+        function addScrollAnimations() {
+            // Add animations to main sections
+            const sections = document.querySelectorAll('.glass-card, .header, .stat-card, button, input, select');
+            
+            sections.forEach((section, index) => {
+                // Skip sections that already have animation classes
+                if (section.classList.contains('scroll-fade-in') || 
+                    section.classList.contains('scroll-slide-left') || 
+                    section.classList.contains('scroll-slide-right') || 
+                    section.classList.contains('scroll-scale-up') ||
+                    section.classList.contains('staggered-animation')) {
+                    return;
+                }
+                
+                // Apply different animations based on position
+                if (index % 4 === 0) {
+                    section.classList.add('scroll-fade-in');
+                } else if (index % 4 === 1) {
+                    section.classList.add('scroll-slide-left');
+                } else if (index % 4 === 2) {
+                    section.classList.add('scroll-slide-right');
+                } else {
+                    section.classList.add('scroll-scale-up');
+                }
+                
+                // Add staggered animation to child elements for better flow
+                const children = section.querySelectorAll('*');
+                children.forEach((child, childIndex) => {
+                    // Only apply to direct children that are not already animated
+                    if (!child.classList.contains('scroll-fade-in') && 
+                        !child.classList.contains('scroll-slide-left') && 
+                        !child.classList.contains('scroll-slide-right') && 
+                        !child.classList.contains('scroll-scale-up') &&
+                        !child.classList.contains('staggered-animation')) {
+                        child.classList.add('staggered-animation');
+                        child.style.setProperty('--delay-index', childIndex % 8);
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// EcoWise Configuration File
+// Healix Configuration File
 // Replace these values with your actual API keys
 
 const CONFIG = {
@@ -16,7 +16,7 @@ const CONFIG = {
 
     // Groq API Configuration
     groq: {
-        apiKey: "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",
+        apiKey: "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",
         model: "llama-3.1-8b-instant",
         maxTokens: 500
     },
@@ -47,6 +47,22 @@ const CONFIG = {
     foodApi: {
         apiKey: "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",  // Using Groq API key
         endpoint: "https://api.groq.com/openai/v1/chat/completions"
+    },
+
+    // ExerciseDB API Configuration (Free - no API key needed for basic usage)
+    exerciseDB: {
+        // Using free endpoints - no API key required
+        endpoint: "https://exercisedb.p.rapidapi.com",
+        // For production, get a free API key from: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb
+        apiKey: "fb3df676dfmshd8d90c7ff9c1330p1bea54jsn5a662cc8b482",  // Optional: Add your RapidAPI key for higher limits
+        useProxy: true  // Use CORS proxy for free tier
+    },
+
+    // AQICN API Configuration (Free API for real-time air quality data)
+    aqicn: {
+        // Get your free API key from: https://aqicn.org/data-platform/token/
+        apiKey: "f4f42f11a05819096e37a20d7593e0600dea2268",  // Free tier: 1000 requests/day
+        endpoint: "https://api.waqi.info/feed"
     }
 };
 

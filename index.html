@@ -20,13 +20,15 @@
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gas-reading-color: #ffffff;
+            --gas-reading-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
         }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+            background: linear-gradient(135deg, #050a14 0%, #2a0a3a 50%, #050a14 100%);
             background-size: 200% 200%;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 20s ease infinite;
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
@@ -34,12 +36,18 @@
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+            font-size: 1.8em; /* Further increased from 1.5em for better visibility */
         }
 
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* Optimize all animations for performance */
+        *, *::before, *::after {
+            will-change: auto;
         }
 
         @keyframes fadeInUp {
@@ -165,7 +173,8 @@
         .scroll-fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, opacity;
         }
 
         .scroll-fade-in.visible {
@@ -175,8 +184,9 @@
 
         .scroll-slide-left {
             opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(30px);
+            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, opacity;
         }
 
         .scroll-slide-left.visible {
@@ -186,8 +196,9 @@
 
         .scroll-slide-right {
             opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(-30px);
+            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, opacity;
         }
 
         .scroll-slide-right.visible {
@@ -198,7 +209,8 @@
         .scroll-scale-up {
             opacity: 0;
             transform: scale(0.9);
-            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, opacity;
         }
 
         .scroll-scale-up.visible {
@@ -209,9 +221,10 @@
         /* Staggered animations for better visual flow */
         .staggered-animation {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transition-delay: calc(var(--delay-index, 0) * 0.1s);
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: calc(var(--delay-index, 0) * 0.08s);
+            will-change: transform, opacity;
         }
 
         .staggered-animation.visible {
@@ -227,23 +240,19 @@
         }
 
         .glass-card {
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 32px;
-            padding: 24px;
-            transition: all 0.3s ease;
+            border-radius: 36px;
+            padding: 30px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            will-change: background, box-shadow;
         }
 
         .glass-card:hover {
             background: rgba(255, 255, 255, 0.15);
             box-shadow: 0 12px 48px 0 rgba(0, 0, 0, 0.5);
-            transform: translateY(-4px) scale(1.02);
-        }
-
-        .glass-card {
-            will-change: transform;
         }
 
         /* Optimize scroll animations performance */
@@ -265,16 +274,17 @@
         }
 
         .btn {
-            padding: 12px 24px;
-            border-radius: 16px;
+            padding: 16px 30px;
+            border-radius: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
             border: none;
-            font-size: 14px;
+            font-size: 16px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            will-change: transform, box-shadow;
         }
 
         .btn-primary {
@@ -284,34 +294,34 @@
         }
 
         .btn-primary:hover {
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.8);
-            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.6);
+            transform: translateY(-2px);
         }
 
         .btn-primary:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(0);
         }
 
         .btn-secondary {
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(12px);
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
         }
 
         .btn-secondary:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(0);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 24px 16px 120px;
+            padding: 30px 20px 140px;
             min-height: 100vh;
         }
 
@@ -322,14 +332,14 @@
         }
 
         .header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .header p {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
+            font-size: 1.3rem;
         }
 
         .nav {
@@ -339,7 +349,7 @@
             right: 0;
             backdrop-filter: blur(16px);
             background: rgba(255, 255, 255, 0.1);
-            padding: 12px 16px;
+            padding: 6px 12px;
             z-index: 1000;
         }
 
@@ -347,25 +357,37 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
+            gap: 5px;
         }
 
         .nav-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            padding: 8px 16px;
+            gap: 6px;
+            padding: 8px 15px;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: color 0.3s ease, transform 0.3s ease;
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.5);
             position: relative;
-            transform: scale(1);
             overflow: hidden;
+            font-size: 14px;
+            flex: 1;
+            min-width: 60px;
+            text-align: center;
+            will-change: transform;
+        }
+
+        .nav-btn[data-tab="nutrition"], .nav-btn[data-tab="workout"] {
+            flex: 1.3;
+            font-weight: 600;
+            min-width: 75px;
         }
 
         .nav-btn::after {
@@ -388,13 +410,17 @@
         }
 
         .nav-btn:hover {
-            transform: translateY(-4px) scale(1.05);
+            transform: translateY(-2px);
             color: rgba(255, 255, 255, 0.8);
         }
 
         .nav-btn.active {
             color: white;
-            transform: translateY(-6px) scale(1.1);
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:not(.active) {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .nav-btn.active::before {
@@ -404,7 +430,7 @@
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             opacity: 0.3;
             border-radius: 16px;
-            animation: navGlow 2s ease-in-out infinite;
+            animation: navGlow 3s ease-in-out infinite;
         }
 
         @keyframes navGlow {
@@ -420,14 +446,14 @@
         }
 
         .nav-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
         }
 
         .nav-btn span {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
-            display: none;
+            display: block;
         }
 
         .nav-btn.active span {
@@ -445,7 +471,7 @@
 
         .grid {
             display: grid;
-            gap: 24px;
+            gap: 30px;
         }
 
         .grid-2 {
@@ -459,11 +485,13 @@
         .stat-card {
             text-align: center;
             animation: scaleIn 0.5s ease;
+            padding: 30px;
+            font-size: 1.3rem;
         }
 
 
         .gauge-value {
-            font-size: 1.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
         }
 
@@ -576,7 +604,7 @@
 
         /* Apply animations to elements */
         .glass-card, .stat-card, .nav-btn, .btn, .workout-card, .meal-card {
-            animation-duration: 0.5s;
+            animation-duration: 0.4s;
             animation-fill-mode: both;
         }
 
@@ -719,8 +747,8 @@
             }
             
             #floatingLogo img {
-                width: 32px;
-                height: 32px;
+                width: 48px;
+                height: 48px;
             }
         }
         
@@ -751,22 +779,22 @@
             }
             
             #floatingLogo div:first-child {
-                width: 24px !important;
-                height: 24px !important;
-                min-width: 24px !important;
-                min-height: 24px !important;
-                max-width: 24px !important;
-                max-height: 24px !important;
+                width: 36px !important;
+                height: 36px !important;
+                min-width: 36px !important;
+                min-height: 36px !important;
+                max-width: 36px !important;
+                max-height: 36px !important;
                 flex-shrink: 0;
                 border-radius: 50% !important;
                 aspect-ratio: 1 / 1 !important;
             }
             
             #floatingLogo img {
-                width: 32px !important;
-                height: 32px !important;
-                min-width: 32px !important;
-                min-height: 32px !important;
+                width: 48px !important;
+                height: 48px !important;
+                min-width: 48px !important;
+                min-height: 48px !important;
                 flex-shrink: 0;
             }
             
@@ -1209,19 +1237,19 @@
             }
             
             #floatingLogo div:first-child {
-                width: 14px !important;
-                height: 14px !important;
-                min-width: 14px !important;
-                min-height: 14px !important;
-                max-width: 14px !important;
-                max-height: 14px !important;
+                width: 21px !important;
+                height: 21px !important;
+                min-width: 21px !important;
+                min-height: 21px !important;
+                max-width: 21px !important;
+                max-height: 21px !important;
                 aspect-ratio: 1 / 1 !important;
                 border-radius: 50% !important;
             }
             
             #floatingLogo img {
-                width: 24px !important;
-                height: 24px !important;
+                width: 36px !important;
+                height: 36px !important;
             }
             
             #floatingLogo div:last-child {
@@ -1291,6 +1319,14 @@
                 gap: 1px !important;
                 min-height: 36px !important;
                 font-size: 7px !important;
+                flex: 1 !important;
+                min-width: auto !important;
+            }
+
+            .nav-btn[data-tab="nutrition"], .nav-btn[data-tab="workout"] {
+                flex: 1.3 !important;
+                font-weight: 600 !important;
+                min-width: 50px !important;
             }
             
             .nav-btn svg {
@@ -1593,7 +1629,7 @@
             }
             
             .nav {
-                padding: 4px 1px !important;
+                padding: 3px 1px !important;
                 bottom: 0 !important;
             }
             
@@ -1602,20 +1638,27 @@
             }
             
             .nav-btn {
-                padding: 4px 1px !important;
+                padding: 3px 1px !important;
                 gap: 1px !important;
-                min-height: 44px !important;
-                font-size: 9px !important;
+                min-height: 36px !important;
+                font-size: 8px !important;
                 flex: 1 !important;
+                min-width: auto !important;
+            }
+
+            .nav-btn[data-tab="nutrition"], .nav-btn[data-tab="workout"] {
+                flex: 1.3 !important;
+                font-weight: 600 !important;
+                min-width: 55px !important;
             }
             
             .nav-btn svg {
-                width: 16px !important;
-                height: 16px !important;
+                width: 14px !important;
+                height: 14px !important;
             }
             
             .nav-btn span {
-                font-size: 8px !important;
+                font-size: 7px !important;
                 display: block !important;
             }
             
@@ -2046,13 +2089,13 @@
             }
             
             #floatingLogo div:first-child {
-                width: 32px;
-                height: 32px;
+                width: 48px;
+                height: 48px;
             }
             
             #floatingLogo img {
-                width: 16px;
-                height: 16px;
+                width: 48px;
+                height: 48px;
             }
             
             #floatingLogo div:last-child {
@@ -2357,7 +2400,7 @@
     <div class="container">
         <!-- Floating Logo Overlay -->
         <div id="floatingLogo" style="position: fixed; top: 12px; left: 12px; z-index: 1000; display: flex; align-items: center; gap: 6px; animation: pulse 2s ease infinite;">
-            <img src="logo.png" width="32" height="32" alt="Healix Logo" style="flex-shrink: 0;">
+            <img src="logo.png" width="64" height="64" alt="Healix Logo" style="flex-shrink: 0;">
             <div style="color: white; font-weight: 700; font-size: 1rem; background: rgba(255, 255, 255, 0.15); padding: 3px 10px; border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); white-space: nowrap; flex-shrink: 0;">Healix</div>
         </div>
         
@@ -2722,29 +2765,29 @@
                     <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 16px;">Environmental Data</h3>
                     <div class="grid grid-4" style="gap: 12px;">
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-blue" id="coValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div class="gauge-value text-blue" id="coValue" style="color: #ff5252 !important; text-shadow: 0 0 10px rgba(255, 82, 82, 0.8) !important;">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value" style="color: #a78bfa;" id="co2Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div class="gauge-value" style="color: #4caf50 !important; text-shadow: 0 0 10px rgba(76, 175, 80, 0.8) !important;" id="co2Value">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">CO₂</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value" style="color: #8b5cf6;" id="otherGasesValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div class="gauge-value" style="color: #2196f3 !important; text-shadow: 0 0 10px rgba(33, 150, 243, 0.8) !important;" id="otherGasesValue">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Other Gases</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value" style="color: #ec4899;" id="statMq135">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
+                            <div class="gauge-value" style="color: #ffeb3b !important; text-shadow: 0 0 10px rgba(255, 235, 59, 0.8) !important;" id="statMq135">0<span style="font-size: 0.875rem; margin-left: 4px;">ppm</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Total</div>
                         </div>
                     </div>
                     <div class="grid grid-2" style="gap: 12px; margin-top: 16px;">
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-orange" id="statTemp">22<span style="font-size: 0.875rem; margin-left: 4px;">°C</span></div>
+                            <div class="gauge-value text-orange" id="statTemp" style="color: #ff9800 !important; text-shadow: 0 0 10px rgba(255, 152, 0, 0.8) !important;">22<span style="font-size: 0.875rem; margin-left: 4px;">°C</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Temperature</div>
                         </div>
                         <div class="glass-card stat-card">
-                            <div class="gauge-value text-cyan" id="statHumidity">60<span style="font-size: 0.875rem; margin-left: 4px;">%</span></div>
+                            <div class="gauge-value text-cyan" id="statHumidity" style="color: #00bcd4 !important; text-shadow: 0 0 10px rgba(0, 188, 212, 0.8) !important;">60<span style="font-size: 0.875rem; margin-left: 4px;">%</span></div>
                             <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 4px;">Humidity</div>
                         </div>
                     </div>
@@ -3473,6 +3516,11 @@
         let chatHistory = [];
         let scannedFoodData = null;
         let currentUser = null;
+        
+        // Throttling for sensor updates to improve performance
+        let sensorUpdateTimeout = null;
+        let lastSensorUpdate = 0;
+        const SENSOR_UPDATE_THROTTLE = 100; // ms
 
         // Check user session
         const userSession = localStorage.getItem('healix_user');
@@ -3828,6 +3876,13 @@
         }
 
         function handleCOData(event) {
+            // Throttle sensor updates for better performance
+            const now = Date.now();
+            if (now - lastSensorUpdate < SENSOR_UPDATE_THROTTLE) {
+                return;
+            }
+            lastSensorUpdate = now;
+            
             const dataView = event.target.value;
             // Try Float32 first, fall back to text if needed
             let coValue;
@@ -3855,6 +3910,13 @@
         }
 
         function handleCO2Data(event) {
+            // Throttle sensor updates for better performance
+            const now = Date.now();
+            if (now - lastSensorUpdate < SENSOR_UPDATE_THROTTLE) {
+                return;
+            }
+            lastSensorUpdate = now;
+            
             const dataView = event.target.value;
             let co2Value, otherGasesValue;
             
@@ -3909,6 +3971,13 @@
         }
 
         function handleTempData(event) {
+            // Throttle sensor updates for better performance
+            const now = Date.now();
+            if (now - lastSensorUpdate < SENSOR_UPDATE_THROTTLE) {
+                return;
+            }
+            lastSensorUpdate = now;
+            
             const dataView = event.target.value;
             console.log('🌡️ Temperature - Raw bytes:', dataView.byteLength, 'First byte:', dataView.getUint8(0));
             
@@ -3950,6 +4019,13 @@
         }
 
         function handleHumidityData(event) {
+            // Throttle sensor updates for better performance
+            const now = Date.now();
+            if (now - lastSensorUpdate < SENSOR_UPDATE_THROTTLE) {
+                return;
+            }
+            lastSensorUpdate = now;
+            
             const dataView = event.target.value;
             console.log('💧 Humidity - Raw bytes:', dataView.byteLength, 'First byte:', dataView.getUint8(0));
             
@@ -4038,7 +4114,27 @@
             }
         }
 
+        // Throttled version of updateAirQualityStatus to prevent excessive DOM updates
+        let lastAirQualityUpdate = 0;
+        let pendingAirQualityUpdate = false;
+        
         function updateAirQualityStatus() {
+            // Throttle air quality updates
+            const now = Date.now();
+            if (now - lastAirQualityUpdate < 500) { // Throttle to 500ms
+                if (!pendingAirQualityUpdate) {
+                    pendingAirQualityUpdate = true;
+                    setTimeout(() => {
+                        pendingAirQualityUpdate = false;
+                        updateAirQualityStatus();
+                    }, 500 - (now - lastAirQualityUpdate));
+                }
+                return;
+            }
+            
+            lastAirQualityUpdate = now;
+            pendingAirQualityUpdate = false;
+            
             const co = parseFloat(document.getElementById('coValue').textContent) || 0;
             const co2 = parseFloat(document.getElementById('co2Value').textContent) || 0;
             const otherGases = parseFloat(document.getElementById('otherGasesValue').textContent) || 0;
@@ -4076,26 +4172,40 @@
                 recommendations += '🔔 Elevated levels of other gases. Monitor air quality. ';
             }
 
-            if (avg < 50) {
-                card.style.background = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
-                level.textContent = 'Excellent';
-                message.textContent = 'The air quality is excellent. Perfect for outdoor activities! ' + recommendations;
-            } else if (avg < 100) {
-                card.style.background = 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)';
-                level.textContent = 'Good';
-                message.textContent = 'The air quality is good. Enjoy your day! ' + recommendations;
-            } else if (avg < 150) {
-                card.style.background = 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)';
-                level.textContent = 'Moderate';
-                message.textContent = 'Air quality is acceptable. Sensitive individuals should limit prolonged outdoor exposure. ' + recommendations;
-            } else {
-                card.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-                level.textContent = 'Poor';
-                message.textContent = 'Air quality is poor. Consider staying indoors and using an air purifier. ' + recommendations;
+            // Only update DOM if values have changed significantly
+            const newLevel = avg < 50 ? 'Excellent' : avg < 100 ? 'Good' : avg < 150 ? 'Moderate' : 'Poor';
+            const newMessage = (newLevel === 'Excellent' ? 'The air quality is excellent. Perfect for outdoor activities! ' : 
+                              newLevel === 'Good' ? 'The air quality is good. Enjoy your day! ' : 
+                              newLevel === 'Moderate' ? 'Air quality is acceptable. Sensitive individuals should limit prolonged outdoor exposure. ' : 
+                              'Air quality is poor. Consider staying indoors and using an air purifier. ') + recommendations;
+            
+            // Update only if changed
+            if (level.textContent !== newLevel) {
+                level.textContent = newLevel;
             }
             
-            // Trim any trailing spaces
-            message.textContent = message.textContent.trim();
+            if (message.textContent !== newMessage.trim()) {
+                message.textContent = newMessage.trim();
+            }
+            
+            // Update background only if level changed
+            if (card.dataset.level !== newLevel) {
+                card.dataset.level = newLevel;
+                switch(newLevel) {
+                    case 'Excellent':
+                        card.style.background = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
+                        break;
+                    case 'Good':
+                        card.style.background = 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)';
+                        break;
+                    case 'Moderate':
+                        card.style.background = 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)';
+                        break;
+                    case 'Poor':
+                        card.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                        break;
+                }
+            }
         }
 
         // Update gas status indicators based on thresholds
@@ -4943,12 +5053,34 @@
             return 'snack';
         }
 
+        // Optimized toast function with debouncing to prevent excessive notifications
+        let toastTimeout = null;
+        let lastToastMessage = '';
+        let lastToastTime = 0;
+        
         function showToast(message, duration = 3000) {
+            const now = Date.now();
+            
+            // Prevent duplicate toasts within 1 second
+            if (message === lastToastMessage && now - lastToastTime < 1000) {
+                return;
+            }
+            
+            // Clear any existing toast timeout
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+            }
+            
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => {
+            
+            lastToastMessage = message;
+            lastToastTime = now;
+            
+            toastTimeout = setTimeout(() => {
                 toast.classList.remove('show');
+                toastTimeout = null;
             }, duration);
         }
 
@@ -6458,12 +6590,13 @@ Return ONLY valid JSON (no markdown):
         // Handle scroll effect for floating logo with performance optimization
         let lastScrollTop = 0;
         let ticking = false;
+        let lastKnownScrollPosition = 0;
         
         function updateFloatingLogo() {
             const floatingLogo = document.getElementById('floatingLogo');
             if (!floatingLogo) return;
             
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollTop = lastKnownScrollPosition;
             
             // Calculate opacity based on scroll position
             // Fade out as user scrolls down, fade in when scrolling up
@@ -6480,24 +6613,30 @@ Return ONLY valid JSON (no markdown):
             ticking = false;
         }
         
-        function requestTick() {
+        function requestTick(scrollPos) {
+            lastKnownScrollPosition = scrollPos;
             if (!ticking) {
                 requestAnimationFrame(updateFloatingLogo);
                 ticking = true;
             }
         }
         
-        window.addEventListener('scroll', requestTick);
+        // Debounced scroll handler
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                requestTick(window.pageYOffset || document.documentElement.scrollTop);
+            }, 10);
+        });
 
-        // Enhanced scroll animation observer
+        // Enhanced scroll animation observer with performance improvements
         document.addEventListener('DOMContentLoaded', function() {
             // Create observer for scroll animations with better options
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         // Add staggered delay for better visual flow
-                        const delay = index * 0.1;
-                        entry.target.style.transitionDelay = `${delay}s`;
                         entry.target.classList.add('visible');
                         
                         // Remove from observer after animation to prevent re-triggering
@@ -6505,18 +6644,23 @@ Return ONLY valid JSON (no markdown):
                     }
                 });
             }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.1,
+                rootMargin: '0px 0px -30px 0px',
+                delay: 0
             });
 
             // Observe elements with scroll animation classes
-            document.querySelectorAll('.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .staggered-animation').forEach((el, index) => {
+            const animatedElements = document.querySelectorAll('.scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .staggered-animation');
+            
+            // Batch observe elements for better performance
+            for (let i = 0; i < animatedElements.length; i++) {
+                const el = animatedElements[i];
                 // Set delay index for staggered animations
                 if (el.classList.contains('staggered-animation')) {
-                    el.style.setProperty('--delay-index', index % 10);
+                    el.style.setProperty('--delay-index', i % 8);
                 }
                 observer.observe(el);
-            });
+            }
 
             // Add scroll animations to existing elements
             addScrollAnimations();

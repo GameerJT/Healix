@@ -16,7 +16,7 @@ const CONFIG = {
 
     // Groq API Configuration
     groq: {
-        apiKey: "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",
+        apiKey: "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",
         model: "llama-3.1-8b-instant",
         maxTokens: 500
     },
@@ -70,3 +70,4 @@ const CONFIG = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CONFIG;
 }
+
